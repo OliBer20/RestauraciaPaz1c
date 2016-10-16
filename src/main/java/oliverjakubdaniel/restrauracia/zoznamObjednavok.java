@@ -21,6 +21,7 @@ public class zoznamObjednavok {
         pridajObjednavku("Zacykleny Baklazan", 4.5);
         pridajObjednavku("Cola 250ml", 1.0);
         pridajObjednavku("Grilovany Encian", 7.5);
+        pridajObjednavku("Cola 500ml", 1.5);
  
         
     }
