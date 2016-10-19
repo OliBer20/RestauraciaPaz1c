@@ -5,14 +5,18 @@
  */
 package oliverjakubdanie.restauracia;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Oliver
  */
 public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
+
     private Menu menu = new Menu();
+
     /**
      * Creates new form PridatNoveJedloDoMenu
      */
@@ -114,33 +118,56 @@ public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PridajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PridajButtonActionPerformed
-       
-        String nazov = NazovButton.getText();
-        Double cena = Double.parseDouble(CenaButton.getText());
+        String nazov = "";
+        Double cena = 0.0;
+        boolean zadaneUdaje = true;
+        if (!NazovButton.getText().toString().equals("")) {
+            nazov = NazovButton.getText().toString();
+        } else {
+            zadaneUdaje = false;
+        }
+        if (!CenaButton.getText().toString().equals("")) {
+            cena = Double.parseDouble(CenaButton.getText().toString());
+        } else {
+            zadaneUdaje = false;
+        }
         
-        JednaPolozkaMenu jednaPolozkaMenu = new JednaPolozkaMenu();
-        jednaPolozkaMenu.setNazov(nazov);
-        jednaPolozkaMenu.setCena(cena);
-        menu.getMenu().add(jednaPolozkaMenu);  
-        this.setVisible(false); 
-        dispose();
-        AktualizujMenu();
-        
+        if (zadaneUdaje) {
+            JednaPolozkaMenu jednaPolozkaMenu = new JednaPolozkaMenu();
+            jednaPolozkaMenu.setNazov(nazov);
+            jednaPolozkaMenu.setCena(cena);
+
+            List<JednaPolozkaMenu> noveMenu = new ArrayList<>();
+
+            List<JednaPolozkaMenu> Staremenu = menu.getMenu();
+
+            noveMenu = Staremenu;
+            noveMenu.add(jednaPolozkaMenu);
+
+            menu.setMenu(noveMenu);
+
+            AktualizujMenu();
+
+            this.setVisible(false);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Zadaj vsetky udaje!");
+        }
+
     }//GEN-LAST:event_PridajButtonActionPerformed
 
-     public void AktualizujMenu(){  
-         List<JednaPolozkaMenu> menu = this.menu.getMenu();
+    public void AktualizujMenu() {
+        List<JednaPolozkaMenu> menu = this.menu.getMenu();
         String[] celeMenuPole = new String[menu.size()];
-        for(int i = 0; i < menu.size(); i++) {
+        for (int i = 0; i < menu.size(); i++) {
             celeMenuPole[i] = menu.get(i).getNazov() + " " + menu.get(i).getCena();
         }
         MenuForm triedaMenu = new MenuForm();
-        
+
         triedaMenu.getZoznamJedalList().setListData(celeMenuPole);
-        
-        
+
     }
-  
+
     /**
      * @param args the command line arguments
      */
