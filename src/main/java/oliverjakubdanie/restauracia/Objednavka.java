@@ -1,10 +1,9 @@
-
-package oliverjakubdaniel.restrauracia;
+package oliverjakubdanie.restauracia;
 
 import java.util.Date;
 
-
 public class Objednavka {
+
     private String nazovJedla;
     private double cenaJedla;
     private Date casObjednavky;
@@ -32,8 +31,5 @@ public class Objednavka {
     public void setNazovJedla(String nazovJedla) {
         this.nazovJedla = nazovJedla;
     }
-    
-    
-    
-    
+
 }
