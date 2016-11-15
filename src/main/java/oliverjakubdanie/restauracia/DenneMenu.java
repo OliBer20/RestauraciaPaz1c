@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DenneMenu {
+    
+    public DenneMenu(){
+        
+        
+        
+    }
 
     private List<JednaPolozkaMenu> zoznamDennehoMenu = new ArrayList<>();
 

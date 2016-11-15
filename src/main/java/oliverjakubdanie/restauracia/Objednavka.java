@@ -32,4 +32,5 @@ public class Objednavka {
         this.nazovJedla = nazovJedla;
     }
 
+
 }

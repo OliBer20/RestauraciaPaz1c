@@ -179,11 +179,11 @@ public class prihlasenieForm extends javax.swing.JFrame {
         jPasswordField1.setText(null);
         if (boss) {
             if (bossHeslo.equals(s)) {
-                prihlasenieForm pf = new prihlasenieForm();
-                pf.setVisible(false);
-
-                zoznamObjednavokForm z = new zoznamObjednavokForm();
+                zoznamObjednavokForm z = new zoznamObjednavokForm(null);
                 z.setVisible(true);
+                this.setVisible(false);
+                dispose();
+                
                 
 
             } else {
@@ -193,7 +193,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
             if (othersHeslo.equals(s)) {
                 prihlasenieForm pf = new prihlasenieForm();
                 pf.setVisible(false);
-                zoznamObjednavokForm z = new zoznamObjednavokForm();
+                zoznamObjednavokForm z = new zoznamObjednavokForm(null);
                 z.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
