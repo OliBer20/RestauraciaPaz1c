@@ -13,18 +13,15 @@ public class zoznamObjednavok {
 
     public zoznamObjednavok() {
 
-        pridajObjednavku("Mesko na smotane", 2.5);
-        pridajObjednavku("Zacykleny Baklazan", 4.5);
-        pridajObjednavku("Cola 250ml", 1.0);
-        pridajObjednavku("Grilovany Encian", 7.5);
-        pridajObjednavku("Cola 500ml", 1.5);
-
     }
 
-    public void pridajObjednavku(String nazov, double cena) {
-        Objednavka o = new Objednavka();
-        o.setNazovJedla(nazov);
-        o.setCenaJedla(cena);
+    public void pridajObjednavku(Objednavka o) {
+        Objednavka oo = new Objednavka();
+        oo.setId(o.getId());
+        oo.setNazovJedla(o.getNazovJedla());
+        oo.setCenaJedla(o.getCenaJedla());
+        oo.setCasObjednavky(o.getCasObjednavky());
+        
         objednavky.add(o);
 
     }

@@ -5,13 +5,11 @@ import java.util.List;
 
 public class DenneMenu {
     
-    public DenneMenu(){
-        
-        
-        
-    }
-
     private List<JednaPolozkaMenu> zoznamDennehoMenu = new ArrayList<>();
+    
+    public DenneMenu(){
+          
+    }
 
     public List<JednaPolozkaMenu> getZoznamDennehoMenu() {
         return zoznamDennehoMenu;

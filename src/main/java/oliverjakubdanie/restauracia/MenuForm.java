@@ -2,6 +2,10 @@ package oliverjakubdanie.restauracia;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -12,8 +16,12 @@ import javax.swing.JOptionPane;
 
 public class MenuForm extends javax.swing.JFrame {
 
+    List<JednaPolozkaMenu> polozky = new ArrayList<>();
+
     private Menu menu = new Menu();
     private DenneMenu denneMenu = new DenneMenu();
+
+    private ObjednavkyDao objednavkaDao = ObjednavkaDaoFactory.INSTANCE.getObjednavkaDao();
 
     public Menu getMenu() {
         return menu;
@@ -24,9 +32,53 @@ public class MenuForm extends javax.swing.JFrame {
 
     public MenuForm() {
         initComponents();
-        AktualizujMenu();
+        nacitajMenuZTxt();
+        zapisDoTxt();
         PridajKliknutyObjektDoDennehoMenu();
         VymazKliknutyObjektZDennehoMenu();
+
+    }
+
+    public void zapisDoTxt() {
+
+        PrintWriter pw = null;
+        Scanner sc = null;
+        FileWriter fw = null;
+        
+        try {
+            sc = new Scanner(new File("denneMenu.txt"));
+            pw = new PrintWriter(new File("denneMenu.txt"));
+            fw = new FileWriter(new File("denneMenu.txt"));
+            
+            pw.write("");
+            pw.close();
+            
+            while(sc.hasNextLine()){
+                String s = sc.nextLine();
+                String[] ss = s.split(";");
+                // toto som nedokoncil soms a doplietol... treba urobit to ze ked sa stlaci gombik
+                //aktualizuj menu , tak do TXT suboru sa zapisu vsetky polozky kt. boli prdane do denneho
+                // menu , následne ked sa otvori zoznam form tak sa nacitaju z toho txtcka.
+                
+                
+            }
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try (FileWriter writer = new FileWriter(new File("denneMenu.txt"), true)) {
+
+            
+            
+            for (int i = 0; i < denneMenu.getZoznamDennehoMenu().size(); i++) {
+                writer.append(denneMenu.getZoznamDennehoMenu().get(i).getNazov() + "; " + Double.toString(denneMenu.getZoznamDennehoMenu().get(i).getCena()));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -101,6 +153,7 @@ public class MenuForm extends javax.swing.JFrame {
 
         denneMenu.getZoznamDennehoMenu().add(prerobStringNaJedlo(jedlo));
         AktualizujDenneMenu();
+        zapisDoTxt();
 
     }
 
@@ -277,7 +330,7 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_vymazDenneMenuButtonActionPerformed
 
     private void pridatJedloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatJedloButtonActionPerformed
-        PridatNoveJedloDoMenu pridatNoveJedloDoMenu = new PridatNoveJedloDoMenu();
+        PridatNoveJedloDoMenu pridatNoveJedloDoMenu = new PridatNoveJedloDoMenu(denneMenu.getZoznamDennehoMenu(), this);
         pridatNoveJedloDoMenu.setVisible(true);
 
         // TODO add your handling code here:
@@ -289,8 +342,10 @@ public class MenuForm extends javax.swing.JFrame {
     }
 
     private void aktualizujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktualizujButtonActionPerformed
-       zoznamObjednavokForm z = new zoznamObjednavokForm(denneMenu.getZoznamDennehoMenu());
+        zapisDoTxt();
         this.setVisible(false);
+        zoznamObjednavokForm z = new zoznamObjednavokForm();
+        z.setVisible(true);
         dispose();
 
     }//GEN-LAST:event_aktualizujButtonActionPerformed
@@ -306,14 +361,31 @@ public class MenuForm extends javax.swing.JFrame {
 
     }
 
-    public void AktualizujMenu() {
-        List<JednaPolozkaMenu> menu = this.menu.getMenu();
-        String[] celeMenuPole = new String[menu.size()];
-        for (int i = 0; i < menu.size(); i++) {
-            celeMenuPole[i] = menu.get(i).getNazov() + " " + menu.get(i).getCena();
-        }
+    public void nacitajMenuZTxt() {
+        Scanner sc = null;
+        List<String> menuu = new ArrayList<>();
+        try {
+            sc = new Scanner(new File("zoznamJedal.txt"));
+            while (sc.hasNextLine()) {
+                String s = sc.nextLine();
+                String[] polozky = s.split(";");
+                menuu.add(polozky[0] + " " + polozky[1]);
 
-        ZoznamJedalList.setListData(celeMenuPole);
+            }
+            String[] menu = new String[menuu.size()];
+            for (int i = 0; i < menu.length; i++) {
+                menu[i] = menuu.get(i);
+            }
+
+            ZoznamJedalList.setListData(menu);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (sc != null) {
+                sc.close();
+            }
+        }
 
     }
 

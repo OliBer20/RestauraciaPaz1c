@@ -5,6 +5,7 @@ import java.util.Date;
 public class Objednavka {
 
     private String nazovJedla;
+    private long id;
     private double cenaJedla;
     private Date casObjednavky;
 
@@ -12,6 +13,14 @@ public class Objednavka {
         return casObjednavky;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    
     public double getCenaJedla() {
         return cenaJedla;
     }

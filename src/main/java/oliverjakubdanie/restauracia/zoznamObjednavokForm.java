@@ -2,29 +2,60 @@ package oliverjakubdanie.restauracia;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class zoznamObjednavokForm extends javax.swing.JFrame {
 
+    private ObjednavkyDao zoznamObj = ObjednavkaDaoFactory.INSTANCE.getObjednavkaDao();
+    private cenyJedal ceny = new cenyJedal();
+
     private zoznamObjednavok zoznamObjednavok = new zoznamObjednavok();
-    private DenneMenu denneMenu = new DenneMenu();
+    private List<JednaPolozkaMenu> jednaPolozkaMenus = new ArrayList<>();
     private Menu menu = new Menu();
 
     private SuborovyObjednavkaDao objDao = new SuborovyObjednavkaDao();
 
     private List<JednaPolozkaMenu> dMenu = new ArrayList<>();
 
-    public zoznamObjednavokForm(List<JednaPolozkaMenu> denneMenu) {
+    public zoznamObjednavokForm() {
+
         initComponents();
-        dMenu = denneMenu;
+        aktualizovatZoznamObjednavok();
+        aktualizovatDenneMenu();
+        /*
+        ceny.jedla.put("Moravianska Panenka", 14.70);
+        ceny.aktualizujTxt(ceny.jedla);
         ComboJedla.addItem("Grilovane Kurca");
-        aktualizovatZoznamUloh();
+        ComboJedla.addItem("Moravianska Panenka");
+        ComboJedla.addItem("Zacykleny baklazan");
+        ceny.jedla.put("Hranolky", 1.0);
+        ComboJedla.addItem("Hranolky");*/
 
     }
 
-    private void aktualizovatZoznamUloh() {
+    public void aktualizovatDenneMenu() {
+        ComboJedla.removeAllItems();
+        ComboJedla.addItem("Vyber polozku:");
+        Scanner sc = null;
+        try {
+            sc = new Scanner(new File("denneMenu.txt"));
+            while (sc.hasNextLine()) {
+                String s = sc.nextLine();
+                String[] ss = s.split(";");
+                ComboJedla.addItem(ss[0]);
+
+            }
+
+        } catch (Exception e) {
+        }
+
+    }
+
+    private void aktualizovatZoznamObjednavok() {
 
         ObjednavkaTableModel model = (ObjednavkaTableModel) ObjednavkyTable.getModel();
         model.aktualizovat();
@@ -214,16 +245,19 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                                             .addComponent(jLabel1)
                                             .addComponent(jLabel3)
                                             .addComponent(jLabel2))
-                                        .addGap(48, 48, 48)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(pridajObjednavkuButton)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(IneZapisNazov, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(46, 46, 46)
-                                                .addComponent(IneZapisCenu, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(ComboJedla, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(ComboNapoje, javax.swing.GroupLayout.Alignment.LEADING, 0, 166, Short.MAX_VALUE))))
+                                                .addGap(48, 48, 48)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(pridajObjednavkuButton)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(IneZapisNazov, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(46, 46, 46)
+                                                        .addComponent(IneZapisCenu, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(ComboNapoje, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGap(21, 21, 21)
+                                                .addComponent(ComboJedla, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(149, 149, 149)
                                         .addComponent(jLabel6)
@@ -250,7 +284,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1)
                                     .addComponent(ComboJedla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
@@ -298,11 +332,12 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         String jedlo = ComboJedla.getSelectedItem().toString();
         Objednavka o = new Objednavka();
         o.setNazovJedla(jedlo);
-        o.setCenaJedla(0.0);
+        o.setId(0);
+        o.setCenaJedla(ceny.ziskajCenu(jedlo));
         o.setCasObjednavky(null);
-        objDao.pridaj(o);
+        zoznamObj.pridaj(o);
 
-        aktualizovatZoznamUloh();
+        aktualizovatZoznamObjednavok();
 
         ComboJedla.setSelectedIndex(0);
         ComboNapoje.setSelectedIndex(0);
@@ -313,12 +348,26 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     private void denneMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denneMenuButtonActionPerformed
         MenuForm menuForm = new MenuForm();
+        this.setVisible(false);
         menuForm.setVisible(true);
 
     }//GEN-LAST:event_denneMenuButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         aktualizujDenneMenu();
+
+        for (int i = 0; i < jednaPolozkaMenus.size(); i++) {
+
+            String s = jednaPolozkaMenus.get(i).getNazov();
+            ComboJedla.addItem(s);
+        }
+
+        ComboJedla.setSelectedIndex(0);
+        ComboNapoje.setSelectedIndex(0);
+        IneZapisNazov.setText(null);
+        IneZapisCenu.setText(null);
+
+
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     public static void main(String args[]) {
@@ -348,7 +397,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new zoznamObjednavokForm(null).setVisible(true);
+                new zoznamObjednavokForm().setVisible(true);
             }
         });
     }

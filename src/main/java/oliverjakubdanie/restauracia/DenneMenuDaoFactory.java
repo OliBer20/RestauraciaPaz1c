@@ -3,13 +3,12 @@ package oliverjakubdanie.restauracia;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public enum ObjednavkaDaoFactory {
+public enum DenneMenuDaoFactory {
     INSTANCE;
-    
-    private JdbcTemplate jdbcTemplate;
-    
-    public ObjednavkyDao getObjednavkaDao() {
-        return new MysqlObjednavkaDao(getJdbcTemplate());
+     private JdbcTemplate jdbcTemplate;
+     
+    public DenneMenuDao getPolozky() {
+        return new MysqlDenneMenuDao(getJdbcTemplate());
     }
     
     private JdbcTemplate getJdbcTemplate() {

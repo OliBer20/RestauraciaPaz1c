@@ -7,17 +7,6 @@ import java.util.Set;
 
 public class Menu {
 
-    public Menu() {
-        JednaPolozkaMenu jedlo1 = new JednaPolozkaMenu();
-        jedlo1.setNazov("Grilovany Encian na smotane");
-        jedlo1.setCena(5.05);
-        menu.add(jedlo1);
-
-        JednaPolozkaMenu jedlo2 = new JednaPolozkaMenu();
-        jedlo2.setNazov("Zapekane zemiaky so salatom");
-        jedlo2.setCena(3.50);
-        menu.add(jedlo2);
-    }
 
     private List<JednaPolozkaMenu> menu = new ArrayList<>();
 
