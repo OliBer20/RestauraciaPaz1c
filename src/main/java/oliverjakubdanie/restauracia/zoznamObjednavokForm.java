@@ -13,27 +13,11 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     private ObjednavkyDao zoznamObj = ObjednavkaDaoFactory.INSTANCE.getObjednavkaDao();
     private cenyJedal ceny = new cenyJedal();
 
-    private zoznamObjednavok zoznamObjednavok = new zoznamObjednavok();
-    private List<JednaPolozkaMenu> jednaPolozkaMenus = new ArrayList<>();
-    private Menu menu = new Menu();
-
-    private SuborovyObjednavkaDao objDao = new SuborovyObjednavkaDao();
-
-    private List<JednaPolozkaMenu> dMenu = new ArrayList<>();
-
     public zoznamObjednavokForm() {
 
         initComponents();
         aktualizovatZoznamObjednavok();
         aktualizovatDenneMenu();
-        /*
-        ceny.jedla.put("Moravianska Panenka", 14.70);
-        ceny.aktualizujTxt(ceny.jedla);
-        ComboJedla.addItem("Grilovane Kurca");
-        ComboJedla.addItem("Moravianska Panenka");
-        ComboJedla.addItem("Zacykleny baklazan");
-        ceny.jedla.put("Hranolky", 1.0);
-        ComboJedla.addItem("Hranolky");*/
 
     }
 
@@ -47,10 +31,13 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 String s = sc.nextLine();
                 String[] ss = s.split(";");
                 ComboJedla.addItem(ss[0]);
-
             }
-
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (sc != null) {
+                sc.close();
+            }
         }
 
     }
@@ -59,13 +46,6 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
         ObjednavkaTableModel model = (ObjednavkaTableModel) ObjednavkyTable.getModel();
         model.aktualizovat();
-    }
-
-    public void aktualizujDenneMenu() {
-
-        //ComboJedla.removeAllItems();
-        //ComboJedla.addItem("Vyber jedlo:");
-        //ComboJedla.addItem(dMenu.get(0).getNazov().toString());
     }
 
     @SuppressWarnings("unchecked")
@@ -319,12 +299,6 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     }//GEN-LAST:event_IneZapisNazovActionPerformed
 
     private void zobrazObjednavkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zobrazObjednavkyButtonActionPerformed
-        List<Objednavka> objednavky = zoznamObjednavok.vypisVsetkyObjednavky();
-        String[] popisyObjednavok = new String[objednavky.size()];
-        for (int i = 0; i < objednavky.size(); i++) {
-            popisyObjednavok[i] = objednavky.get(i).getNazovJedla() + " " + objednavky.get(i).getCenaJedla();
-        }
-
     }//GEN-LAST:event_zobrazObjednavkyButtonActionPerformed
 
     private void pridajObjednavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajObjednavkuButtonActionPerformed
@@ -348,25 +322,13 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     private void denneMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denneMenuButtonActionPerformed
         MenuForm menuForm = new MenuForm();
-        this.setVisible(false);
         menuForm.setVisible(true);
 
     }//GEN-LAST:event_denneMenuButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        aktualizujDenneMenu();
-
-        for (int i = 0; i < jednaPolozkaMenus.size(); i++) {
-
-            String s = jednaPolozkaMenus.get(i).getNazov();
-            ComboJedla.addItem(s);
-        }
-
-        ComboJedla.setSelectedIndex(0);
-        ComboNapoje.setSelectedIndex(0);
-        IneZapisNazov.setText(null);
-        IneZapisCenu.setText(null);
-
+      aktualizovatDenneMenu();
+      ceny.naplnMapuJedlamiZTxt();
 
     }//GEN-LAST:event_refreshButtonActionPerformed
 

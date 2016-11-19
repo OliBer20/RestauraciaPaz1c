@@ -1,30 +1,22 @@
-
 package oliverjakubdanie.restauracia;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
 public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
-    
+
     private cenyJedal ceny = new cenyJedal();
 
-    private Menu menu = new Menu();
-    private List<JednaPolozkaMenu> jednaPolozkaMenus;
-    private MenuForm m;
-
-    /**
-     * Creates new form PridatNoveJedloDoMenu
-     */
-    
-    public PridatNoveJedloDoMenu(List<JednaPolozkaMenu> j, MenuForm menuForm) {
+    public PridatNoveJedloDoMenu() {
         initComponents();
-        jednaPolozkaMenus = j;
-        m = menuForm;
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -115,10 +107,6 @@ public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
 
     private void PridajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PridajButtonActionPerformed
 
-        
-        this.setVisible(false);
-        dispose();
-
         String nazov = "";
         Double cena = 0.0;
         boolean zadaneUdaje = true;
@@ -134,15 +122,10 @@ public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
         }
 
         if (zadaneUdaje) {
-            ceny.pridajJedlo(nazov, cena);
+            AktualizujMenuACeny(nazov, cena);
             
-            //JednaPolozkaMenu jednaPolozkaMenu = new JednaPolozkaMenu();
-           // jednaPolozkaMenu.setNazov(nazov);
-           // jednaPolozkaMenu.setCena(cena);
-           // jednaPolozkaMenus.add(jednaPolozkaMenu);
-           // MenuForm f = new MenuForm(jednaPolozkaMenus);
-
-          //  AktualizujMenu();
+            this.setVisible(false);
+            dispose();
 
         } else {
             JOptionPane.showMessageDialog(null, "Zadaj vsetky udaje!");
@@ -150,15 +133,20 @@ public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_PridajButtonActionPerformed
 
-    public void AktualizujMenu() {
-        List<JednaPolozkaMenu> menu = this.menu.getMenu();
-        String[] celeMenuPole = new String[menu.size()];
-        for (int i = 0; i < menu.size(); i++) {
-            celeMenuPole[i] = menu.get(i).getNazov() + " " + menu.get(i).getCena();
-        }
-        MenuForm triedaMenu = new MenuForm();
+    public void AktualizujMenuACeny(String jedlo, double cena) {
 
-        triedaMenu.getZoznamJedalList().setListData(celeMenuPole);
+        try (FileWriter writer = new FileWriter(new File("ceny.txt"), true)) {
+            writer.append(jedlo + ";" + Double.toString(cena) + "\n");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        try (FileWriter writer = new FileWriter(new File("zoznamJedal.txt"), true)) {
+            writer.append(jedlo + "\n");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 
@@ -192,7 +180,7 @@ public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PridatNoveJedloDoMenu(null,null).setVisible(true);
+                new PridatNoveJedloDoMenu().setVisible(true);
             }
         });
     }

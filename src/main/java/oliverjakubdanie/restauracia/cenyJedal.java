@@ -8,8 +8,9 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
-public class cenyJedal {
+public class cenyJedal implements NewInterface {
 
     Map<String, Double> jedla;
     private String jedlo;
@@ -17,11 +18,26 @@ public class cenyJedal {
 
     public cenyJedal() {
         jedla = new HashMap<>();
+        naplnMapuJedlamiZTxt();
+
+    }
+
+    @Override
+    public double getCena() {
+        return cena;
+    }
+
+    @Override
+    public String getJedlo() {
+        return jedlo;
+    }
+
+    @Override
+    public void naplnMapuJedlamiZTxt() {
 
         Scanner s = null;
         try {
             s = new Scanner(new File("ceny.txt"));
-            s.useDelimiter(";");
             while (s.hasNextLine()) {
                 String riadok = s.nextLine();
                 String[] polozky = riadok.split(";");
@@ -31,41 +47,51 @@ public class cenyJedal {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        aktualizujTxt(jedla);
+
     }
 
+    @Override
     public void aktualizujTxt(Map<String, Double> m) {
         PrintWriter pw = null;
         try {
             pw = new PrintWriter(new File("ceny.txt"));
             pw.write("");
+            pw.close();
+
+            for (Map.Entry<String, Double> mapa : m.entrySet()) {
+                String nazov = mapa.getKey();
+                double cena = mapa.getValue();
+                zapisJedlo(nazov, cena);
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        for (Map.Entry<String, Double> mapa : m.entrySet()) {
+    }
+
+    @Override
+    public double ziskajCenu(String jedlo) {
+
+        for (Map.Entry<String, Double> mapa : jedla.entrySet()) {
             String nazov = mapa.getKey();
             double cena = mapa.getValue();
-            zapisJedlo(nazov, cena);
-
+            if (nazov.equals(jedlo)) {
+                return cena;
+            }
         }
-
+        return -1;
     }
 
-    public double getCena() {
-        return cena;
-    }
-
-    public String getJedlo() {
-        return jedlo;
-    }
-
+    @Override
     public void pridajJedlo(String jedlo, double cena) {
         jedla.put(jedlo, cena);
         zapisJedlo(jedlo, cena);
+        aktualizujTxt(jedla);
 
     }
 
+    @Override
     public void zapisJedlo(String jedlo, double cena) {
 
         try (FileWriter writer = new FileWriter(new File("ceny.txt"), true)) {
@@ -76,10 +102,12 @@ public class cenyJedal {
 
     }
 
+    @Override
     public void vymazJedlo(String jedlo, double cena) {
         jedla.remove(jedlo, cena);
     }
 
+    @Override
     public void vymazVsetkyJedla() {
         Map<String, Double> novaMapa = new HashMap<>();
         jedla = novaMapa;
@@ -87,19 +115,11 @@ public class cenyJedal {
 
     }
 
+    @Override
     public void zmenCenu(String jedlo, double NovaCena) {
         jedla.remove(jedlo);
         jedla.put(jedlo, NovaCena);
 
-    }
-
-    public double ziskajCenu(String jedlo) {
-        for (String j : jedla.keySet()) {
-            if (j.equals(jedlo)) {
-                return jedla.get(j).doubleValue();
-            }
-        }
-        return -1;
     }
 
 }

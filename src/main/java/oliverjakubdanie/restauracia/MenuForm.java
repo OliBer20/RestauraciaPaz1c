@@ -33,47 +33,49 @@ public class MenuForm extends javax.swing.JFrame {
     public MenuForm() {
         initComponents();
         nacitajMenuZTxt();
-        zapisDoTxt();
         PridajKliknutyObjektDoDennehoMenu();
         VymazKliknutyObjektZDennehoMenu();
+        //  pridajZTxtDoDoMenuPriSpusteni();
+        // chcel som dorobit aby pri otvoreni okna uz po pridani denneho menu nacitalo to co bolo pridane
+        // do okienka denneho menu, aby sa nemuselo na novo pridavat.. zatial nefunguje
 
     }
 
-    public void zapisDoTxt() {
+    public void pridajZTxtDoDoMenuPriSpusteni() {
 
-        PrintWriter pw = null;
         Scanner sc = null;
-        FileWriter fw = null;
-        
+        List<JednaPolozkaMenu> polozky = new ArrayList<>();
         try {
             sc = new Scanner(new File("denneMenu.txt"));
-            pw = new PrintWriter(new File("denneMenu.txt"));
-            fw = new FileWriter(new File("denneMenu.txt"));
-            
-            pw.write("");
-            pw.close();
-            
-            while(sc.hasNextLine()){
-                String s = sc.nextLine();
-                String[] ss = s.split(";");
-                // toto som nedokoncil soms a doplietol... treba urobit to ze ked sa stlaci gombik
-                //aktualizuj menu , tak do TXT suboru sa zapisu vsetky polozky kt. boli prdane do denneho
-                // menu , následne ked sa otvori zoznam form tak sa nacitaju z toho txtcka.
-                
-                
+            while (sc.hasNextLine()) {
+                if (!sc.nextLine().equals("")) {
+                    String s = sc.nextLine();
+                    JednaPolozkaMenu j = new JednaPolozkaMenu();
+                    j.setNazov(s);
+                    polozky.add(j);
+                }
             }
-            
 
+            denneMenu.setZoznamDennehoMenu(polozky);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void zapisDoTxt() {
+        PrintWriter pw = null;
+        try {
+            pw = new PrintWriter(new File("denneMenu.txt"));
+            pw.write("");
+            pw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try (FileWriter writer = new FileWriter(new File("denneMenu.txt"), true)) {
 
-            
-            
             for (int i = 0; i < denneMenu.getZoznamDennehoMenu().size(); i++) {
-                writer.append(denneMenu.getZoznamDennehoMenu().get(i).getNazov() + "; " + Double.toString(denneMenu.getZoznamDennehoMenu().get(i).getCena()));
+                writer.append(denneMenu.getZoznamDennehoMenu().get(i).getNazov() + "\n");
             }
 
         } catch (IOException e) {
@@ -125,7 +127,8 @@ public class MenuForm extends javax.swing.JFrame {
     private void odstranZDennehoMenu(String jedlo) {
         List<JednaPolozkaMenu> dMenu = denneMenu.getZoznamDennehoMenu();
         List<JednaPolozkaMenu> noveDenneMenu = new ArrayList<>();
-        JednaPolozkaMenu j = prerobStringNaJedlo(jedlo);
+        JednaPolozkaMenu j = new JednaPolozkaMenu();
+        j.setNazov(jedlo);
 
         for (JednaPolozkaMenu polozka : dMenu) {
             if (!polozka.getNazov().equals(j.getNazov())) {
@@ -142,7 +145,7 @@ public class MenuForm extends javax.swing.JFrame {
         List<JednaPolozkaMenu> CeleMenu = menu.getMenu();
         String[] celeMenuPole = new String[CeleMenu.size()];
         for (int i = 0; i < CeleMenu.size(); i++) {
-            celeMenuPole[i] = CeleMenu.get(i).getNazov() + " " + CeleMenu.get(i).getCena();
+            celeMenuPole[i] = CeleMenu.get(i).getNazov();
         }
 
         ZoznamJedalList.setListData(celeMenuPole);
@@ -150,42 +153,11 @@ public class MenuForm extends javax.swing.JFrame {
     }
 
     public void presunJedloDoDennehoMEnu(String jedlo) {
-
-        denneMenu.getZoznamDennehoMenu().add(prerobStringNaJedlo(jedlo));
-        AktualizujDenneMenu();
-        zapisDoTxt();
-
-    }
-
-    public JednaPolozkaMenu prerobStringNaJedlo(String jedlo) {
         JednaPolozkaMenu noveJedlo = new JednaPolozkaMenu();
-        Scanner s = null;
-        String nazovJedla = "";
-        Double cena = 0.0;
-        try {
-            s = new Scanner(jedlo);
-            s.useLocale(Locale.US);
-            while (s.hasNext()) {
-                String slovo = s.next();
-                nazovJedla += slovo + " ";
+        noveJedlo.setNazov(jedlo);
+        denneMenu.getZoznamDennehoMenu().add(noveJedlo);
+        AktualizujDenneMenu();
 
-                noveJedlo.setNazov(nazovJedla);
-                if (s.hasNextDouble()) {
-                    cena = s.nextDouble();
-                    noveJedlo.setCena(cena);
-                }
-
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (s != null) {
-                s.close();
-            }
-        }
-
-        return noveJedlo;
     }
 
     @SuppressWarnings("unchecked")
@@ -202,6 +174,7 @@ public class MenuForm extends javax.swing.JFrame {
         vymazDenneMenuButton = new javax.swing.JButton();
         pridatJedloButton = new javax.swing.JButton();
         aktualizujButton = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -244,6 +217,13 @@ public class MenuForm extends javax.swing.JFrame {
             }
         });
 
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -251,25 +231,32 @@ public class MenuForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(vymazDenneMenuButton)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(aktualizujButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pridatJedloButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(11, 11, 11))))
+                        .addComponent(pridatJedloButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(11, 11, 11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(aktualizujButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(vymazDenneMenuButton)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addContainerGap(82, Short.MAX_VALUE)
+                .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(vymazDenneMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(pridatJedloButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(aktualizujButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addGap(71, 71, 71))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -330,7 +317,7 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_vymazDenneMenuButtonActionPerformed
 
     private void pridatJedloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatJedloButtonActionPerformed
-        PridatNoveJedloDoMenu pridatNoveJedloDoMenu = new PridatNoveJedloDoMenu(denneMenu.getZoznamDennehoMenu(), this);
+        PridatNoveJedloDoMenu pridatNoveJedloDoMenu = new PridatNoveJedloDoMenu();
         pridatNoveJedloDoMenu.setVisible(true);
 
         // TODO add your handling code here:
@@ -344,17 +331,20 @@ public class MenuForm extends javax.swing.JFrame {
     private void aktualizujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktualizujButtonActionPerformed
         zapisDoTxt();
         this.setVisible(false);
-        zoznamObjednavokForm z = new zoznamObjednavokForm();
-        z.setVisible(true);
         dispose();
 
     }//GEN-LAST:event_aktualizujButtonActionPerformed
+
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        nacitajMenuZTxt();
+
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
     public void AktualizujDenneMenu() {
         List<JednaPolozkaMenu> DenneMenu = denneMenu.getZoznamDennehoMenu();
         String[] celeMenuPole = new String[DenneMenu.size()];
         for (int i = 0; i < DenneMenu.size(); i++) {
-            celeMenuPole[i] = DenneMenu.get(i).getNazov() + " " + DenneMenu.get(i).getCena();
+            celeMenuPole[i] = DenneMenu.get(i).getNazov();
         }
 
         DenneMenuList.setListData(celeMenuPole);
@@ -369,7 +359,7 @@ public class MenuForm extends javax.swing.JFrame {
             while (sc.hasNextLine()) {
                 String s = sc.nextLine();
                 String[] polozky = s.split(";");
-                menuu.add(polozky[0] + " " + polozky[1]);
+                menuu.add(polozky[0]);
 
             }
             String[] menu = new String[menuu.size()];
@@ -413,6 +403,7 @@ public class MenuForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton pridatJedloButton;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JButton vymazDenneMenuButton;
     // End of variables declaration//GEN-END:variables
 }

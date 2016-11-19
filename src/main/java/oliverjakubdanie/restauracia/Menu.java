@@ -20,8 +20,7 @@ public class Menu {
 
     public void pridajJedlo(String nazov, double cena) {
         JednaPolozkaMenu o = new JednaPolozkaMenu();
-        o.setNazov(nazov);
-        o.setCena(cena);
+        o.setNazov(nazov);        
         menu.add(o);
 
     }

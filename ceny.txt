@@ -2,4 +2,9 @@ Zacykleny baklazan;5.04
 Grilovane Kurca;2.05
 Husacia mrkvicka;3.95
 Rozok so slaninou;1.0
+Margarinova omeleta;4.05
 Moravianska Panenka;14.7
+Ananasovy kotlik;1.4
+hamanka;7.0
+Gulas so slaninou;5.4
+Harmancekovy barani roh;8.5
