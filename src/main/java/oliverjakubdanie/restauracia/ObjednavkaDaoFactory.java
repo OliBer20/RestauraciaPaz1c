@@ -12,6 +12,8 @@ public enum ObjednavkaDaoFactory {
         return new MysqlObjednavkaDao(getJdbcTemplate());
     }
     
+    
+    
     private JdbcTemplate getJdbcTemplate() {
         if (jdbcTemplate == null) {
             MysqlDataSource dataSource = new MysqlDataSource();

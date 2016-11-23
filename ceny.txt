@@ -1,5 +1,5 @@
-Zacykleny baklazan;5.04
 Grilovane Kurca;2.05
+Grilovany Encian;4.20
 Husacia mrkvicka;3.95
 Rozok so slaninou;1.0
 Margarinova omeleta;4.05
@@ -8,3 +8,12 @@ Ananasovy kotlik;1.4
 hamanka;7.0
 Gulas so slaninou;5.4
 Harmancekovy barani roh;8.5
+tunde Kaja;5.0
+Daniho jedlo;5.0
+Halusky bryndzove;3.20
+Halusky makove;3.0
+Jakub Jedlo;8.0
+Cola 250ml;1.0
+Fanta 250ml;1.0
+Sprite 250ml;1.0
+Vino 3dc;2.50

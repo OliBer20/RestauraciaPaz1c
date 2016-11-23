@@ -1,9 +1,13 @@
 package oliverjakubdanie.restauracia;
 
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
@@ -18,6 +22,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         initComponents();
         aktualizovatZoznamObjednavok();
         aktualizovatDenneMenu();
+        aktualizujInfo();
 
     }
 
@@ -72,8 +77,13 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         zobrazObjednavkyButton = new javax.swing.JButton();
         denneMenuButton = new javax.swing.JButton();
+        vycistiObj = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         ObjednavkyTable = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        pridajNapojButton = new javax.swing.JButton();
+        pridajIneButton = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,7 +119,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
         ComboJedla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vyber Jedlo:" }));
 
-        ComboNapoje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vyber nápoj:", "Cola 250ml", "Sprite 250ml", "Fanta 250ml" }));
+        ComboNapoje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vyber nápoj:", "Cola 250ml", "Sprite 250ml", "Fanta 250ml", "Vino 3dc" }));
 
         jLabel5.setText("Cena:");
 
@@ -125,7 +135,11 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         informaciaText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         informaciaText.setForeground(new java.awt.Color(255, 51, 51));
         informaciaText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        informaciaText.setText("skuska poznamky ci je to okej. chyba 333");
+        informaciaText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                informaciaTextActionPerformed(evt);
+            }
+        });
 
         infoLabel.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         infoLabel.setText("Informácia:");
@@ -181,15 +195,23 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
         });
 
+        vycistiObj.setText("Vycistit obj.");
+        vycistiObj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vycistiObjActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(zobrazObjednavkyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(denneMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(vycistiObj, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(zobrazObjednavkyButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(denneMenuButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -199,12 +221,33 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 .addComponent(denneMenuButton)
                 .addGap(18, 18, 18)
                 .addComponent(zobrazObjednavkyButton)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(vycistiObj)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         ObjednavkyTable.setModel(new ObjednavkaTableModel());
         ObjednavkyTable.setFocusable(false);
+        ObjednavkyTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ObjednavkyTableMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(ObjednavkyTable);
+
+        pridajNapojButton.setText("Pridaj");
+        pridajNapojButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pridajNapojButtonActionPerformed(evt);
+            }
+        });
+
+        pridajIneButton.setText("Pridaj");
+        pridajIneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pridajIneButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -219,31 +262,47 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                             .addComponent(informaciaText)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSeparator1)
+                                    .addComponent(jSeparator2)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel2))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(48, 48, 48)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(pridajObjednavkuButton)
+                                                    .addComponent(jLabel3)
+                                                    .addComponent(jLabel2)
+                                                    .addComponent(jLabel1))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                        .addGap(21, 21, 21)
+                                                        .addComponent(ComboJedla, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                     .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(IneZapisNazov, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(46, 46, 46)
-                                                        .addComponent(IneZapisCenu, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addComponent(ComboNapoje, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addGroup(layout.createSequentialGroup()
+                                                                .addGap(19, 19, 19)
+                                                                .addComponent(IneZapisNazov, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(34, 34, 34)
+                                                                .addComponent(IneZapisCenu, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                            .addGroup(layout.createSequentialGroup()
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(ComboNapoje, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addGap(41, 41, 41))))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(117, 117, 117)
+                                                .addComponent(jLabel6)
+                                                .addGap(100, 100, 100)
+                                                .addComponent(jLabel5)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGap(21, 21, 21)
-                                                .addComponent(ComboJedla, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(149, 149, 149)
-                                        .addComponent(jLabel6)
-                                        .addGap(111, 111, 111)
-                                        .addComponent(jLabel5)))
-                                .addGap(121, 121, 121)
+                                                .addComponent(pridajIneButton)
+                                                .addGap(13, 13, 13))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(pridajNapojButton)
+                                                    .addComponent(pridajObjednavkuButton))
+                                                .addGap(12, 12, 12)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -254,41 +313,46 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(202, 202, 202)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(ComboJedla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pridajObjednavkuButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(ComboJedla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
                                     .addComponent(ComboNapoje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(IneZapisNazov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(IneZapisCenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(14, 14, 14))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(pridajNapojButton)
+                                .addGap(12, 12, 12)))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(IneZapisNazov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(IneZapisCenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pridajIneButton))))
                 .addGap(18, 18, 18)
-                .addComponent(pridajObjednavkuButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(infoLabel)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(informaciaText, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -301,13 +365,15 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     private void zobrazObjednavkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zobrazObjednavkyButtonActionPerformed
     }//GEN-LAST:event_zobrazObjednavkyButtonActionPerformed
 
+
     private void pridajObjednavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajObjednavkuButtonActionPerformed
 
         String jedlo = ComboJedla.getSelectedItem().toString();
         Objednavka o = new Objednavka();
         o.setNazovJedla(jedlo);
         o.setId(0);
-        o.setCenaJedla(ceny.ziskajCenu(jedlo));
+        double cena = ceny.ziskajCenu(jedlo);
+        o.setCenaJedla(cena);
         o.setCasObjednavky(null);
         zoznamObj.pridaj(o);
 
@@ -318,6 +384,9 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         IneZapisNazov.setText(null);
         IneZapisCenu.setText(null);
 
+        informaciaText.setBackground(Color.GREEN);
+        informaciaText.setText("Pridana objednavka: " + jedlo + " " + Double.toString(cena) + "€");
+
     }//GEN-LAST:event_pridajObjednavkuButtonActionPerformed
 
     private void denneMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denneMenuButtonActionPerformed
@@ -327,10 +396,72 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     }//GEN-LAST:event_denneMenuButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-      aktualizovatDenneMenu();
-      ceny.naplnMapuJedlamiZTxt();
+        aktualizovatDenneMenu();
+        ceny.naplnMapuJedlamiZTxt();
 
     }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void vycistiObjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vycistiObjActionPerformed
+
+
+    }//GEN-LAST:event_vycistiObjActionPerformed
+
+    private void ObjednavkyTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ObjednavkyTableMouseClicked
+        ObjednavkaTableModel o = new ObjednavkaTableModel();
+        Objednavka obj = o.dajKliknutuObjednavku(jTable1.rowAtPoint(evt.getPoint()));
+        String nazov = obj.getNazovJedla();
+        Date datum = obj.getCasObjednavky();
+        zoznamObj.Odstran(obj);
+
+        aktualizovatZoznamObjednavok();
+
+    }//GEN-LAST:event_ObjednavkyTableMouseClicked
+
+    private void pridajIneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajIneButtonActionPerformed
+        String ine = IneZapisNazov.getText();
+        Objednavka o = new Objednavka();
+        o.setNazovJedla(ine);
+        o.setId(0);
+        double cena = Double.parseDouble(IneZapisCenu.getText());
+        o.setCenaJedla(cena);
+        o.setCasObjednavky(null);
+        zoznamObj.pridaj(o);
+
+        aktualizovatZoznamObjednavok();
+
+        ComboJedla.setSelectedIndex(0);
+        ComboNapoje.setSelectedIndex(0);
+        IneZapisNazov.setText(null);
+        IneZapisCenu.setText(null);
+
+        informaciaText.setBackground(Color.GREEN);
+        informaciaText.setText("Pridana objednavka: " + ine + " " + Double.toString(cena) + "€");
+    }//GEN-LAST:event_pridajIneButtonActionPerformed
+
+    private void pridajNapojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajNapojButtonActionPerformed
+        String napoj = ComboNapoje.getSelectedItem().toString();
+        Objednavka o = new Objednavka();
+        o.setNazovJedla(napoj);
+        o.setId(0);
+        double cena = (ceny.ziskajCenu(napoj));
+        o.setCenaJedla(cena);
+        o.setCasObjednavky(null);
+        zoznamObj.pridaj(o);
+
+        aktualizovatZoznamObjednavok();
+
+        ComboJedla.setSelectedIndex(0);
+        ComboNapoje.setSelectedIndex(0);
+        IneZapisNazov.setText(null);
+        IneZapisCenu.setText(null);
+
+        informaciaText.setBackground(Color.GREEN);
+        informaciaText.setText("Pridana objednavka: " + napoj + " " + Double.toString(cena) + "€");
+    }//GEN-LAST:event_pridajNapojButtonActionPerformed
+
+    private void informaciaTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_informaciaTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_informaciaTextActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -383,9 +514,24 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton pridajIneButton;
+    private javax.swing.JButton pridajNapojButton;
     private javax.swing.JButton pridajObjednavkuButton;
     private javax.swing.JButton refreshButton;
+    private javax.swing.JButton vycistiObj;
     private javax.swing.JButton zobrazObjednavkyButton;
     // End of variables declaration//GEN-END:variables
+
+    private void aktualizujInfo() {
+
+        Calendar cal = new GregorianCalendar();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        informaciaText.setText("Dobrý deň! Dnešný dátum je: " + Integer.toString(day) + "." + Integer.toString(month) + "." + Integer.toString(year));
+
+    }
 }

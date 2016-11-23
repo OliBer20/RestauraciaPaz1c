@@ -152,12 +152,29 @@ public class MenuForm extends javax.swing.JFrame {
 
     }
 
-    public void presunJedloDoDennehoMEnu(String jedlo) {
-        JednaPolozkaMenu noveJedlo = new JednaPolozkaMenu();
-        noveJedlo.setNazov(jedlo);
-        denneMenu.getZoznamDennehoMenu().add(noveJedlo);
-        AktualizujDenneMenu();
+    public boolean niejeVMenu(String jedlo) {
+        List<JednaPolozkaMenu> dMenu = denneMenu.getZoznamDennehoMenu();
 
+        for (JednaPolozkaMenu polozka : dMenu) {
+            if (polozka.getNazov().equals(jedlo)) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    public void presunJedloDoDennehoMEnu(String jedlo) {
+        boolean uzSaTamNachadza = niejeVMenu(jedlo);
+
+        if (uzSaTamNachadza) {
+            JednaPolozkaMenu noveJedlo = new JednaPolozkaMenu();
+            noveJedlo.setNazov(jedlo);
+            List<JednaPolozkaMenu> dMenu = denneMenu.getZoznamDennehoMenu();
+            denneMenu.getZoznamDennehoMenu().add(noveJedlo);
+            AktualizujDenneMenu();
+
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -175,26 +192,23 @@ public class MenuForm extends javax.swing.JFrame {
         pridatJedloButton = new javax.swing.JButton();
         aktualizujButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        DenneMenuList.setFont(new java.awt.Font("Microsoft YaHei", 0, 18)); // NOI18N
         jScrollPane1.setViewportView(DenneMenuList);
 
         jLabel1.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         jLabel1.setText("Denne menu:");
 
         ZoznamJedalList.setFont(new java.awt.Font("Microsoft YaHei", 0, 18)); // NOI18N
-        ZoznamJedalList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Grilovanz encian 25.50" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(ZoznamJedalList);
 
         jLabel2.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         jLabel2.setText("Zoznam jedal:");
 
-        jPanel1.setBackground(new java.awt.Color(204, 0, 204));
+        jPanel1.setBackground(new java.awt.Color(255, 102, 0));
 
         vymazDenneMenuButton.setText("Vymaz denne menu");
         vymazDenneMenuButton.addActionListener(new java.awt.event.ActionListener() {
@@ -224,6 +238,13 @@ public class MenuForm extends javax.swing.JFrame {
             }
         });
 
+        closeButton.setText("CLOSE");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -234,15 +255,17 @@ public class MenuForm extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(pridatJedloButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(11, 11, 11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(aktualizujButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(vymazDenneMenuButton)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(closeButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(aktualizujButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -256,7 +279,9 @@ public class MenuForm extends javax.swing.JFrame {
                 .addComponent(pridatJedloButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(aktualizujButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
+                .addGap(18, 18, 18)
+                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -340,6 +365,11 @@ public class MenuForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_refreshButtonActionPerformed
 
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        this.dispose();
+        
+    }//GEN-LAST:event_closeButtonActionPerformed
+
     public void AktualizujDenneMenu() {
         List<JednaPolozkaMenu> DenneMenu = denneMenu.getZoznamDennehoMenu();
         String[] celeMenuPole = new String[DenneMenu.size()];
@@ -397,6 +427,7 @@ public class MenuForm extends javax.swing.JFrame {
     private javax.swing.JList<String> DenneMenuList;
     private javax.swing.JList<String> ZoznamJedalList;
     private javax.swing.JButton aktualizujButton;
+    private javax.swing.JButton closeButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

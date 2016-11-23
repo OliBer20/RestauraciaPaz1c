@@ -7,5 +7,7 @@ public interface ObjednavkyDao {
     List<Objednavka> dajObjednavky();
 
     void pridaj(Objednavka objednavka);
+    
+    void Odstran(Objednavka objednavka);
 
 }

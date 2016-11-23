@@ -171,8 +171,8 @@ public class prihlasenieForm extends javax.swing.JFrame {
         others = false;
 
     }//GEN-LAST:event_bossButtonActionPerformed
-    
-    
+
+
     private void prihlasitsaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prihlasitsaButtonActionPerformed
 
         String s = jPasswordField1.getText();
@@ -183,18 +183,16 @@ public class prihlasenieForm extends javax.swing.JFrame {
                 z.setVisible(true);
                 this.setVisible(false);
                 dispose();
-                
-                
 
             } else {
                 JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
             }
         } else if (others) {
             if (othersHeslo.equals(s)) {
-                prihlasenieForm pf = new prihlasenieForm();
-                pf.setVisible(false);
                 zoznamObjednavokForm z = new zoznamObjednavokForm();
                 z.setVisible(true);
+                this.setVisible(false);
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
             }

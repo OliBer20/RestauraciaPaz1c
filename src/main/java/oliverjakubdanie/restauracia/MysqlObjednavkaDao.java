@@ -13,32 +13,37 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
     public MysqlObjednavkaDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    
+
     @Override
     public List<Objednavka> dajObjednavky() {
         String sql = "SELECT id,jedlo,cena,datum "
-                    + "FROM objednavky_table";
+                + "FROM objednavky_table";
         return jdbcTemplate.query(sql, new ObjednavkaRowMapper());
     }
 
     @Override
+    public void Odstran(Objednavka objednavka) {
+        jdbcTemplate.update("delete from objednavky_table where jedlo = (jedlo) (?) ",
+                objednavka.getNazovJedla());
+    }
+
+    @Override
     public void pridaj(Objednavka objednavka) {
-        jdbcTemplate.update("INSERT INTO objednavky_table (id, jedlo, cena, datum) VALUES(?,?,?,?)",null,
+        jdbcTemplate.update("INSERT INTO objednavky_table (id, jedlo, cena, datum) VALUES(?,?,?,?)", null,
                 objednavka.getNazovJedla(), objednavka.getCenaJedla(), null);
     }
 
-  
     private class ObjednavkaRowMapper implements RowMapper<Objednavka> {
 
         @Override
         public Objednavka mapRow(ResultSet rs, int i) throws SQLException {
             Objednavka objednavka = new Objednavka();
-            objednavka.setId(rs.getInt("id"));
+            objednavka.setId(rs.getLong("id"));
             objednavka.setNazovJedla(rs.getString("jedlo"));
             objednavka.setCenaJedla(rs.getDouble("cena"));
             objednavka.setCasObjednavky(rs.getDate("datum"));
             return objednavka;
         }
-        
+
     }
 }
