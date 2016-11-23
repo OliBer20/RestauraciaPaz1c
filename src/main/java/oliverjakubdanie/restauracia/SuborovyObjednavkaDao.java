@@ -47,7 +47,7 @@ public class SuborovyObjednavkaDao implements ObjednavkyDao {
 
     @Override
     public void Odstran(Objednavka objednavka) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
 }

@@ -11,6 +11,10 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 public class zoznamObjednavokForm extends javax.swing.JFrame {
 
@@ -48,7 +52,6 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     }
 
     private void aktualizovatZoznamObjednavok() {
-
         ObjednavkaTableModel model = (ObjednavkaTableModel) ObjednavkyTable.getModel();
         model.aktualizovat();
     }
@@ -75,7 +78,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         refreshButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        zobrazObjednavkyButton = new javax.swing.JButton();
+        odstranObjednavkuButton = new javax.swing.JButton();
         denneMenuButton = new javax.swing.JButton();
         vycistiObj = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -166,7 +169,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,10 +184,10 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 102, 0));
 
-        zobrazObjednavkyButton.setText("Zobraz obj.");
-        zobrazObjednavkyButton.addActionListener(new java.awt.event.ActionListener() {
+        odstranObjednavkuButton.setText("Odstran");
+        odstranObjednavkuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                zobrazObjednavkyButtonActionPerformed(evt);
+                odstranObjednavkuButtonActionPerformed(evt);
             }
         });
 
@@ -210,7 +213,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(vycistiObj, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(zobrazObjednavkyButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(odstranObjednavkuButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(denneMenuButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -220,7 +223,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(denneMenuButton)
                 .addGap(18, 18, 18)
-                .addComponent(zobrazObjednavkyButton)
+                .addComponent(odstranObjednavkuButton)
                 .addGap(18, 18, 18)
                 .addComponent(vycistiObj)
                 .addContainerGap(29, Short.MAX_VALUE))
@@ -362,9 +365,18 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_IneZapisNazovActionPerformed
 
-    private void zobrazObjednavkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zobrazObjednavkyButtonActionPerformed
-    }//GEN-LAST:event_zobrazObjednavkyButtonActionPerformed
+    private void odstranObjednavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odstranObjednavkuButtonActionPerformed
+        removeSelectedRows();
 
+    }//GEN-LAST:event_odstranObjednavkuButtonActionPerformed
+
+    public void removeSelectedRows() {
+          DefaultTableModel model = (DefaultTableModel) this.ObjednavkyTable.getModel();
+        int[] rows = ObjednavkyTable.getSelectedRows();
+        for (int i = 0; i < rows.length; i++) {
+            model.removeRow(rows[i] - i);
+        }
+    }
 
     private void pridajObjednavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajObjednavkuButtonActionPerformed
 
@@ -517,12 +529,12 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton odstranObjednavkuButton;
     private javax.swing.JButton pridajIneButton;
     private javax.swing.JButton pridajNapojButton;
     private javax.swing.JButton pridajObjednavkuButton;
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton vycistiObj;
-    private javax.swing.JButton zobrazObjednavkyButton;
     // End of variables declaration//GEN-END:variables
 
     private void aktualizujInfo() {

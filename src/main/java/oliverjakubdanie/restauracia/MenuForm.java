@@ -342,8 +342,11 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_vymazDenneMenuButtonActionPerformed
 
     private void pridatJedloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatJedloButtonActionPerformed
-        PridatNoveJedloDoMenu pridatNoveJedloDoMenu = new PridatNoveJedloDoMenu();
-        pridatNoveJedloDoMenu.setVisible(true);
+        PridatNoveJedloDoMenuDialog p = new PridatNoveJedloDoMenuDialog(this, true);
+        p.setVisible(true);
+        
+       //PridatNoveJedloDoMenu pridatNoveJedloDoMenu = new PridatNoveJedloDoMenu();
+       // pridatNoveJedloDoMenu.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_pridatJedloButtonActionPerformed

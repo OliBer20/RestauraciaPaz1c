@@ -17,3 +17,6 @@ Cola 250ml;1.0
 Fanta 250ml;1.0
 Sprite 250ml;1.0
 Vino 3dc;2.50
+HABABBA;1.0
+eeeee;1.7
+Baranie rohy na kecupe;5.5

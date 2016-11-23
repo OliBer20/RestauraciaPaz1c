@@ -300,7 +300,7 @@
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="refreshButton" min="-2" pref="105" max="-2" attributes="0"/>
+                  <Component id="refreshButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -357,7 +357,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="vycistiObj" max="32767" attributes="0"/>
-                      <Component id="zobrazObjednavkyButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="odstranObjednavkuButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="denneMenuButton" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -370,7 +370,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="denneMenuButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="zobrazObjednavkyButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="odstranObjednavkuButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="vycistiObj" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="29" max="32767" attributes="0"/>
@@ -379,12 +379,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="zobrazObjednavkyButton">
+        <Component class="javax.swing.JButton" name="odstranObjednavkuButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Zobraz obj."/>
+            <Property name="text" type="java.lang.String" value="Odstran"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zobrazObjednavkyButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="odstranObjednavkuButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="denneMenuButton">

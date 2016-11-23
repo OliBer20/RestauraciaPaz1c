@@ -43,6 +43,7 @@ public class ObjednavkaTableModel extends AbstractTableModel {
 
     public Objednavka dajKliknutuObjednavku(int rowIndex) {
         Objednavka o = objednavkaDao.dajObjednavky().get(rowIndex);
+        aktualizovat();
         return o;
     }
 
