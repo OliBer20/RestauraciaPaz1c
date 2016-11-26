@@ -10,30 +10,31 @@ import java.util.Map;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
-public class cenyJedal implements NewInterface {
+public class jedloSCenou  {
 
-    Map<String, Double> jedla;
     private String jedlo;
     private double cena;
 
-    public cenyJedal() {
-        jedla = new HashMap<>();
-        naplnMapuJedlamiZTxt();
-
-    }
-
-    @Override
     public double getCena() {
         return cena;
     }
 
-    @Override
     public String getJedlo() {
         return jedlo;
     }
 
-    @Override
-    public void naplnMapuJedlamiZTxt() {
+    public void setJedlo(String jedlo) {
+        this.jedlo = jedlo;
+    }
+    
+    
+    public void setCena(double cena) {
+        this.cena = cena;
+    }
+    
+    
+
+  /*  public void naplnMapuJedlamiZTxt() {
 
         Scanner s = null;
         try {
@@ -50,7 +51,6 @@ public class cenyJedal implements NewInterface {
 
     }
 
-    @Override
     public void aktualizujTxt(Map<String, Double> m) {
         PrintWriter pw = null;
         try {
@@ -70,7 +70,6 @@ public class cenyJedal implements NewInterface {
 
     }
 
-    @Override
     public double ziskajCenu(String jedlo) {
 
         for (Map.Entry<String, Double> mapa : jedla.entrySet()) {
@@ -83,31 +82,16 @@ public class cenyJedal implements NewInterface {
         return -1;
     }
 
-    @Override
     public void pridajJedlo(String jedlo, double cena) {
         jedla.put(jedlo, cena);
-        zapisJedlo(jedlo, cena);
-        aktualizujTxt(jedla);
 
     }
 
-    @Override
-    public void zapisJedlo(String jedlo, double cena) {
 
-        try (FileWriter writer = new FileWriter(new File("ceny.txt"), true)) {
-            writer.append(jedlo + ";" + cena + "\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void vymazJedlo(String jedlo, double cena) {
+    public void vymazJedlo(String jedlo) {
         jedla.remove(jedlo, cena);
     }
 
-    @Override
     public void vymazVsetkyJedla() {
         Map<String, Double> novaMapa = new HashMap<>();
         jedla = novaMapa;
@@ -115,11 +99,11 @@ public class cenyJedal implements NewInterface {
 
     }
 
-    @Override
     public void zmenCenu(String jedlo, double NovaCena) {
         jedla.remove(jedlo);
         jedla.put(jedlo, NovaCena);
 
-    }
+    }*/
+
 
 }

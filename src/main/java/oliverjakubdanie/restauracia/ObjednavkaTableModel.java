@@ -1,11 +1,12 @@
 package oliverjakubdanie.restauracia;
 
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class ObjednavkaTableModel extends AbstractTableModel {
 
-    private ObjednavkyDao objednavkaDao = ObjednavkaDaoFactory.INSTANCE.getObjednavkaDao();
+    private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
 
     private static final String[] NAZVY_STLPCOV = {"Popis", "Cena", "Datum"};
 
@@ -20,7 +21,8 @@ public class ObjednavkaTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return POCET_STLPCOV;
     }
-
+ 
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Objednavka o = objednavkaDao.dajObjednavky().get(rowIndex);

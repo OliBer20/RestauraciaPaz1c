@@ -20,14 +20,14 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
     @Override
     public List<Objednavka> dajObjednavky() {
         String sql = "SELECT id,jedlo,cena,datum "
-                + "FROM objednavky_table";
+                + "FROM objednavky_table order by id desc";
         return jdbcTemplate.query(sql, new ObjednavkaRowMapper());
     }
 
     @Override
     public void Odstran(Objednavka objednavka) {
-        jdbcTemplate.update("delete from objednavky_table where jedlo = ? and id = ?",
-                objednavka.getNazovJedla(), objednavka.getId());
+        jdbcTemplate.update("delete from objednavky_table where id = ?",
+                 objednavka.getId());
     }
 
     @Override
@@ -39,6 +39,12 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
         Date datum = new Date(year, month, day);
         jdbcTemplate.update("INSERT INTO objednavky_table (id, jedlo, cena, datum) VALUES(?,?,?,?)", null,
                 objednavka.getNazovJedla(), objednavka.getCenaJedla(), datum);
+    }
+
+    @Override
+    public void odstranVsetko() {
+        jdbcTemplate.update("truncate objednavky_table");
+
     }
 
     private class ObjednavkaRowMapper implements RowMapper<Objednavka> {

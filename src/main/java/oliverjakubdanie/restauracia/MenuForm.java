@@ -16,16 +16,9 @@ import javax.swing.JOptionPane;
 
 public class MenuForm extends javax.swing.JFrame {
 
-    List<JednaPolozkaMenu> polozky = new ArrayList<>();
 
-    private Menu menu = new Menu();
-    private DenneMenu denneMenu = new DenneMenu();
-
-    private ObjednavkyDao objednavkaDao = ObjednavkaDaoFactory.INSTANCE.getObjednavkaDao();
-
-    public Menu getMenu() {
-        return menu;
-    }
+    private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
+    private DenneMenuDao denneMenu = ObjectFactory.INSTANCE.getDenneMenu();
 
     private int pocetKliknutiNaPolozkuVMenu = 0;
     private int pocetKliknutiNaPolozkuVDennomMenu = 0;
@@ -35,52 +28,7 @@ public class MenuForm extends javax.swing.JFrame {
         nacitajMenuZTxt();
         PridajKliknutyObjektDoDennehoMenu();
         VymazKliknutyObjektZDennehoMenu();
-        //  pridajZTxtDoDoMenuPriSpusteni();
-        // chcel som dorobit aby pri otvoreni okna uz po pridani denneho menu nacitalo to co bolo pridane
-        // do okienka denneho menu, aby sa nemuselo na novo pridavat.. zatial nefunguje
-
-    }
-
-    public void pridajZTxtDoDoMenuPriSpusteni() {
-
-        Scanner sc = null;
-        List<JednaPolozkaMenu> polozky = new ArrayList<>();
-        try {
-            sc = new Scanner(new File("denneMenu.txt"));
-            while (sc.hasNextLine()) {
-                if (!sc.nextLine().equals("")) {
-                    String s = sc.nextLine();
-                    JednaPolozkaMenu j = new JednaPolozkaMenu();
-                    j.setNazov(s);
-                    polozky.add(j);
-                }
-            }
-
-            denneMenu.setZoznamDennehoMenu(polozky);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void zapisDoTxt() {
-        PrintWriter pw = null;
-        try {
-            pw = new PrintWriter(new File("denneMenu.txt"));
-            pw.write("");
-            pw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try (FileWriter writer = new FileWriter(new File("denneMenu.txt"), true)) {
-
-            for (int i = 0; i < denneMenu.getZoznamDennehoMenu().size(); i++) {
-                writer.append(denneMenu.getZoznamDennehoMenu().get(i).getNazov() + "\n");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        AktualizujDenneMenu();
 
     }
 
@@ -125,56 +73,16 @@ public class MenuForm extends javax.swing.JFrame {
     }
 
     private void odstranZDennehoMenu(String jedlo) {
-        List<JednaPolozkaMenu> dMenu = denneMenu.getZoznamDennehoMenu();
-        List<JednaPolozkaMenu> noveDenneMenu = new ArrayList<>();
-        JednaPolozkaMenu j = new JednaPolozkaMenu();
-        j.setNazov(jedlo);
-
-        for (JednaPolozkaMenu polozka : dMenu) {
-            if (!polozka.getNazov().equals(j.getNazov())) {
-                noveDenneMenu.add(polozka);
-            }
-        }
-        denneMenu.setZoznamDennehoMenu(noveDenneMenu);
-
+        denneMenu.odober(jedlo);
         AktualizujDenneMenu();
 
     }
 
-    private void zobrazMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        List<JednaPolozkaMenu> CeleMenu = menu.getMenu();
-        String[] celeMenuPole = new String[CeleMenu.size()];
-        for (int i = 0; i < CeleMenu.size(); i++) {
-            celeMenuPole[i] = CeleMenu.get(i).getNazov();
-        }
-
-        ZoznamJedalList.setListData(celeMenuPole);
-
-    }
-
-    public boolean niejeVMenu(String jedlo) {
-        List<JednaPolozkaMenu> dMenu = denneMenu.getZoznamDennehoMenu();
-
-        for (JednaPolozkaMenu polozka : dMenu) {
-            if (polozka.getNazov().equals(jedlo)) {
-                return false;
-            }
-        }
-        return true;
-
-    }
 
     public void presunJedloDoDennehoMEnu(String jedlo) {
-        boolean uzSaTamNachadza = niejeVMenu(jedlo);
+        denneMenu.pridaj(jedlo);
+        AktualizujDenneMenu();
 
-        if (uzSaTamNachadza) {
-            JednaPolozkaMenu noveJedlo = new JednaPolozkaMenu();
-            noveJedlo.setNazov(jedlo);
-            List<JednaPolozkaMenu> dMenu = denneMenu.getZoznamDennehoMenu();
-            denneMenu.getZoznamDennehoMenu().add(noveJedlo);
-            AktualizujDenneMenu();
-
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -334,9 +242,7 @@ public class MenuForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void vymazDenneMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazDenneMenuButtonActionPerformed
-
-        List<JednaPolozkaMenu> list = new ArrayList<>();
-        denneMenu.setZoznamDennehoMenu(list);
+        denneMenu.vymazVsetko();
         AktualizujDenneMenu();
 
     }//GEN-LAST:event_vymazDenneMenuButtonActionPerformed
@@ -344,11 +250,7 @@ public class MenuForm extends javax.swing.JFrame {
     private void pridatJedloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatJedloButtonActionPerformed
         PridatNoveJedloDoMenuDialog p = new PridatNoveJedloDoMenuDialog(this, true);
         p.setVisible(true);
-        
-       //PridatNoveJedloDoMenu pridatNoveJedloDoMenu = new PridatNoveJedloDoMenu();
-       // pridatNoveJedloDoMenu.setVisible(true);
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_pridatJedloButtonActionPerformed
 
     public void vypis() {
@@ -357,27 +259,23 @@ public class MenuForm extends javax.swing.JFrame {
     }
 
     private void aktualizujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktualizujButtonActionPerformed
-        zapisDoTxt();
-        this.setVisible(false);
-        dispose();
-
+       
     }//GEN-LAST:event_aktualizujButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        nacitajMenuZTxt();
-
+       
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         this.dispose();
-        
+
     }//GEN-LAST:event_closeButtonActionPerformed
 
     public void AktualizujDenneMenu() {
-        List<JednaPolozkaMenu> DenneMenu = denneMenu.getZoznamDennehoMenu();
+        List<String> DenneMenu = denneMenu.ziskajDenneMenu();
         String[] celeMenuPole = new String[DenneMenu.size()];
         for (int i = 0; i < DenneMenu.size(); i++) {
-            celeMenuPole[i] = DenneMenu.get(i).getNazov();
+            celeMenuPole[i] = DenneMenu.get(i);
         }
 
         DenneMenuList.setListData(celeMenuPole);

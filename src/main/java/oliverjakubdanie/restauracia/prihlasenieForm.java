@@ -77,11 +77,21 @@ public class prihlasenieForm extends javax.swing.JFrame {
         });
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
 
         prihlasitsaButton.setText("Prihlásiť sa");
         prihlasitsaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 prihlasitsaButtonActionPerformed(evt);
+            }
+        });
+        prihlasitsaButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                prihlasitsaButtonKeyPressed(evt);
             }
         });
 
@@ -193,13 +203,29 @@ public class prihlasenieForm extends javax.swing.JFrame {
                 z.setVisible(true);
                 this.setVisible(false);
                 dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
             }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
         }
 
 
     }//GEN-LAST:event_prihlasitsaButtonActionPerformed
+
+    private void prihlasitsaButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_prihlasitsaButtonKeyPressed
+
+    }//GEN-LAST:event_prihlasitsaButtonKeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+     //prihlasenie cez enter v passworde
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            zoznamObjednavokForm z = new zoznamObjednavokForm();
+            z.setVisible(true);
+            this.setVisible(false);
+            dispose();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1KeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -212,16 +238,24 @@ public class prihlasenieForm extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(prihlasenieForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(prihlasenieForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(prihlasenieForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(prihlasenieForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(prihlasenieForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(prihlasenieForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(prihlasenieForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(prihlasenieForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

@@ -3,20 +3,41 @@ package oliverjakubdanie.restauracia;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DenneMenu {
-    
-    private List<JednaPolozkaMenu> zoznamDennehoMenu = new ArrayList<>();
-    
-    public DenneMenu(){
-          
+public class DenneMenu implements DenneMenuDao {
+
+    private List<String> zoznamDennehoMenu = new ArrayList<>();
+    private String nazov;
+
+    @Override
+    public String getNazov() {
+        return nazov;
     }
 
-    public List<JednaPolozkaMenu> getZoznamDennehoMenu() {
-        return zoznamDennehoMenu;
+    @Override
+    public void setNazov(String nazov) {
+        this.nazov = nazov;
     }
 
-    public void setZoznamDennehoMenu(List<JednaPolozkaMenu> zoznamDennehoMenu) {
-        this.zoznamDennehoMenu = zoznamDennehoMenu;
+    @Override
+    public List<String> ziskajDenneMenu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
+    @Override
+    public void odober(String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void pridaj(String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void vymazVsetko() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 
 }

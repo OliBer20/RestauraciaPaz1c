@@ -11,7 +11,9 @@ import javax.swing.JOptionPane;
 
 public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
 
-    private cenyJedal ceny = new cenyJedal();
+    private jedloSCenou jedloSCenou = new jedloSCenou();
+    private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
+    private jedloSCenouDao ceny = ObjectFactory.INSTANCE.getCenyDao();
 
     public PridatNoveJedloDoMenu() {
         initComponents();
@@ -107,6 +109,10 @@ public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
 
     private void PridajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PridajButtonActionPerformed
 
+        jedloSCenou j = new jedloSCenou();
+        
+        
+        
         String nazov = "";
         Double cena = 0.0;
         boolean zadaneUdaje = true;
@@ -122,8 +128,11 @@ public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
         }
 
         if (zadaneUdaje) {
+            j.setJedlo(nazov);
+            j.setCena(cena);
+            ceny.pridajJedlo(j);
             AktualizujMenuACeny(nazov, cena);
-            
+
             this.setVisible(false);
             dispose();
 
@@ -135,6 +144,9 @@ public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
 
     public void AktualizujMenuACeny(String jedlo, double cena) {
 
+        
+        
+        /*
         try (FileWriter writer = new FileWriter(new File("ceny.txt"), true)) {
             writer.append(jedlo + ";" + Double.toString(cena) + "\n");
 
@@ -146,7 +158,7 @@ public class PridatNoveJedloDoMenu extends javax.swing.JFrame {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
+        }*/
 
     }
 

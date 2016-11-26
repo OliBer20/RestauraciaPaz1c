@@ -18,8 +18,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class zoznamObjednavokForm extends javax.swing.JFrame {
 
-    private ObjednavkyDao zoznamObj = ObjednavkaDaoFactory.INSTANCE.getObjednavkaDao();
-    private cenyJedal ceny = new cenyJedal();
+    private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
+    private jedloSCenouDao ceny = ObjectFactory.INSTANCE.getCenyDao();
 
     public zoznamObjednavokForm() {
 
@@ -33,7 +33,9 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     public void aktualizovatDenneMenu() {
         ComboJedla.removeAllItems();
         ComboJedla.addItem("Vyber polozku:");
-        Scanner sc = null;
+        ComboJedla.addItem("Grilovane kurca");
+        ComboJedla.addItem("Vyprazany syr");
+        /*Scanner sc = null;
         try {
             sc = new Scanner(new File("denneMenu.txt"));
             while (sc.hasNextLine()) {
@@ -47,8 +49,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             if (sc != null) {
                 sc.close();
             }
-        }
-
+        }*/
     }
 
     private void aktualizovatZoznamObjednavok() {
@@ -87,6 +88,8 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         pridajNapojButton = new javax.swing.JButton();
         pridajIneButton = new javax.swing.JButton();
+        DeleteAllButton = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -158,6 +161,11 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshButtonActionPerformed(evt);
+            }
+        });
+        refreshButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                refreshButtonKeyPressed(evt);
             }
         });
 
@@ -252,6 +260,15 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
         });
 
+        DeleteAllButton.setText("Delete All");
+        DeleteAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteAllButtonActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -263,7 +280,6 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(informaciaText)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jSeparator1)
@@ -306,7 +322,14 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                                                     .addComponent(pridajObjednavkuButton))
                                                 .addGap(12, 12, 12)))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(DeleteAllButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -350,7 +373,12 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                             .addComponent(IneZapisCenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pridajIneButton))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(DeleteAllButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)))
                 .addGap(18, 18, 18)
                 .addComponent(infoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -366,38 +394,72 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     }//GEN-LAST:event_IneZapisNazovActionPerformed
 
     private void odstranObjednavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odstranObjednavkuButtonActionPerformed
-        removeSelectedRows();
+        /* int selectedRow = jTable1.getSelectedRow();
+        ObjednavkaTableModel o = new ObjednavkaTableModel();
+        ObjednavkyDao kooo = ObjectFactory.INSTANCE.getObjednavkaDao();
+        List<Objednavka> tooo = kooo.dajObjednavky();
+        Long valueAt = (Long) o.getValueAt(selectedRow, 0);
+        
+        
+       /* ObjednavkaTableModel o = new ObjednavkaTableModel();
+        int selectedRow = jTable1.getSelectedRow();
+        ObjednavkyDao kooo = ObjectFactory.INSTANCE.getObjednavkaDao();
+        Long l = o.getSelectedId(selectedRow);
+        kooo.Odstran(l);*/
+
+ /*  for (Objednavka objednavka : tooo) {
+            if (objednavka.getId() == (valueAt)) {
+
+                tooo.remove(objednavka);
+                kooo.Odstran(objednavka);
+                break;
+            }
+
+        }*/
+        aktualizovatZoznamObjednavok();
+
+//        removeSelectedRows();
 
     }//GEN-LAST:event_odstranObjednavkuButtonActionPerformed
 
     public void removeSelectedRows() {
-          DefaultTableModel model = (DefaultTableModel) this.ObjednavkyTable.getModel();
+        /* DefaultTableModel model = (DefaultTableModel) this.ObjednavkyTable.getModel();
         int[] rows = ObjednavkyTable.getSelectedRows();
         for (int i = 0; i < rows.length; i++) {
             model.removeRow(rows[i] - i);
-        }
+        }*/
     }
 
     private void pridajObjednavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajObjednavkuButtonActionPerformed
 
-        String jedlo = ComboJedla.getSelectedItem().toString();
-        Objednavka o = new Objednavka();
-        o.setNazovJedla(jedlo);
-        o.setId(0);
-        double cena = ceny.ziskajCenu(jedlo);
-        o.setCenaJedla(cena);
-        o.setCasObjednavky(null);
-        zoznamObj.pridaj(o);
+        if (!ComboJedla.getSelectedItem().equals(ComboJedla.getItemAt(0))) {
+            String jedlo = ComboJedla.getSelectedItem().toString();
 
-        aktualizovatZoznamObjednavok();
+            Objednavka o = new Objednavka();
+            jedloSCenou j = new jedloSCenou();
+            j.setJedlo(jedlo);
+            o.setNazovJedla(jedlo);
+            o.setId(0);
+            double cena = (ceny.ziskajCenu(j));
+            o.setCenaJedla(cena);
+            o.setCasObjednavky(null);
 
-        ComboJedla.setSelectedIndex(0);
-        ComboNapoje.setSelectedIndex(0);
-        IneZapisNazov.setText(null);
-        IneZapisCenu.setText(null);
+            objednavky.pridaj(o);
 
-        informaciaText.setBackground(Color.GREEN);
-        informaciaText.setText("Pridana objednavka: " + jedlo + " " + Double.toString(cena) + "€");
+            aktualizovatZoznamObjednavok();
+
+            ComboJedla.setSelectedIndex(0);
+            ComboNapoje.setSelectedIndex(0);
+            IneZapisNazov.setText(null);
+            IneZapisCenu.setText(null);
+
+            informaciaText.setBackground(Color.GREEN);
+            informaciaText.setText("Pridana objednavka: " + jedlo + " " + Double.toString(cena) + "€");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Nevybrate jedlo!");
+        }
+
 
     }//GEN-LAST:event_pridajObjednavkuButtonActionPerformed
 
@@ -409,7 +471,6 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         aktualizovatDenneMenu();
-        ceny.naplnMapuJedlamiZTxt();
 
     }//GEN-LAST:event_refreshButtonActionPerformed
 
@@ -419,61 +480,90 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     }//GEN-LAST:event_vycistiObjActionPerformed
 
     private void ObjednavkyTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ObjednavkyTableMouseClicked
-        ObjednavkaTableModel o = new ObjednavkaTableModel();
+        /*  ObjednavkaTableModel o = new ObjednavkaTableModel();
         Objednavka obj = o.dajKliknutuObjednavku(jTable1.rowAtPoint(evt.getPoint()));
         String nazov = obj.getNazovJedla();
         Date datum = obj.getCasObjednavky();
-        zoznamObj.Odstran(obj);
+        objednavky.Odstran(obj);
 
-        aktualizovatZoznamObjednavok();
+        aktualizovatZoznamObjednavok();*/
 
     }//GEN-LAST:event_ObjednavkyTableMouseClicked
 
     private void pridajIneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajIneButtonActionPerformed
-        String ine = IneZapisNazov.getText();
-        Objednavka o = new Objednavka();
-        o.setNazovJedla(ine);
-        o.setId(0);
-        double cena = Double.parseDouble(IneZapisCenu.getText());
-        o.setCenaJedla(cena);
-        o.setCasObjednavky(null);
-        zoznamObj.pridaj(o);
+        boolean ok = true;
+        if (IneZapisNazov.getText().equals(" ") || IneZapisNazov.getText().equals(null)) {
+            ok = false;
+        }
+        if (IneZapisCenu.getText().equals("")) {
+            ok = false;
+        }
+        if (ok) {
+            String ine = IneZapisNazov.getText();
+            Objednavka o = new Objednavka();
+            o.setNazovJedla(ine);
+            o.setId(0);
+            double cena = 0;
+            cena = Double.parseDouble(IneZapisCenu.getText());
+            o.setCenaJedla(cena);
+            o.setCasObjednavky(null);
+            objednavky.pridaj(o);
 
-        aktualizovatZoznamObjednavok();
+            aktualizovatZoznamObjednavok();
 
-        ComboJedla.setSelectedIndex(0);
-        ComboNapoje.setSelectedIndex(0);
-        IneZapisNazov.setText(null);
-        IneZapisCenu.setText(null);
+            ComboJedla.setSelectedIndex(0);
+            ComboNapoje.setSelectedIndex(0);
+            IneZapisNazov.setText(null);
+            IneZapisCenu.setText(null);
 
-        informaciaText.setBackground(Color.GREEN);
-        informaciaText.setText("Pridana objednavka: " + ine + " " + Double.toString(cena) + "€");
+            informaciaText.setBackground(Color.GREEN);
+            informaciaText.setText("Pridana objednavka: " + ine + " " + Double.toString(cena) + "€");
+        } else {
+            JOptionPane.showMessageDialog(null, "Zadaj vhodne udaje!");
+        }
+
     }//GEN-LAST:event_pridajIneButtonActionPerformed
 
     private void pridajNapojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajNapojButtonActionPerformed
-        String napoj = ComboNapoje.getSelectedItem().toString();
-        Objednavka o = new Objednavka();
-        o.setNazovJedla(napoj);
-        o.setId(0);
-        double cena = (ceny.ziskajCenu(napoj));
-        o.setCenaJedla(cena);
-        o.setCasObjednavky(null);
-        zoznamObj.pridaj(o);
+        if (!ComboNapoje.getSelectedItem().toString().equals(ComboNapoje.getItemAt(0))) {
+            String napoj = ComboNapoje.getSelectedItem().toString();
+            Objednavka o = new Objednavka();
+            jedloSCenou j = new jedloSCenou();
+            j.setJedlo(napoj);
+            o.setNazovJedla(napoj);
+            o.setId(0);
+            double cena = (ceny.ziskajCenu(j));
+            o.setCenaJedla(cena);
+            o.setCasObjednavky(null);
 
-        aktualizovatZoznamObjednavok();
+            objednavky.pridaj(o);
+            aktualizovatZoznamObjednavok();
 
-        ComboJedla.setSelectedIndex(0);
-        ComboNapoje.setSelectedIndex(0);
-        IneZapisNazov.setText(null);
-        IneZapisCenu.setText(null);
+            ComboJedla.setSelectedIndex(0);
+            ComboNapoje.setSelectedIndex(0);
+            IneZapisNazov.setText(null);
+            IneZapisCenu.setText(null);
 
-        informaciaText.setBackground(Color.GREEN);
-        informaciaText.setText("Pridana objednavka: " + napoj + " " + Double.toString(cena) + "€");
+            informaciaText.setBackground(Color.GREEN);
+            informaciaText.setText("Pridana objednavka: " + napoj + " " + Double.toString(cena) + "€");
+        } else {
+            JOptionPane.showMessageDialog(null, "Nevybraty napoj!");
+        }
+
     }//GEN-LAST:event_pridajNapojButtonActionPerformed
 
     private void informaciaTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_informaciaTextActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_informaciaTextActionPerformed
+
+    private void DeleteAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteAllButtonActionPerformed
+        objednavky.odstranVsetko();
+        aktualizovatZoznamObjednavok();
+    }//GEN-LAST:event_DeleteAllButtonActionPerformed
+
+    private void refreshButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_refreshButtonKeyPressed
+
+    }//GEN-LAST:event_refreshButtonKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -510,12 +600,14 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboJedla;
     private javax.swing.JComboBox<String> ComboNapoje;
+    private javax.swing.JButton DeleteAllButton;
     private javax.swing.JTextField IneZapisCenu;
     private javax.swing.JTextField IneZapisNazov;
     private javax.swing.JTable ObjednavkyTable;
     private javax.swing.JButton denneMenuButton;
     private javax.swing.JLabel infoLabel;
     private javax.swing.JTextField informaciaText;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

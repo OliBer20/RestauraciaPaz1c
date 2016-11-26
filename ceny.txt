@@ -20,3 +20,4 @@ Vino 3dc;2.50
 HABABBA;1.0
 eeeee;1.7
 Baranie rohy na kecupe;5.5
+vyprazany syr;2.0

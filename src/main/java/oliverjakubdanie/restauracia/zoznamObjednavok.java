@@ -3,31 +3,38 @@ package oliverjakubdanie.restauracia;
 import java.util.ArrayList;
 import java.util.List;
 
-public class zoznamObjednavok {
+public class zoznamObjednavok implements ObjednavkyDao {
 
     private List<Objednavka> objednavky = new ArrayList<>();
 
-    public List<Objednavka> getObjednavky() {
+    @Override
+    public List<Objednavka> dajObjednavky() {
         return objednavky;
     }
 
-    public zoznamObjednavok() {
-
-    }
-
-    public void pridajObjednavku(Objednavka o) {
+    @Override
+    public void pridaj(Objednavka o) {
         Objednavka oo = new Objednavka();
         oo.setId(o.getId());
         oo.setNazovJedla(o.getNazovJedla());
         oo.setCenaJedla(o.getCenaJedla());
         oo.setCasObjednavky(o.getCasObjednavky());
-        
-        objednavky.add(o);
 
+        objednavky.add(o);
     }
 
-    public List<Objednavka> vypisVsetkyObjednavky() {
-        return objednavky;
+    
+
+    @Override
+    public void odstranVsetko() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+
+    @Override
+    public void Odstran(Objednavka objednavka) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

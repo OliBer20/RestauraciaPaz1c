@@ -11,29 +11,6 @@ import java.util.Scanner;
 
 public class SuborovyObjednavkaDao implements ObjednavkyDao {
 
-    @Override
-    public List<Objednavka> dajObjednavky() {
-        List<Objednavka> Objednavky = new ArrayList<>();
-
-        try (Scanner scanner = new Scanner(new File("Objednavky.txt"))) {
-            while (scanner.hasNextLine()) {
-                String riadok = scanner.nextLine();
-                String[] polozky = riadok.split(";");
-                
-                Objednavka o = new Objednavka();
-                o.setNazovJedla(polozky[0]);
-                o.setCenaJedla(Double.parseDouble(polozky[1]));
-                o.setCasObjednavky(null);
-                
-                Objednavky.add(o);
-                
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Objednavky;
-    }
 
     @Override
     public void pridaj(Objednavka objednavka) {
@@ -45,9 +22,23 @@ public class SuborovyObjednavkaDao implements ObjednavkyDao {
         }
     }
 
+    
+
+    @Override
+    public List<Objednavka> dajObjednavky() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void odstranVsetko() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+
     @Override
     public void Odstran(Objednavka objednavka) {
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

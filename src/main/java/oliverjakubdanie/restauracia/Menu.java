@@ -5,23 +5,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Menu {
+public class Menu implements MenuDao {
 
 
-    private List<JednaPolozkaMenu> menu = new ArrayList<>();
+    private List<String> menu = new ArrayList<>();
 
-    public List<JednaPolozkaMenu> getMenu() {
+    @Override
+    public List<String> getMenu() {
         return menu;
     }
 
-    public void setMenu(List<JednaPolozkaMenu> menu) {
+    @Override
+    public void setMenu(List<String> menu) {
         this.menu = menu;
     }
 
-    public void pridajJedlo(String nazov, double cena) {
-        JednaPolozkaMenu o = new JednaPolozkaMenu();
-        o.setNazov(nazov);        
-        menu.add(o);
+    @Override
+    public void pridajJedlo(String nazov) {
+              
+        menu.add(nazov);
 
     }
 

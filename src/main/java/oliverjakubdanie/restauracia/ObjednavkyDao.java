@@ -9,5 +9,7 @@ public interface ObjednavkyDao {
     void pridaj(Objednavka objednavka);
     
     void Odstran(Objednavka objednavka);
+    
+    void odstranVsetko();
 
 }
