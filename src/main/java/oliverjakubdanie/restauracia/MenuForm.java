@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 public class MenuForm extends javax.swing.JFrame {
 
-
+    private VsetkyJedlaDao menu = ObjectFactory.INSTANCE.getMenu();
     private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
     private DenneMenuDao denneMenu = ObjectFactory.INSTANCE.getDenneMenu();
 
@@ -29,6 +29,7 @@ public class MenuForm extends javax.swing.JFrame {
         PridajKliknutyObjektDoDennehoMenu();
         VymazKliknutyObjektZDennehoMenu();
         AktualizujDenneMenu();
+        AktualizujMenu();
 
     }
 
@@ -77,7 +78,6 @@ public class MenuForm extends javax.swing.JFrame {
         AktualizujDenneMenu();
 
     }
-
 
     public void presunJedloDoDennehoMEnu(String jedlo) {
         denneMenu.pridaj(jedlo);
@@ -259,11 +259,11 @@ public class MenuForm extends javax.swing.JFrame {
     }
 
     private void aktualizujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktualizujButtonActionPerformed
-       
+        this.dispose();
     }//GEN-LAST:event_aktualizujButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-       
+
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
@@ -279,6 +279,17 @@ public class MenuForm extends javax.swing.JFrame {
         }
 
         DenneMenuList.setListData(celeMenuPole);
+
+    }
+
+    public void AktualizujMenu() {
+        List<String> menu = this.menu.ziskajVsetkyJedla();
+        String[] celeMenuPole = new String[menu.size()];
+        for (int i = 0; i < menu.size(); i++) {
+            celeMenuPole[i] = menu.get(i);
+        }
+
+        ZoznamJedalList.setListData(celeMenuPole);
 
     }
 

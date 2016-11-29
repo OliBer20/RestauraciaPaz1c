@@ -12,11 +12,19 @@ public enum ObjectFactory {
         return new MysqlObjednavkaDao(getJdbcTemplate());
     }
 
+    public vypisDao getVypis() {
+        return new MysqlVypisDao(getJdbcTemplate());
+    }
+
     public jedloSCenouDao getCenyDao() {
         return new MysqlCenyJedalDao(getJdbcTemplate());
     }
-    
-    public DenneMenuDao getDenneMenu(){
+
+    public VsetkyJedlaDao getMenu() {
+        return new MysqlVsetkyJedlaDao(getJdbcTemplate());
+    }
+
+    public DenneMenuDao getDenneMenu() {
         return new MysqlDenneMenuDao(getJdbcTemplate());
     }
 

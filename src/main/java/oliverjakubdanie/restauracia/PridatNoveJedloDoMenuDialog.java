@@ -7,17 +7,21 @@ package oliverjakubdanie.restauracia;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
 
-    
+    private jedloSCenouDao cena = ObjectFactory.INSTANCE.getCenyDao();
+    private VsetkyJedlaDao menu = ObjectFactory.INSTANCE.getMenu();
+    private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
+    private DenneMenuDao denneMenu = ObjectFactory.INSTANCE.getDenneMenu();
+
     public PridatNoveJedloDoMenuDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -104,6 +108,7 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pridajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajButtonActionPerformed
+
         String nazov = "";
         Double cena = 0.0;
         boolean zadaneUdaje = true;
@@ -119,7 +124,14 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
         }
 
         if (zadaneUdaje) {
-            AktualizujMenuACeny(nazov, cena);
+
+            menu.pridaj(nazov);
+            jedloSCenou j = new jedloSCenou();
+            j.setCena(cena);
+            j.setJedlo(nazov);
+            this.cena.pridajJedlo(j);
+
+            MenuForm m = new MenuForm();
             dispose();
 
         } else {

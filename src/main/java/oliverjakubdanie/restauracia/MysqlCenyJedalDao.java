@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,8 +22,13 @@ public class MysqlCenyJedalDao implements jedloSCenouDao {
 
     @Override
     public void pridajJedlo(jedloSCenou j) {
-        jdbcTemplate.update("INSERT INTO ceny (id, nazov, cena) VALUES(?,?,?)", null,
+        try {
+              jdbcTemplate.update("INSERT INTO ceny (id, nazov, cena) VALUES(?,?,?)", null,
                 j.getJedlo(), j.getCena());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, j.getJedlo() + " sa uz nachadza v Databaze cien!!");
+        }
+      
 
     }
 

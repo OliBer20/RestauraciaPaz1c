@@ -2,6 +2,10 @@ package oliverjakubdanie.restauracia;
 
 import java.awt.Button;
 import java.awt.Image;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -77,6 +81,11 @@ public class prihlasenieForm extends javax.swing.JFrame {
         });
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
         jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jPasswordField1KeyPressed(evt);
@@ -182,13 +191,44 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_bossButtonActionPerformed
 
+    public void prihlasenyBoss() {
+        PrintWriter pw = null;
+        try {
+            pw = new PrintWriter(new File("prihlasenyPrava.txt"));
+            pw.write("boss");
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pw != null) {
+                pw.close();
+            }
+        }
+
+    }
+
+    public void prihlasenyOther() {
+        PrintWriter pw = null;
+        try {
+            pw = new PrintWriter(new File("prihlasenyPrava.txt"));
+            pw.write("others");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pw != null) {
+                pw.close();
+            }
+        }
+
+    }
     private void prihlasitsaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prihlasitsaButtonActionPerformed
 
         String s = jPasswordField1.getText();
         jPasswordField1.setText(null);
         if (boss) {
             if (bossHeslo.equals(s)) {
+                prihlasenyBoss();
                 zoznamObjednavokForm z = new zoznamObjednavokForm();
                 z.setVisible(true);
                 this.setVisible(false);
@@ -199,6 +239,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
             }
         } else if (others) {
             if (othersHeslo.equals(s)) {
+                prihlasenyOther();
                 zoznamObjednavokForm z = new zoznamObjednavokForm();
                 z.setVisible(true);
                 this.setVisible(false);
@@ -217,15 +258,43 @@ public class prihlasenieForm extends javax.swing.JFrame {
     }//GEN-LAST:event_prihlasitsaButtonKeyPressed
 
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
-     //prihlasenie cez enter v passworde
+        //prihlasenie cez enter v passworde
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            zoznamObjednavokForm z = new zoznamObjednavokForm();
-            z.setVisible(true);
-            this.setVisible(false);
-            dispose();
+
+            String s = jPasswordField1.getText();
+            jPasswordField1.setText(null);
+            if (boss) {
+                if (bossHeslo.equals(s)) {
+                    prihlasenyBoss();
+                    zoznamObjednavokForm z = new zoznamObjednavokForm();
+                    z.setVisible(true);
+                    this.setVisible(false);
+                    dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
+                }
+            } else if (others) {
+                if (othersHeslo.equals(s)) {
+                    prihlasenyOther();
+                    zoznamObjednavokForm z = new zoznamObjednavokForm();
+                    z.setVisible(true);
+                    this.setVisible(false);
+                    dispose();
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
+            }
+
         }
-        // TODO add your handling code here:
+
+
     }//GEN-LAST:event_jPasswordField1KeyPressed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
