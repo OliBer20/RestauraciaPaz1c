@@ -11,5 +11,7 @@ public interface ObjednavkyDao {
     void Odstran(Objednavka objednavka);
     
     void odstranVsetko();
+    
+    void vymazPredosluObjednavku();
 
 }

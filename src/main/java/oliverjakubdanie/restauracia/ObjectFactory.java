@@ -27,6 +27,10 @@ public enum ObjectFactory {
     public DenneMenuDao getDenneMenu() {
         return new MysqlDenneMenuDao(getJdbcTemplate());
     }
+    
+    public NapojeDao getNapoje(){
+        return new MysqlPridajNapojDao(getJdbcTemplate());
+    }
 
     private JdbcTemplate getJdbcTemplate() {
         if (jdbcTemplate == null) {

@@ -102,7 +102,11 @@ public class MenuForm extends javax.swing.JFrame {
         refreshButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nastavenie jedál a denného menu");
+        setBackground(new java.awt.Color(255, 51, 51));
+        setBounds(new java.awt.Rectangle(10, 10, 10, 10));
+        setIconImages(null);
 
         DenneMenuList.setFont(new java.awt.Font("Microsoft YaHei", 0, 18)); // NOI18N
         jScrollPane1.setViewportView(DenneMenuList);

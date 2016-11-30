@@ -27,7 +27,7 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
     @Override
     public void Odstran(Objednavka objednavka) {
         jdbcTemplate.update("delete from objednavky_table where id = ?",
-                 objednavka.getId());
+                objednavka.getId());
     }
 
     @Override
@@ -45,6 +45,11 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
     public void odstranVsetko() {
         jdbcTemplate.update("truncate objednavky_table");
 
+    }
+
+    @Override
+    public void vymazPredosluObjednavku() {
+        jdbcTemplate.update("delete from objednavky_table where jedlo is not null order by id desc limit 1");
     }
 
     private class ObjednavkaRowMapper implements RowMapper<Objednavka> {
