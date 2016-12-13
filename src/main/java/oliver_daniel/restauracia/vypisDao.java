@@ -11,7 +11,7 @@ interface vypisDao {
 
     List<Objednavka> dajVsetkyObjednavky();
 
-    void vyberPodlaDatumu(Date d);
+    void Odstran(Objednavka objednavka);
 
     List<Objednavka> dajDnesneObjednavky();
 

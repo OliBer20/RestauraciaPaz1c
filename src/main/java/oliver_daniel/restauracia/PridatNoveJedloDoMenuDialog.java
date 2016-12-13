@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package oliver_daniel.restauracia;
 
 import java.io.File;
@@ -17,9 +12,12 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
     private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
     private DenneMenuDao denneMenu = ObjectFactory.INSTANCE.getDenneMenu();
 
-    public PridatNoveJedloDoMenuDialog(java.awt.Frame parent, boolean modal) {
+    private MenuForm m;
+
+    public PridatNoveJedloDoMenuDialog(java.awt.Frame parent, boolean modal, MenuForm menu) {
         super(parent, modal);
         initComponents();
+        m = menu;
     }
 
     @SuppressWarnings("unchecked")
@@ -45,7 +43,7 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(125, 4, 160, 22);
         getContentPane().add(NazovButton);
-        NazovButton.setBounds(12, 76, 387, 22);
+        NazovButton.setBounds(10, 70, 387, 30);
         getContentPane().add(CenaButton);
         CenaButton.setBounds(157, 135, 82, 22);
 
@@ -58,17 +56,17 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
             }
         });
         getContentPane().add(pridajButton);
-        pridajButton.setBounds(166, 170, 69, 25);
+        pridajButton.setBounds(160, 170, 80, 25);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel2.setText("Nazov jedla:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(162, 53, 79, 16);
+        jLabel2.setBounds(160, 40, 79, 20);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel3.setText("Cena:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(180, 105, 37, 16);
+        jLabel3.setBounds(180, 110, 37, 16);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(0, 33, 411, 13);
 
@@ -96,14 +94,13 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
         }
 
         if (zadaneUdaje) {
-
             menu.pridaj(nazov);
             jedloSCenou j = new jedloSCenou();
             j.setCena(cena);
             j.setJedlo(nazov);
             this.cena.pridajJedlo(j);
 
-            MenuForm m = new MenuForm();
+            m.AktualizujMenu();
             dispose();
 
         } else {
@@ -158,8 +155,10 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            private MenuForm m;
+
             public void run() {
-                PridatNoveJedloDoMenuDialog dialog = new PridatNoveJedloDoMenuDialog(new javax.swing.JFrame(), true);
+                PridatNoveJedloDoMenuDialog dialog = new PridatNoveJedloDoMenuDialog(new javax.swing.JFrame(), true, this.m);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

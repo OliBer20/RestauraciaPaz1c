@@ -58,15 +58,13 @@ public class MysqlDenneMenuDao implements DenneMenuDao {
 
     @Override
     public void vymazVsetko() {
-         jdbcTemplate.update("truncate denne_menu");
+        jdbcTemplate.update("truncate denne_menu");
     }
 
     private class DMenuRowMapper implements RowMapper<String> {
 
         @Override
         public String mapRow(ResultSet rs, int i) throws SQLException {
-            //DenneMenu d = new DenneMenu();
-            //d.setNazov(rs.getString("nazov"));
             return rs.getString("jedlo");
         }
 

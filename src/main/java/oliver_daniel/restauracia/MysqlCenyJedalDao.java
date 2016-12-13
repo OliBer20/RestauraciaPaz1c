@@ -23,14 +23,25 @@ public class MysqlCenyJedalDao implements jedloSCenouDao {
     @Override
     public void pridajJedlo(jedloSCenou j) {
         try {
-              jdbcTemplate.update("INSERT INTO ceny (id, nazov, cena) VALUES(?,?,?)", null,
-                j.getJedlo(), j.getCena());
+            jdbcTemplate.update("INSERT INTO ceny (id, nazov, cena) VALUES(?,?,?)", null,
+                    j.getJedlo(), j.getCena());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, j.getJedlo() + " sa uz nachadza v Databaze cien!!");
         }
-      
 
     }
+    
+     @Override
+    public void pridajNapoj(Napoj n) {
+        try {
+            jdbcTemplate.update("INSERT INTO ceny (id, nazov, cena) VALUES(?,?,?)", null,
+                    n.getNazov(), n.getCena());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, n.getNazov() + " sa uz nachadza v Databaze cien!!");
+        }
+
+    }
+
 
     @Override
     public void vymazJedlo(jedloSCenou j) {
@@ -57,7 +68,6 @@ public class MysqlCenyJedalDao implements jedloSCenouDao {
                 return jedlo.getCena();
             }
         }
-
         return -1;
     }
 

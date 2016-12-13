@@ -8,7 +8,7 @@ public class VypisTableModel extends AbstractTableModel {
 
     private vypisDao vypis = ObjectFactory.INSTANCE.getVypis();
 
-    private static final String[] NAZVY_STLPCOV = {"ID" ,"Popis", "Cena", "Datum"};
+    private static final String[] NAZVY_STLPCOV = {"ID", "Popis", "Cena", "Datum"};
 
     private static final int POCET_STLPCOV = NAZVY_STLPCOV.length;
 
@@ -21,13 +21,12 @@ public class VypisTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return POCET_STLPCOV;
     }
- 
-    
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Objednavka o = vypis.dajVsetkyObjednavky().get(rowIndex);
         switch (columnIndex) {
-            case 0: 
+            case 0:
                 return o.getId();
             case 1:
                 return o.getNazovJedla();

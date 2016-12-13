@@ -35,8 +35,9 @@ public class MysqlVypisDao implements vypisDao {
     }
 
     @Override
-    public void vyberPodlaDatumu(Date d) {
-
+    public void Odstran(Objednavka objednavka) {
+        jdbcTemplate.update("delete from vypis where id = ?",
+                objednavka.getId());
     }
 
     @Override

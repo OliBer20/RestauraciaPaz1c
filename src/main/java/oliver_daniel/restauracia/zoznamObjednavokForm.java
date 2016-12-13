@@ -1,6 +1,8 @@
 package oliver_daniel.restauracia;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -10,8 +12,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -34,15 +38,22 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         aktualizovatDenneMenu();
         aktualizujInfo();
         aktualizujNapoje();
+        nastavPodlaPrihlaseneho();
+
+    }
+
+    public void nastavPodlaPrihlaseneho() {
 
         if (zistiPrihlaseneho().equals("boss")) {
             vypisObjednavkyButton.setEnabled(true);
             okButton.setEnabled(true);
-            DeleteAllButton.setEnabled(true);
+            okButton.setForeground(Color.red);
+
         } else {
             vypisObjednavkyButton.setEnabled(false);
             okButton.setEnabled(false);
-            DeleteAllButton.setEnabled(false);
+            okButton.setForeground(Color.gray);
+
         }
 
     }
@@ -74,7 +85,11 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     }
 
-    private void aktualizovatZoznamObjednavok() {
+    public void nastavText(String s) {
+        informaciaText.setText(s);
+    }
+
+    public void aktualizovatZoznamObjednavok() {
         ObjednavkaTableModel model = (ObjednavkaTableModel) ObjednavkyTable.getModel();
         model.aktualizovat();
     }
@@ -99,11 +114,10 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         infoLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        refreshButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         denneMenuButton = new javax.swing.JButton();
         vypisObjednavkyButton = new javax.swing.JButton();
-        DeleteAllButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         ObjednavkyTable = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
@@ -218,17 +232,11 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Objednávka:");
 
-        refreshButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        refreshButton.setText("Refresh");
-        refreshButton.setPreferredSize(new java.awt.Dimension(103, 25));
-        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jButton1.setText("Odhlásiť sa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshButtonActionPerformed(evt);
-            }
-        });
-        refreshButton.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                refreshButtonKeyPressed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -239,8 +247,8 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -249,7 +257,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -274,14 +282,6 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
         });
 
-        DeleteAllButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        DeleteAllButton.setText("Delete All");
-        DeleteAllButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteAllButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -290,19 +290,16 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(vypisObjednavkyButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DeleteAllButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(denneMenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(denneMenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(denneMenuButton)
+                .addComponent(denneMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(DeleteAllButton)
-                .addGap(18, 18, 18)
-                .addComponent(vypisObjednavkyButton)
+                .addComponent(vypisObjednavkyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -402,14 +399,6 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_IneZapisNazovActionPerformed
 
-    public void removeSelectedRows() {
-        /* DefaultTableModel model = (DefaultTableModel) this.ObjednavkyTable.getModel();
-        int[] rows = ObjednavkyTable.getSelectedRows();
-        for (int i = 0; i < rows.length; i++) {
-            model.removeRow(rows[i] - i);
-        }*/
-    }
-
     private void pridajObjednavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajObjednavkuButtonActionPerformed
 
         if (!ComboJedla.getSelectedItem().equals(ComboJedla.getItemAt(0))) {
@@ -445,31 +434,18 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     }//GEN-LAST:event_pridajObjednavkuButtonActionPerformed
 
     private void denneMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denneMenuButtonActionPerformed
-        MenuForm menuForm = new MenuForm();
+        MenuForm menuForm = new MenuForm(this);
         menuForm.setVisible(true);
 
     }//GEN-LAST:event_denneMenuButtonActionPerformed
 
-    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        aktualizovatDenneMenu();
-        aktualizujNapoje();
-
-    }//GEN-LAST:event_refreshButtonActionPerformed
-
     private void vypisObjednavkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vypisObjednavkyButtonActionPerformed
-        VypisyFrame v = new VypisyFrame();
+        VypisyFrame v = new VypisyFrame(this);
         v.setVisible(true);
 
     }//GEN-LAST:event_vypisObjednavkyButtonActionPerformed
 
     private void ObjednavkyTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ObjednavkyTableMouseClicked
-        /*  ObjednavkaTableModel o = new ObjednavkaTableModel();
-        Objednavka obj = o.dajKliknutuObjednavku(jTable1.rowAtPoint(evt.getPoint()));
-        String nazov = obj.getNazovJedla();
-        Date datum = obj.getCasObjednavky();
-        objednavky.Odstran(obj);
-
-        aktualizovatZoznamObjednavok();*/
 
     }//GEN-LAST:event_ObjednavkyTableMouseClicked
 
@@ -481,6 +457,13 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         if (IneZapisCenu.getText().equals("")) {
             ok = false;
         }
+
+        try {
+            double cena = Double.parseDouble(IneZapisCenu.getText());
+        } catch (Exception e) {
+            ok = false;
+        }
+
         if (ok) {
             String ine = IneZapisNazov.getText();
             Objednavka o = new Objednavka();
@@ -511,9 +494,9 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     public void aktualizujNapoje() {
         ComboNapoje.removeAllItems();
         ComboNapoje.addItem("Vyber Nápoj:");
-        List<String> nap = napoje.dajNapoje();
-        for (String s : nap) {
-            ComboNapoje.addItem(s);
+        List<Napoj> nap = napoje.dajNapoje();
+        for (Napoj s : nap) {
+            ComboNapoje.addItem(s.getNazov());
         }
     }
 
@@ -552,47 +535,34 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_informaciaTextActionPerformed
 
-    private void DeleteAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteAllButtonActionPerformed
-        objednavky.odstranVsetko();
-        aktualizovatZoznamObjednavok();
-    }//GEN-LAST:event_DeleteAllButtonActionPerformed
-
-    private void refreshButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_refreshButtonKeyPressed
-
-    }//GEN-LAST:event_refreshButtonKeyPressed
-
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
 
         int index = vymazatCombo.getSelectedIndex();
         if (index == 0) {
-            objednavky.odstranVsetko();
-            aktualizovatZoznamObjednavok();
-            informaciaText.setText("Vymazana databaza objednavok!");
+            siSiTymIstyDialog s = new siSiTymIstyDialog(this, true, "Objednavky", this);
+            s.setVisible(true);
         }
         if (index == 1) {
-            ceny.vymazVsetkyJedla();
-             informaciaText.setText("Vymazana databaza cien jedal!");
-             napoje.vymazVsetkyNapoje();
-             ComboNapoje.removeAllItems();
+            siSiTymIstyDialog s = new siSiTymIstyDialog(this, true, "Ceny", this);
+            s.setVisible(true);
         }
         if (index == 2) {
-            dMenu.vymazVsetko();
-             informaciaText.setText("Vymazana databaza celeho menu!");
+            siSiTymIstyDialog s = new siSiTymIstyDialog(this, true, "Denne menu", this);
+            s.setVisible(true);
         }
         if (index == 3) {
-            zoznamJedal.vymazVsetko();
-             informaciaText.setText("Vymazana databaza zoznamu jedal!");
+            siSiTymIstyDialog s = new siSiTymIstyDialog(this, true, "Zoznam jedal", this);
+            s.setVisible(true);
         }
         if (index == 4) {
-            vypis.vymazVsetkyJedla();
-             informaciaText.setText("Vymazana databaza vypisov!");
-
+            siSiTymIstyDialog s = new siSiTymIstyDialog(this, true, "Vypisy", this);
+            s.setVisible(true);
         }
 
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void napojeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_napojeButtonActionPerformed
-        PridajNapojDialog p = new PridajNapojDialog(this, true);
+        PridajNapojDialog p = new PridajNapojDialog(this, true, this);
         p.setVisible(true);
 
     }//GEN-LAST:event_napojeButtonActionPerformed
@@ -603,8 +573,26 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             vymazanePredosle = true;
             objednavky.vymazPredosluObjednavku();
             aktualizovatZoznamObjednavok();
+            informaciaText.setText("Vymazana predosla objednavka!");
         }
     }//GEN-LAST:event_vymazPredosluButtonActionPerformed
+
+    private void aktualizujInfo() {
+
+        Calendar cal = new GregorianCalendar();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH) + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        informaciaText.setText("Dobrý deň! Dnešný dátum je: " + Integer.toString(day) + "." + Integer.toString(month) + "." + Integer.toString(year));
+
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        prihlasenieForm p = new prihlasenieForm();
+        p.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -641,13 +629,13 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboJedla;
     private javax.swing.JComboBox<String> ComboNapoje;
-    private javax.swing.JButton DeleteAllButton;
     private javax.swing.JTextField IneZapisCenu;
     private javax.swing.JTextField IneZapisNazov;
     private javax.swing.JTable ObjednavkyTable;
     private javax.swing.JButton denneMenuButton;
     private javax.swing.JLabel infoLabel;
     private javax.swing.JTextField informaciaText;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -669,19 +657,9 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     private javax.swing.JButton pridajIneButton;
     private javax.swing.JButton pridajNapojButton;
     private javax.swing.JButton pridajObjednavkuButton;
-    private javax.swing.JButton refreshButton;
     private javax.swing.JButton vymazPredosluButton;
     private javax.swing.JComboBox<String> vymazatCombo;
     private javax.swing.JButton vypisObjednavkyButton;
     // End of variables declaration//GEN-END:variables
 
-    private void aktualizujInfo() {
-
-        Calendar cal = new GregorianCalendar();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH) + 1;
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        informaciaText.setText("Dobrý deň! Dnešný dátum je: " + Integer.toString(day) + "." + Integer.toString(month) + "." + Integer.toString(year));
-
-    }
 }

@@ -1,4 +1,3 @@
-
 package oliver_daniel.restauracia;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -28,8 +27,8 @@ public enum ObjectFactoryTest {
     public DenneMenuDao getDenneMenu() {
         return new MysqlDenneMenuDao(getJdbcTemplate());
     }
-    
-    public NapojeDao getNapoje(){
+
+    public NapojeDao getNapoje() {
         return new MysqlPridajNapojDao(getJdbcTemplate());
     }
 

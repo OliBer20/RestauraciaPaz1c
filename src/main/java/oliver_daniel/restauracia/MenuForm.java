@@ -20,17 +20,22 @@ public class MenuForm extends javax.swing.JFrame {
     private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
     private DenneMenuDao denneMenu = ObjectFactory.INSTANCE.getDenneMenu();
 
+    zoznamObjednavokForm zoznamObjednavok;
+
     private int pocetKliknutiNaPolozkuVMenu = 0;
     private int pocetKliknutiNaPolozkuVDennomMenu = 0;
 
-    public MenuForm() {
+    public MenuForm(zoznamObjednavokForm z) {
         initComponents();
-        nacitajMenuZTxt();
         PridajKliknutyObjektDoDennehoMenu();
         VymazKliknutyObjektZDennehoMenu();
         AktualizujDenneMenu();
         AktualizujMenu();
+        zoznamObjednavok = z;
 
+    }
+
+    private MenuForm() {
     }
 
     public void VymazKliknutyObjektZDennehoMenu() {
@@ -99,7 +104,6 @@ public class MenuForm extends javax.swing.JFrame {
         vymazDenneMenuButton = new javax.swing.JButton();
         pridatJedloButton = new javax.swing.JButton();
         aktualizujButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -163,14 +167,6 @@ public class MenuForm extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(153, 153, 153));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -186,10 +182,6 @@ public class MenuForm extends javax.swing.JFrame {
                             .addComponent(aktualizujButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(vymazDenneMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,9 +192,7 @@ public class MenuForm extends javax.swing.JFrame {
                 .addComponent(vymazDenneMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(aktualizujButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -222,24 +212,16 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_vymazDenneMenuButtonActionPerformed
 
     private void pridatJedloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatJedloButtonActionPerformed
-        PridatNoveJedloDoMenuDialog p = new PridatNoveJedloDoMenuDialog(this, true);
+        PridatNoveJedloDoMenuDialog p = new PridatNoveJedloDoMenuDialog(this, true, this);
         p.setVisible(true);
 
     }//GEN-LAST:event_pridatJedloButtonActionPerformed
 
-    public void vypis() {
-        JOptionPane.showMessageDialog(null, "uspesne");
-
-    }
 
     private void aktualizujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktualizujButtonActionPerformed
+        zoznamObjednavok.aktualizovatDenneMenu();
         this.dispose();
     }//GEN-LAST:event_aktualizujButtonActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          AktualizujDenneMenu();
-        AktualizujMenu();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void AktualizujDenneMenu() {
         List<String> DenneMenu = denneMenu.ziskajDenneMenu();
@@ -263,37 +245,10 @@ public class MenuForm extends javax.swing.JFrame {
 
     }
 
-    public void nacitajMenuZTxt() {
-        Scanner sc = null;
-        List<String> menuu = new ArrayList<>();
-        try {
-            sc = new Scanner(new File("zoznamJedal.txt"));
-            while (sc.hasNextLine()) {
-                String s = sc.nextLine();
-                String[] polozky = s.split(";");
-                menuu.add(polozky[0]);
-
-            }
-            String[] menu = new String[menuu.size()];
-            for (int i = 0; i < menu.length; i++) {
-                menu[i] = menuu.get(i);
-            }
-
-            ZoznamJedalList.setListData(menu);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (sc != null) {
-                sc.close();
-            }
-        }
-
-    }
-
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new MenuForm().setVisible(true);
             }
@@ -309,7 +264,6 @@ public class MenuForm extends javax.swing.JFrame {
     private javax.swing.JList<String> DenneMenuList;
     private javax.swing.JList<String> ZoznamJedalList;
     private javax.swing.JButton aktualizujButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

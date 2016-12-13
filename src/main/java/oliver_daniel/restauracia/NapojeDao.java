@@ -4,11 +4,11 @@ import java.util.List;
 
 interface NapojeDao {
     
-    public List<String> dajNapoje();    
+    public List<Napoj> dajNapoje();    
     
-    public void pridajNapoj(String napoj);
+    public void pridajNapoj(Napoj napoj);
     
-    public void vymazNapoj(String napoj);
+    public void vymazNapoj(Napoj napoj);
     
     public void vymazVsetkyNapoje();
     

@@ -6,11 +6,8 @@ import javax.swing.table.AbstractTableModel;
 
 public class ObjednavkaTableModel extends AbstractTableModel {
 
-    // private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
     private zobrazenieDnesnychObjednavokDao dnesneObjednavky = ObjectFactory.INSTANCE.getDnesneObjednavky();
-
     private static final String[] NAZVY_STLPCOV = {"Popis", "Cena", "Datum"};
-
     private static final int POCET_STLPCOV = NAZVY_STLPCOV.length;
 
     @Override

@@ -3,16 +3,18 @@ package oliver_daniel.restauracia;
 import java.util.List;
 
 public class PridajNapojDialog extends javax.swing.JDialog {
-
+    
     private NapojeDao napoje = ObjectFactory.INSTANCE.getNapoje();
     private jedloSCenouDao ceny = ObjectFactory.INSTANCE.getCenyDao();
-
-    public PridajNapojDialog(java.awt.Frame parent, boolean modal) {
+    private zoznamObjednavokForm zozObj;
+    
+    public PridajNapojDialog(java.awt.Frame parent, boolean modal, zoznamObjednavokForm z) {
         super(parent, modal);
         initComponents();
+        zozObj = z;
         aktualizujNapojCombo();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -93,41 +95,41 @@ public class PridajNapojDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pridajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajButtonActionPerformed
-
-        String napoj = nazov.getText();
-        napoje.pridajNapoj(napoj);
+        Napoj n = new Napoj();
+        n.setNazov(nazov.getText());
         Double cena = Double.parseDouble(this.cena.getText());
-        jedloSCenou j = new jedloSCenou();
-        j.setJedlo(napoj);
-        j.setCena(cena);
-        ceny.pridajJedlo(j);
-        aktualizujNapojCombo();
+        n.setCena(cena);
+        napoje.pridajNapoj(n);
         
+        ceny.pridajNapoj(n);
+        aktualizujNapojCombo();
+        zozObj.aktualizujNapoje();
         nazov.setText(null);
-       this.cena.setText(null);
+        this.cena.setText(null);
 
     }//GEN-LAST:event_pridajButtonActionPerformed
-
+    
     public void aktualizujNapojCombo() {
         napojCombo.removeAllItems();
-        List<String> nap = napoje.dajNapoje();
-        for (String s : nap) {
-            napojCombo.addItem(s);
+        List<Napoj> nap = napoje.dajNapoje();
+        for (Napoj n : nap) {
+            napojCombo.addItem(n.getNazov());
         }
-
+        
     }
 
     private void napojComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_napojComboActionPerformed
     }//GEN-LAST:event_napojComboActionPerformed
 
     private void vymazButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazButtonActionPerformed
-        
+        Napoj n = new Napoj();
         String napoj = napojCombo.getSelectedItem().toString();
-        napoje.vymazNapoj(napoj);
+        n.setNazov(napoj);
+        napoje.vymazNapoj(n);
         aktualizujNapojCombo();
-        
-    }//GEN-LAST:event_vymazButtonActionPerformed
 
+    }//GEN-LAST:event_vymazButtonActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -154,8 +156,10 @@ public class PridajNapojDialog extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            private zoznamObjednavokForm zozObj;
+            
             public void run() {
-                PridajNapojDialog dialog = new PridajNapojDialog(new javax.swing.JFrame(), true);
+                PridajNapojDialog dialog = new PridajNapojDialog(new javax.swing.JFrame(), true, this.zozObj);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

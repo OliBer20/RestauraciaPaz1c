@@ -10,9 +10,15 @@ public class VypisyFrame extends javax.swing.JFrame {
 
     private vypisDao vypis = ObjectFactory.INSTANCE.getVypis();
     private String zobrazeneObjednavky = "Zobrazene objednavky na: ";
-
-    public VypisyFrame() {
+    private zoznamObjednavokForm zozObj;
+    
+    public VypisyFrame(zoznamObjednavokForm z) {
         initComponents();
+        zozObj = z;
+    }
+
+    private VypisyFrame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @SuppressWarnings("unchecked")
@@ -144,19 +150,21 @@ public class VypisyFrame extends javax.swing.JFrame {
         getContentPane().add(jLabel6);
         jLabel6.setBounds(466, 211, 54, 22);
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Objednavky na mesiac:");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(12, 103, 133, 16);
+        jLabel7.setBounds(12, 103, 149, 16);
 
         mesiacZobraz.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Január", "Február", "Marec", "Apríl", "Máj", "Jún", "Júl", "August", "September", "Oktober", "November", "December" }));
         getContentPane().add(mesiacZobraz);
         mesiacZobraz.setBounds(44, 126, 116, 22);
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Objednavky na rok:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(12, 188, 111, 16);
+        jLabel8.setBounds(12, 188, 126, 16);
 
         rokZobraz.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2016" }));
         getContentPane().add(rokZobraz);
@@ -194,7 +202,7 @@ public class VypisyFrame extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1);
@@ -206,7 +214,7 @@ public class VypisyFrame extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 802, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,9 +379,6 @@ public class VypisyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_objednavkyMesiacButtonActionPerformed
 
     private void zarobkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zarobkyButtonActionPerformed
-        int rok = Integer.parseInt(rokCombo.getSelectedItem().toString());
-        int mesiac = Integer.parseInt(mesiacCombo.getSelectedItem().toString());
-        int den = Integer.parseInt(denCombo.getSelectedItem().toString());
         double zarobok = 0.0;
         int pocet = 0;
         List<Objednavka> objednavky = vypis.dajVsetkyObjednavky();
@@ -410,6 +415,7 @@ public class VypisyFrame extends javax.swing.JFrame {
             if (objednavka.getId() == (valueAt)) {
                 zobrazeneObjednavky = "Vymazana objednavka: " + objednavka.getNazovJedla() + " " + objednavka.getCenaJedla();
                 objednavky.remove(objednavka);
+                vypis.Odstran(objednavka);
                 obj.Odstran(objednavka);
                 aktualizovatTabulku();
                 vypisZarobku.setText(zobrazeneObjednavky);
@@ -417,6 +423,7 @@ public class VypisyFrame extends javax.swing.JFrame {
             }
 
         }
+        zozObj.aktualizovatZoznamObjednavok();
 
     }//GEN-LAST:event_vymazObjednavkuActionPerformed
 
@@ -454,6 +461,7 @@ public class VypisyFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            private zoznamObjednavokForm z;
             public void run() {
                 new VypisyFrame().setVisible(true);
             }

@@ -5,15 +5,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public enum ObjednavkaDaoFactory {
     INSTANCE;
-    
+
     private JdbcTemplate jdbcTemplate;
-    
+
     public ObjednavkyDao getObjednavkaDao() {
         return new MysqlObjednavkaDao(getJdbcTemplate());
     }
-    
-    
-    
+
     private JdbcTemplate getJdbcTemplate() {
         if (jdbcTemplate == null) {
             MysqlDataSource dataSource = new MysqlDataSource();
@@ -25,5 +23,3 @@ public enum ObjednavkaDaoFactory {
         return jdbcTemplate;
     }
 }
-
-

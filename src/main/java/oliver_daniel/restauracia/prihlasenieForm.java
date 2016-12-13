@@ -19,24 +19,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
     private Boolean boss = false;
     private Boolean others = false;
 
-    public Boolean getBoss() {
-        return boss;
-    }
-
-    public Boolean getOthers() {
-        return others;
-    }
-
-    public void setBoss(Boolean boss) {
-        this.boss = boss;
-    }
-
-    public void setOthers(Boolean others) {
-        this.others = others;
-    }
-
     public prihlasenieForm() {
-
         initComponents();
 
     }
@@ -116,7 +99,8 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
-        bossButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/boss.png"))); // NOI18N
+        bossButton.setBackground(new java.awt.Color(102, 102, 102));
+        bossButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bosss.png"))); // NOI18N
         bossButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bossButtonActionPerformed(evt);
@@ -145,7 +129,8 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
-        ostatniButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/people.png"))); // NOI18N
+        ostatniButton.setBackground(new java.awt.Color(102, 102, 102));
+        ostatniButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/others.png"))); // NOI18N
         ostatniButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ostatniButtonActionPerformed(evt);
@@ -211,7 +196,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
     }
 
-    public void prihlasenyOther() {
+    public void prihlasenyOthers() {
         PrintWriter pw = null;
         try {
             pw = new PrintWriter(new File("prihlasenyPrava.txt"));
@@ -243,7 +228,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
             }
         } else if (others) {
             if (othersHeslo.equals(s)) {
-                prihlasenyOther();
+                prihlasenyOthers();
                 zoznamObjednavokForm z = new zoznamObjednavokForm();
                 z.setVisible(true);
                 this.setVisible(false);
@@ -280,7 +265,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
                 }
             } else if (others) {
                 if (othersHeslo.equals(s)) {
-                    prihlasenyOther();
+                    prihlasenyOthers();
                     zoznamObjednavokForm z = new zoznamObjednavokForm();
                     z.setVisible(true);
                     this.setVisible(false);
