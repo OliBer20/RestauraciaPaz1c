@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package oliverjakubdanie.restauracia;
 
+package oliver_daniel.restauracia;
+
+import oliver_daniel.restauracia.ObjectFactoryTest;
 import java.util.List;
 import junit.framework.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Daniel
- */
+
 public class MysqlCenyJedalDaoTest {
 
     private MysqlCenyJedalDao test = new MysqlCenyJedalDao(ObjectFactoryTest.INSTANCE.getJdbcTemplate());
