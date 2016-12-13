@@ -12,6 +12,10 @@ public enum ObjectFactory {
         return new MysqlObjednavkaDao(getJdbcTemplate());
     }
 
+    public zobrazenieDnesnychObjednavokDao getDnesneObjednavky() {
+        return new MysqlZobrazenieDnesnychObjednavokDao(getJdbcTemplate());
+    }
+
     public vypisDao getVypis() {
         return new MysqlVypisDao(getJdbcTemplate());
     }
@@ -27,8 +31,8 @@ public enum ObjectFactory {
     public DenneMenuDao getDenneMenu() {
         return new MysqlDenneMenuDao(getJdbcTemplate());
     }
-    
-    public NapojeDao getNapoje(){
+
+    public NapojeDao getNapoje() {
         return new MysqlPridajNapojDao(getJdbcTemplate());
     }
 

@@ -33,11 +33,21 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(435, 120));
+        setPreferredSize(new java.awt.Dimension(370, 255));
+        getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Pridat nove jedlo:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(125, 4, 160, 22);
+        getContentPane().add(NazovButton);
+        NazovButton.setBounds(12, 76, 387, 22);
+        getContentPane().add(CenaButton);
+        CenaButton.setBounds(157, 135, 82, 22);
 
         pridajButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         pridajButton.setForeground(new java.awt.Color(255, 51, 51));
@@ -47,62 +57,24 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
                 pridajButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(pridajButton);
+        pridajButton.setBounds(166, 170, 69, 25);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel2.setText("Nazov jedla:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(162, 53, 79, 16);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel3.setText("Cena:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(180, 105, 37, 16);
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(0, 33, 411, 13);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(157, 157, 157)
-                                .addComponent(CenaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(166, 166, 166)
-                                .addComponent(pridajButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(162, 162, 162)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(180, 180, 180)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(125, 125, 125)
-                                .addComponent(jLabel1)))
-                        .addGap(0, 114, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(NazovButton)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 13, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NazovButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(14, 14, 14)
-                .addComponent(CenaButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pridajButton)
-                .addContainerGap())
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(1, 0, 430, 210);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -205,6 +177,7 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton pridajButton;
     // End of variables declaration//GEN-END:variables

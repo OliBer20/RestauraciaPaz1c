@@ -50,11 +50,19 @@ public class VypisyFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         denCombo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(820, 715));
+        getContentPane().setLayout(null);
 
+        jTable1.setFont(new java.awt.Font("Segoe UI Historic", 1, 13)); // NOI18N
         jTable1.setModel(new VypisTableModel());
         jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(12, 383, 778, 271);
 
         objednavkyDnesButton.setBackground(new java.awt.Color(204, 204, 204));
         objednavkyDnesButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -64,6 +72,8 @@ public class VypisyFrame extends javax.swing.JFrame {
                 objednavkyDnesButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(objednavkyDnesButton);
+        objednavkyDnesButton.setBounds(219, 13, 160, 63);
 
         objednavkyMesiacButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         objednavkyMesiacButton.setText("Zobraz");
@@ -72,6 +82,8 @@ public class VypisyFrame extends javax.swing.JFrame {
                 objednavkyMesiacButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(objednavkyMesiacButton);
+        objednavkyMesiacButton.setBounds(222, 92, 160, 63);
 
         VypisButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         VypisButton.setText("Vypis objednavku");
@@ -80,9 +92,14 @@ public class VypisyFrame extends javax.swing.JFrame {
                 VypisButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(VypisButton);
+        VypisButton.setBounds(466, 143, 147, 54);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Objednavky na deň:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(537, 21, 182, 22);
 
         zarobkyButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         zarobkyButton.setForeground(new java.awt.Color(51, 153, 0));
@@ -92,6 +109,8 @@ public class VypisyFrame extends javax.swing.JFrame {
                 zarobkyButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(zarobkyButton);
+        zarobkyButton.setBounds(644, 143, 134, 55);
 
         vypisZarobku.setEditable(false);
         vypisZarobku.setColumns(20);
@@ -100,6 +119,9 @@ public class VypisyFrame extends javax.swing.JFrame {
         vypisZarobku.setText("\n");
         jScrollPane2.setViewportView(vypisZarobku);
 
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(466, 240, 312, 111);
+
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jButton1.setText("Zobraz");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -107,22 +129,48 @@ public class VypisyFrame extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(220, 179, 165, 65);
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(0, 83, 403, 2);
+        getContentPane().add(jSeparator2);
+        jSeparator2.setBounds(0, 168, 403, 2);
+        getContentPane().add(jSeparator3);
+        jSeparator3.setBounds(0, 251, 403, 2);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("INFO:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(466, 211, 54, 22);
 
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Objednavky na mesiac:");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(12, 103, 133, 16);
 
         mesiacZobraz.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Január", "Február", "Marec", "Apríl", "Máj", "Jún", "Júl", "August", "September", "Oktober", "November", "December" }));
+        getContentPane().add(mesiacZobraz);
+        mesiacZobraz.setBounds(44, 126, 116, 22);
 
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Objednavky na rok:");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(12, 188, 111, 16);
 
         rokZobraz.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2016" }));
+        getContentPane().add(rokZobraz);
+        rokZobraz.setBounds(46, 211, 119, 22);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Dnešné objednávky:");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(12, 35, 141, 17);
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(183, 376, 0, 0);
 
-        vymazObjednavku.setBackground(new java.awt.Color(255, 102, 0));
+        vymazObjednavku.setBackground(new java.awt.Color(255, 0, 0));
         vymazObjednavku.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         vymazObjednavku.setForeground(new java.awt.Color(255, 255, 255));
         vymazObjednavku.setText("Vymaž označené");
@@ -131,8 +179,12 @@ public class VypisyFrame extends javax.swing.JFrame {
                 vymazObjednavkuActionPerformed(evt);
             }
         });
+        getContentPane().add(vymazObjednavku);
+        vymazObjednavku.setBounds(220, 260, 166, 61);
+        getContentPane().add(jSeparator4);
+        jSeparator4.setBounds(466, 50, 312, 2);
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel1.setBackground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,7 +197,10 @@ public class VypisyFrame extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 102, 0));
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(432, 0, 16, 360);
+
+        jPanel2.setBackground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,7 +213,10 @@ public class VypisyFrame extends javax.swing.JFrame {
             .addGap(0, 11, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(255, 102, 0));
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 358, 802, 11);
+
+        jPanel3.setBackground(new java.awt.Color(255, 0, 0));
 
         rokCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2016" }));
 
@@ -213,141 +271,16 @@ public class VypisyFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2)
-                            .addComponent(jSeparator3)
-                            .addComponent(jSeparator1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(objednavkyDnesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(24, 24, 24))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(171, 171, 171)
-                                        .addComponent(jLabel9)
-                                        .addGap(19, 220, Short.MAX_VALUE)))))
-                        .addGap(29, 29, 29))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel7))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(mesiacZobraz, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(objednavkyMesiacButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel8))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(rokZobraz, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(vymazObjednavku, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(59, 59, 59))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel6)
-                                .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(VypisButton)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(zarobkyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane2))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(objednavkyDnesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(objednavkyMesiacButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(mesiacZobraz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rokZobraz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(94, 94, 94)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(vymazObjednavku, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(zarobkyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(VypisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(466, 59, 310, 71);
+
+        jLabel10.setText("jLabel10");
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(670, 400, 48, 16);
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alu2.jpg"))); // NOI18N
+        getContentPane().add(jLabel11);
+        jLabel11.setBounds(-2, 0, 810, 670);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -532,6 +465,8 @@ public class VypisyFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> denCombo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

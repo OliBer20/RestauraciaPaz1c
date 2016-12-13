@@ -116,6 +116,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         napojeButton = new javax.swing.JButton();
         vymazPredosluButton = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,15 +133,27 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(653, 635));
+        setPreferredSize(new java.awt.Dimension(637, 582));
+        getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 21)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Jedlo:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(12, 76, 55, 26);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 21)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nápoj:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(12, 127, 61, 26);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 21)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Iné:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(12, 200, 38, 26);
 
         pridajObjednavkuButton.setText("Pridaj");
         pridajObjednavkuButton.addActionListener(new java.awt.event.ActionListener() {
@@ -148,22 +161,38 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 pridajObjednavkuButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(pridajObjednavkuButton);
+        pridajObjednavkuButton.setBounds(397, 80, 65, 25);
 
         ComboJedla.setForeground(new java.awt.Color(102, 102, 102));
         ComboJedla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vyber Jedlo:" }));
+        getContentPane().add(ComboJedla);
+        ComboJedla.setBounds(94, 81, 271, 22);
 
         ComboNapoje.setForeground(new java.awt.Color(102, 102, 102));
         ComboNapoje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vyber Nápoj:" }));
+        getContentPane().add(ComboNapoje);
+        ComboNapoje.setBounds(91, 132, 166, 22);
+        getContentPane().add(IneZapisCenu);
+        IneZapisCenu.setBounds(251, 205, 73, 22);
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Cena:");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(268, 177, 34, 16);
 
         IneZapisNazov.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IneZapisNazovActionPerformed(evt);
             }
         });
+        getContentPane().add(IneZapisNazov);
+        IneZapisNazov.setBounds(92, 205, 125, 22);
 
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Názov:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(129, 177, 39, 16);
 
         informaciaText.setEditable(false);
         informaciaText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -174,11 +203,16 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 informaciaTextActionPerformed(evt);
             }
         });
+        getContentPane().add(informaciaText);
+        informaciaText.setBounds(12, 546, 613, 33);
 
         infoLabel.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        infoLabel.setForeground(new java.awt.Color(255, 255, 255));
         infoLabel.setText("Informácia:");
+        getContentPane().add(infoLabel);
+        infoLabel.setBounds(276, 520, 86, 19);
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel1.setBackground(new java.awt.Color(255, 0, 0));
 
         jLabel4.setFont(new java.awt.Font("Tekton Pro Cond", 1, 28)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -219,7 +253,10 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 102, 0));
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 13, 625, 56);
+
+        jPanel2.setBackground(new java.awt.Color(255, 0, 0));
 
         denneMenuButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         denneMenuButton.setText("Denné Menu");
@@ -266,9 +303,13 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 .addComponent(DeleteAllButton)
                 .addGap(18, 18, 18)
                 .addComponent(vypisObjednavkyButton)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(486, 76, 139, 140);
+
+        ObjednavkyTable.setFont(new java.awt.Font("Segoe UI Historic", 1, 13)); // NOI18N
         ObjednavkyTable.setModel(new ObjednavkaTableModel());
         ObjednavkyTable.setFocusable(false);
         ObjednavkyTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -278,12 +319,21 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(ObjednavkyTable);
 
+        getContentPane().add(jScrollPane3);
+        jScrollPane3.setBounds(12, 296, 613, 211);
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(12, 112, 462, 2);
+        getContentPane().add(jSeparator2);
+        jSeparator2.setBounds(12, 168, 462, 2);
+
         pridajNapojButton.setText("Pridaj");
         pridajNapojButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pridajNapojButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(pridajNapojButton);
+        pridajNapojButton.setBounds(397, 131, 65, 25);
 
         pridajIneButton.setText("Pridaj");
         pridajIneButton.addActionListener(new java.awt.event.ActionListener() {
@@ -291,13 +341,19 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 pridajIneButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(pridajIneButton);
+        pridajIneButton.setBounds(396, 204, 65, 25);
 
         vymazatCombo.setForeground(new java.awt.Color(102, 102, 102));
         vymazatCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Objednávky", "Ceny jedál", "Denné Menu", "Zoznam jedál", "Výpisy" }));
+        getContentPane().add(vymazatCombo);
+        vymazatCombo.setBounds(133, 254, 180, 22);
 
         jLabel7.setFont(new java.awt.Font("Source Sans Pro Semibold", 0, 15)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Vymazať všetky:");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(12, 258, 103, 16);
 
         okButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         okButton.setForeground(new java.awt.Color(255, 0, 0));
@@ -307,6 +363,10 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 okButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(okButton);
+        okButton.setBounds(331, 253, 49, 25);
+        getContentPane().add(jSeparator3);
+        jSeparator3.setBounds(12, 236, 462, 10);
 
         napojeButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         napojeButton.setForeground(new java.awt.Color(0, 153, 0));
@@ -316,8 +376,10 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 napojeButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(napojeButton);
+        napojeButton.setBounds(264, 131, 102, 25);
 
-        vymazPredosluButton.setBackground(new java.awt.Color(255, 102, 0));
+        vymazPredosluButton.setBackground(new java.awt.Color(255, 0, 0));
         vymazPredosluButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         vymazPredosluButton.setForeground(new java.awt.Color(255, 255, 255));
         vymazPredosluButton.setText("Vymaž predošlu objednavku");
@@ -326,130 +388,12 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 vymazPredosluButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(vymazPredosluButton);
+        vymazPredosluButton.setBounds(410, 253, 215, 25);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(informaciaText)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSeparator3)
-                                    .addComponent(jSeparator1)
-                                    .addComponent(jSeparator2)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel3)
-                                                    .addComponent(jLabel1)
-                                                    .addComponent(jLabel2))
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                            .addGap(19, 19, 19)
-                                                            .addComponent(IneZapisNazov, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addGap(34, 34, 34)
-                                                            .addComponent(IneZapisCenu, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addGap(41, 41, 41))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                            .addGap(21, 21, 21)
-                                                            .addComponent(ComboJedla, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(ComboNapoje, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(napojeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(117, 117, 117)
-                                                .addComponent(jLabel6)
-                                                .addGap(100, 100, 100)
-                                                .addComponent(jLabel5)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(pridajIneButton)
-                                                .addGap(13, 13, 13))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(pridajNapojButton)
-                                                    .addComponent(pridajObjednavkuButton))
-                                                .addGap(12, 12, 12)))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(vymazatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(okButton)
-                                .addGap(30, 30, 30)
-                                .addComponent(vymazPredosluButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(276, 276, 276)
-                        .addComponent(infoLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(ComboJedla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pridajObjednavkuButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(ComboNapoje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(napojeButton))
-                            .addComponent(pridajNapojButton, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(12, 12, 12)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(IneZapisNazov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(IneZapisCenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pridajIneButton))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vymazatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(okButton)
-                    .addComponent(vymazPredosluButton))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(infoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(informaciaText, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alu2.jpg"))); // NOI18N
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(0, 0, 640, 590);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -711,6 +655,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;

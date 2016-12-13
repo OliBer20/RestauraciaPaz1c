@@ -6,7 +6,8 @@ import javax.swing.table.AbstractTableModel;
 
 public class ObjednavkaTableModel extends AbstractTableModel {
 
-    private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
+    // private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
+    private zobrazenieDnesnychObjednavokDao dnesneObjednavky = ObjectFactory.INSTANCE.getDnesneObjednavky();
 
     private static final String[] NAZVY_STLPCOV = {"Popis", "Cena", "Datum"};
 
@@ -14,18 +15,17 @@ public class ObjednavkaTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return objednavkaDao.dajObjednavky().size();
+        return dnesneObjednavky.dajDnesneObjednavky().size();
     }
 
     @Override
     public int getColumnCount() {
         return POCET_STLPCOV;
     }
- 
-    
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Objednavka o = objednavkaDao.dajObjednavky().get(rowIndex);
+        Objednavka o = dnesneObjednavky.dajDnesneObjednavky().get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return o.getNazovJedla();
@@ -44,7 +44,7 @@ public class ObjednavkaTableModel extends AbstractTableModel {
     }
 
     public Objednavka dajKliknutuObjednavku(int rowIndex) {
-        Objednavka o = objednavkaDao.dajObjednavky().get(rowIndex);
+        Objednavka o = dnesneObjednavky.dajDnesneObjednavky().get(rowIndex);
         aktualizovat();
         return o;
     }

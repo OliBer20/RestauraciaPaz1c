@@ -26,12 +26,24 @@ public class PridajNapojDialog extends javax.swing.JDialog {
         napojCombo = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         vymazButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(440, 168));
+        getContentPane().setLayout(null);
+        getContentPane().add(nazov);
+        nazov.setBounds(20, 32, 120, 22);
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Názov:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(58, 8, 39, 16);
+        getContentPane().add(cena);
+        cena.setBounds(182, 32, 91, 22);
 
         jLabel2.setText("Cena:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(205, 8, 34, 16);
 
         pridajButton.setBackground(new java.awt.Color(51, 153, 0));
         pridajButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -41,18 +53,26 @@ public class PridajNapojDialog extends javax.swing.JDialog {
                 pridajButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(pridajButton);
+        pridajButton.setBounds(330, 30, 65, 25);
 
         jSeparator1.setForeground(new java.awt.Color(204, 0, 0));
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(0, 63, 442, 2);
 
         napojCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 napojComboActionPerformed(evt);
             }
         });
+        getContentPane().add(napojCombo);
+        napojCombo.setBounds(129, 77, 139, 22);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 51, 0));
         jLabel3.setText("Vymaž nápoj:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(12, 80, 88, 16);
 
         vymazButton.setBackground(new java.awt.Color(255, 51, 0));
         vymazButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -62,57 +82,12 @@ public class PridajNapojDialog extends javax.swing.JDialog {
                 vymazButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(vymazButton);
+        vymazButton.setBounds(330, 80, 69, 25);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addGap(29, 29, 29)
-                        .addComponent(napojCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(vymazButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel1)
-                        .addGap(108, 108, 108)
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(nazov, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(cena, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                        .addComponent(pridajButton)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nazov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pridajButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(napojCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vymazButton))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(-9, -10, 440, 140);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -197,6 +172,7 @@ public class PridajNapojDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox<String> napojCombo;
     private javax.swing.JTextField nazov;

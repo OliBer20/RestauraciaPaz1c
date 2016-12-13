@@ -114,6 +114,8 @@ public class prihlasenieForm extends javax.swing.JFrame {
         getContentPane().add(hesloText);
         hesloText.setBounds(230, 260, 110, 24);
 
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+
         bossButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/boss.png"))); // NOI18N
         bossButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,6 +142,8 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(70, 90, 160, 140);
+
+        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
         ostatniButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/people.png"))); // NOI18N
         ostatniButton.addActionListener(new java.awt.event.ActionListener() {
@@ -176,7 +180,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ostatniButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ostatniButtonActionPerformed
-        jPanel1.setBackground(null);
+        jPanel1.setBackground(new Color(102,102,102));
         jPanel2.setBackground(Color.RED);
         boss = false;
         others = true;
@@ -185,7 +189,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
     private void bossButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bossButtonActionPerformed
         jPanel1.setBackground(Color.RED);
-        jPanel2.setBackground(null);
+        jPanel2.setBackground(new Color(102,102,102));
         boss = true;
         others = false;
 
