@@ -35,6 +35,10 @@ public enum ObjectFactory {
     public NapojeDao getNapoje() {
         return new MysqlPridajNapojDao(getJdbcTemplate());
     }
+    
+    public HeslaDao getHesla(){
+        return new MysqlHeslaDao(getJdbcTemplate());
+    }
 
     private JdbcTemplate getJdbcTemplate() {
         if (jdbcTemplate == null) {

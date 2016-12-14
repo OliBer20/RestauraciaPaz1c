@@ -590,8 +590,8 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         prihlasenieForm p = new prihlasenieForm();
         p.setVisible(true);
-        
-        
+        dispose();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {

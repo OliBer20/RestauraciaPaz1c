@@ -14,17 +14,16 @@ import oliver_daniel.restauracia.zoznamObjednavokForm;
 
 public class prihlasenieForm extends javax.swing.JFrame {
 
-    private String bossHeslo = "boss123";
-    private String othersHeslo = "others123";
     private Boolean boss = false;
     private Boolean others = false;
+
+    private HeslaDao hesla = ObjectFactory.INSTANCE.getHesla();
 
     public prihlasenieForm() {
         initComponents();
 
     }
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -39,11 +38,11 @@ public class prihlasenieForm extends javax.swing.JFrame {
         bossButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         ostatniButton = new javax.swing.JButton();
-        pozadie = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImages(null);
-        setMaximumSize(new java.awt.Dimension(590, 500));
         setMinimumSize(new java.awt.Dimension(590, 500));
         getContentPane().setLayout(null);
 
@@ -157,15 +156,25 @@ public class prihlasenieForm extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(330, 90, 160, 140);
 
-        pozadie.setIcon(new javax.swing.ImageIcon(getClass().getResource("/restaur.jpg"))); // NOI18N
-        getContentPane().add(pozadie);
-        pozadie.setBounds(0, 0, 580, 450);
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jButton1.setText("Heslo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(250, 420, 67, 25);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/restaur.jpg"))); // NOI18N
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(1, 0, 610, 460);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ostatniButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ostatniButtonActionPerformed
-        jPanel1.setBackground(new Color(102,102,102));
+        jPanel1.setBackground(new Color(102, 102, 102));
         jPanel2.setBackground(Color.RED);
         boss = false;
         others = true;
@@ -174,7 +183,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
     private void bossButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bossButtonActionPerformed
         jPanel1.setBackground(Color.RED);
-        jPanel2.setBackground(new Color(102,102,102));
+        jPanel2.setBackground(new Color(102, 102, 102));
         boss = true;
         others = false;
 
@@ -216,7 +225,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
         String s = jPasswordField1.getText();
         jPasswordField1.setText(null);
         if (boss) {
-            if (bossHeslo.equals(s)) {
+            if (hesla.dajHeslo("boss").equals(s)) {
                 prihlasenyBoss();
                 zoznamObjednavokForm z = new zoznamObjednavokForm();
                 z.setVisible(true);
@@ -227,7 +236,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
             }
         } else if (others) {
-            if (othersHeslo.equals(s)) {
+            if (hesla.dajHeslo("others").equals(s)) {
                 prihlasenyOthers();
                 zoznamObjednavokForm z = new zoznamObjednavokForm();
                 z.setVisible(true);
@@ -253,7 +262,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
             String s = jPasswordField1.getText();
             jPasswordField1.setText(null);
             if (boss) {
-                if (bossHeslo.equals(s)) {
+                if (hesla.dajHeslo("boss").getHeslo().equals(s)) {
                     prihlasenyBoss();
                     zoznamObjednavokForm z = new zoznamObjednavokForm();
                     z.setVisible(true);
@@ -264,16 +273,15 @@ public class prihlasenieForm extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
                 }
             } else if (others) {
-                if (othersHeslo.equals(s)) {
+                if (hesla.dajHeslo("others").getHeslo().equals(s)) {
                     prihlasenyOthers();
                     zoznamObjednavokForm z = new zoznamObjednavokForm();
                     z.setVisible(true);
                     this.setVisible(false);
                     dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
                 }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Nesprávne heslo!!");
             }
 
         }
@@ -284,6 +292,13 @@ public class prihlasenieForm extends javax.swing.JFrame {
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ChangePasswordForm ch = new ChangePasswordForm(this, true);
+        ch.setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -331,13 +346,14 @@ public class prihlasenieForm extends javax.swing.JFrame {
     private javax.swing.JButton bossButton;
     private javax.swing.JLabel bossText;
     private javax.swing.JLabel hesloText;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JButton ostatniButton;
-    private javax.swing.JLabel pozadie;
     private javax.swing.JButton prihlasitsaButton;
     // End of variables declaration//GEN-END:variables
 }
