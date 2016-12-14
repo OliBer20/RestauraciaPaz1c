@@ -17,7 +17,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
     private Boolean boss = false;
     private Boolean others = false;
 
-    private HeslaDao hesla = ObjectFactory.INSTANCE.getHesla();
+    private UzivatelDao hesla = ObjectFactory.INSTANCE.getHesla();
 
     public prihlasenieForm() {
         initComponents();

@@ -1,7 +1,7 @@
 
 package oliver_daniel.restauracia;
 
-public interface HeslaDao {
+public interface UzivatelDao {
    
     uzivatel dajHeslo(String meno);
     

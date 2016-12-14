@@ -7,7 +7,7 @@ public class ChangePasswordForm extends javax.swing.JDialog {
 
     private boolean boss = false;
     private boolean others = false;
-    private HeslaDao hesla = ObjectFactory.INSTANCE.getHesla();
+    private UzivatelDao hesla = ObjectFactory.INSTANCE.getHesla();
 
     public ChangePasswordForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

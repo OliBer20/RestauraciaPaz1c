@@ -10,11 +10,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-public class MysqlHeslaDao implements HeslaDao {
+public class MysqlUzivatelDao implements UzivatelDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public MysqlHeslaDao(JdbcTemplate jdbcTemplate) {
+    public MysqlUzivatelDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

@@ -36,8 +36,8 @@ public enum ObjectFactory {
         return new MysqlPridajNapojDao(getJdbcTemplate());
     }
     
-    public HeslaDao getHesla(){
-        return new MysqlHeslaDao(getJdbcTemplate());
+    public UzivatelDao getHesla(){
+        return new MysqlUzivatelDao(getJdbcTemplate());
     }
 
     private JdbcTemplate getJdbcTemplate() {
