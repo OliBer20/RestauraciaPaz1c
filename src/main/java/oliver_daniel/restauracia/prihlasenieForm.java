@@ -43,7 +43,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImages(null);
-        setMinimumSize(new java.awt.Dimension(590, 500));
+        setMinimumSize(new java.awt.Dimension(570, 490));
         getContentPane().setLayout(null);
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -94,7 +94,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
         hesloText.setForeground(new java.awt.Color(255, 51, 51));
         hesloText.setText("password:");
         getContentPane().add(hesloText);
-        hesloText.setBounds(230, 260, 110, 24);
+        hesloText.setBounds(230, 260, 130, 32);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -168,7 +168,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/restaur.jpg"))); // NOI18N
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(1, 0, 610, 460);
+        jLabel3.setBounds(0, -10, 590, 480);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -294,7 +294,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ChangePasswordForm ch = new ChangePasswordForm(this, true);
+        ZmenaHeslaForm ch = new ZmenaHeslaForm(this, true);
         ch.setVisible(true);
         dispose();
 

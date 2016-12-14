@@ -19,12 +19,6 @@ public class MysqlUzivatelDao implements UzivatelDao {
     }
 
     @Override
-    public void odstranVsetko() {
-        jdbcTemplate.update("truncate hesla");
-
-    }
-
-    @Override
     public uzivatel dajHeslo(String meno) {
         String sql = "select heslo from hesla where meno = ?";
         BeanPropertyRowMapper<uzivatel> mapper = BeanPropertyRowMapper.newInstance(uzivatel.class);

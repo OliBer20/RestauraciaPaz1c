@@ -11,15 +11,14 @@ import junit.framework.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Daniel
- */
 public class MysqlPridajNapojDaoTest {
 
     private MysqlPridajNapojDao test = new MysqlPridajNapojDao(ObjectFactoryTest.INSTANCE.getJdbcTemplate());
+    private Napoj n = new Napoj();
 
     public MysqlPridajNapojDaoTest() {
+        n.setNazov("VodaPerliva");
+        n.setCena(1);
     }
 
     @Test
@@ -34,9 +33,6 @@ public class MysqlPridajNapojDaoTest {
 
         test.vymazVsetkyNapoje();
         List<Napoj> napoje = test.dajNapoje();
-        Napoj n = new Napoj();
-        n.setNazov("vodaperliva2");
-        n.setCena(2.2);
         test.pridajNapoj(n);
         List<Napoj> napojepo = test.dajNapoje();
         Assert.assertEquals(napoje.size() + 1, napojepo.size());
@@ -53,17 +49,11 @@ public class MysqlPridajNapojDaoTest {
     @Test
     public void testVymazNapoj() {
         test.vymazVsetkyNapoje();
-        Napoj n = new Napoj();
-        n.setNazov("vodaperliva2");
-        n.setCena(2.2);
         test.pridajNapoj(n);
         List<Napoj> napoje = test.dajNapoje();
-        Napoj n2 = new Napoj();
-        n2.setNazov("vodaperliva");
-        n2.setCena(2.2);
-        test.vymazNapoj(n2);
+        test.vymazNapoj(n);
         List<Napoj> napojepo = test.dajNapoje();
-        Assert.assertEquals(napoje.size(), napojepo.size());
+        Assert.assertEquals(napoje.size(), napojepo.size()+1);
 
     }
 

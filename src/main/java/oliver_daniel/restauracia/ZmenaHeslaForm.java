@@ -3,13 +3,13 @@ package oliver_daniel.restauracia;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
-public class ChangePasswordForm extends javax.swing.JDialog {
+public class ZmenaHeslaForm extends javax.swing.JDialog {
 
     private boolean boss = false;
     private boolean others = false;
     private UzivatelDao hesla = ObjectFactory.INSTANCE.getHesla();
 
-    public ChangePasswordForm(java.awt.Frame parent, boolean modal) {
+    public ZmenaHeslaForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -40,7 +40,7 @@ public class ChangePasswordForm extends javax.swing.JDialog {
             }
         });
         getContentPane().add(bossRadio);
-        bossRadio.setBounds(54, 18, 61, 25);
+        bossRadio.setBounds(54, 18, 59, 25);
 
         othersRadio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         othersRadio.setText("Others");
@@ -50,16 +50,16 @@ public class ChangePasswordForm extends javax.swing.JDialog {
             }
         });
         getContentPane().add(othersRadio);
-        othersRadio.setBounds(236, 18, 75, 25);
+        othersRadio.setBounds(236, 18, 73, 25);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Zmena hesla:");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(133, 61, 91, 17);
         getContentPane().add(stareHeslo);
-        stareHeslo.setBounds(112, 140, 126, 22);
+        stareHeslo.setBounds(112, 140, 126, 20);
         getContentPane().add(noveHeslo);
-        noveHeslo.setBounds(112, 224, 126, 22);
+        noveHeslo.setBounds(112, 224, 126, 20);
 
         ulozitButton.setBackground(new java.awt.Color(153, 153, 153));
         ulozitButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -75,15 +75,15 @@ public class ChangePasswordForm extends javax.swing.JDialog {
 
         jLabel2.setText("Staré heslo:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(142, 117, 70, 16);
+        jLabel2.setBounds(142, 117, 58, 14);
 
         jLabel3.setText("Nové heslo:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(143, 201, 67, 16);
+        jLabel3.setBounds(143, 201, 57, 14);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(1, -4, 400, 410);
+        jLabel4.setBounds(1, -24, 420, 420);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -149,20 +149,21 @@ public class ChangePasswordForm extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChangePasswordForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ZmenaHeslaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChangePasswordForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ZmenaHeslaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChangePasswordForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ZmenaHeslaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChangePasswordForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ZmenaHeslaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ChangePasswordForm dialog = new ChangePasswordForm(new javax.swing.JFrame(), true);
+                ZmenaHeslaForm dialog = new ZmenaHeslaForm(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

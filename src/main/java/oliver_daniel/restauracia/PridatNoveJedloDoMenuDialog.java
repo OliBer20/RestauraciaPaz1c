@@ -45,7 +45,7 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
         getContentPane().add(NazovButton);
         NazovButton.setBounds(10, 70, 387, 30);
         getContentPane().add(CenaButton);
-        CenaButton.setBounds(157, 135, 82, 22);
+        CenaButton.setBounds(157, 135, 82, 30);
 
         pridajButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         pridajButton.setForeground(new java.awt.Color(255, 51, 51));

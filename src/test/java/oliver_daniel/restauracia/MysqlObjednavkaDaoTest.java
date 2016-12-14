@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package  oliver_daniel.restauracia;
+package oliver_daniel.restauracia;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -12,77 +12,62 @@ import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Daniel
- */
 public class MysqlObjednavkaDaoTest {
-    
 
-    
+    private MysqlObjednavkaDao test = new MysqlObjednavkaDao(ObjectFactoryTest.INSTANCE.getJdbcTemplate());
+    private Objednavka testobjednavka = new Objednavka();
+
     public MysqlObjednavkaDaoTest() {
+        testobjednavka.setId(0);
+        testobjednavka.setNazovJedla("testjedlo");
+        testobjednavka.setCenaJedla(3);
+        testobjednavka.setCasObjednavky(new Date(2016 - 1900, Calendar.JANUARY, 1));
     }
 
     @Test
     public void testDajObjednavky() {
-        MysqlObjednavkaDao mysqlobjednavkadao = new MysqlObjednavkaDao(ObjectFactoryTest.INSTANCE.getJdbcTemplate());
-        List<Objednavka> objednavka = mysqlobjednavkadao.dajObjednavky();
-        
-            Assert.assertEquals(2, objednavka.size());     
+        test.odstranVsetko();
+        List<Objednavka> objednavka = test.dajObjednavky();
+        Assert.assertEquals(0, objednavka.size());
     }
-  @Test
+
+    @Test
     public void testPridaj() {
-        MysqlObjednavkaDao mysqlobjednavkaDao = new MysqlObjednavkaDao(ObjectFactoryTest.INSTANCE.getJdbcTemplate());
-        List<Objednavka> objednavky = mysqlobjednavkaDao.dajObjednavky();
-        int pocetobjednavok = objednavky.size();
-        Objednavka testobjednavka = new Objednavka();
-        testobjednavka.setId(0);
-        testobjednavka.setCenaJedla(2.5);
-        testobjednavka.setNazovJedla("test");
-        testobjednavka.setCasObjednavky(new Date(2016 - 1900, Calendar.JANUARY, 1));
-        mysqlobjednavkaDao.pridaj(testobjednavka);
-        
-        List<Objednavka> objednavky2 = mysqlobjednavkaDao.dajObjednavky();
-        int pocetobjednavokpopridani = objednavky2.size();
-        
-        Assert.assertEquals(pocetobjednavokpopridani,pocetobjednavok+1);
-        
+        List<Objednavka> objednavky = test.dajObjednavky();
+        test.odstranVsetko();
+        test.pridaj(testobjednavka);
+        List<Objednavka> objednavkypo = test.dajObjednavky();
+        Assert.assertEquals(objednavkypo.size(), objednavky.size() + 1);
+
     }
+
     @Test
     public void testOdstran() {
-        
-    MysqlObjednavkaDao obdao = new MysqlObjednavkaDao(ObjectFactoryTest.INSTANCE.getJdbcTemplate());
-      Objednavka testobjednavka = new Objednavka();
-        testobjednavka.setId(0);
-        testobjednavka.setCenaJedla(2.5);
-        testobjednavka.setNazovJedla("test");
-        testobjednavka.setCasObjednavky(new Date(2016 - 1900, Calendar.JANUARY, 1));
-                   
+        test.odstranVsetko();
+        test.pridaj(testobjednavka);
+        List<Objednavka> objednavka = test.dajObjednavky();
+        test.Odstran(testobjednavka);
+        List<Objednavka> objednavka2 = test.dajObjednavky();
+       
+        Assert.assertEquals(objednavka.size(), objednavka2.size());
 
-          obdao.pridaj(testobjednavka);
-          List<Objednavka> objednavka = obdao.dajObjednavky();
-          int pocetobjednavok = objednavka.size();
-          obdao.Odstran(testobjednavka);
-          List<Objednavka> objednavky2 = obdao.dajObjednavky();
-          int pocetobjednavok2 = objednavky2.size();
-          assertEquals(pocetobjednavok, pocetobjednavok2);
-        
     }
+
     @Test
     public void testOdstranVsetko() {
-                MysqlObjednavkaDao mysqlobjednavkaDao = new MysqlObjednavkaDao(ObjectFactoryTest.INSTANCE.getJdbcTemplate());
-                mysqlobjednavkaDao.odstranVsetko();
-                List<Objednavka> objednavky = mysqlobjednavkaDao.dajObjednavky();
-                int pocetobjednavok = objednavky.size();
-                Assert.assertEquals(0,pocetobjednavok);           
+        test.odstranVsetko();
+        List<Objednavka> objednavky = test.dajObjednavky();
+        
+        Assert.assertEquals(0, objednavky.size());
     }
-     public void testvymazPredosluObjednavku() {
-         MysqlObjednavkaDao mysqlobjednavkaDao = new MysqlObjednavkaDao(ObjectFactoryTest.INSTANCE.getJdbcTemplate());         
-       List<Objednavka> objednavkypred = mysqlobjednavkaDao.dajObjednavky();
-         int pocetobjpred = objednavkypred.size();
-         mysqlobjednavkaDao.vymazPredosluObjednavku();
-         List<Objednavka> objednavky = mysqlobjednavkaDao.dajObjednavky();
-         int pocetobj = objednavky.size();
-         Assert.assertEquals(pocetobjpred, pocetobj+1);
-     }
+    @Test
+    public void testvymazPredosluObjednavku() {
+        test.odstranVsetko();
+        test.pridaj(testobjednavka);
+        List<Objednavka> objednavkypred = test.dajObjednavky();
+        test.vymazPredosluObjednavku();
+        List<Objednavka> objednavky = test.dajObjednavky();
+        
+        Assert.assertEquals(objednavkypred.size(),objednavky.size() + 1);
+    }
 }

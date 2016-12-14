@@ -42,7 +42,7 @@ public class MysqlDenneMenuDaoTest {
        List<String> pred = test.ziskajDenneMenu();
        test.pridaj("salat");
        List<String> po = test.ziskajDenneMenu();
-       Assert.assertEquals(pred.size(), po.size());           
+       Assert.assertEquals(pred.size()+1, po.size());           
     }
     @Test
     public void testOdober() {

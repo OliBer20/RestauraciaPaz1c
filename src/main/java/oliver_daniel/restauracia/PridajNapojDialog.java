@@ -127,6 +127,7 @@ public class PridajNapojDialog extends javax.swing.JDialog {
         n.setNazov(napoj);
         napoje.vymazNapoj(n);
         aktualizujNapojCombo();
+         zozObj.aktualizujNapoje();
 
     }//GEN-LAST:event_vymazButtonActionPerformed
     

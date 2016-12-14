@@ -1,6 +1,6 @@
 package oliver_daniel.restauracia;
 
-public class siSiTymIstyDialog extends javax.swing.JDialog {
+public class overenieVymazaniaDialog extends javax.swing.JDialog {
 
     private DenneMenuDao dMenu = ObjectFactory.INSTANCE.getDenneMenu();
     private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
@@ -12,7 +12,7 @@ public class siSiTymIstyDialog extends javax.swing.JDialog {
     private String db;
     private zoznamObjednavokForm zozObj;
 
-    public siSiTymIstyDialog(java.awt.Frame parent, boolean modal, String databaza, zoznamObjednavokForm z) {
+    public overenieVymazaniaDialog(java.awt.Frame parent, boolean modal, String databaza, zoznamObjednavokForm z) {
         super(parent, modal);
         initComponents();
         db = databaza;
@@ -25,6 +25,7 @@ public class siSiTymIstyDialog extends javax.swing.JDialog {
         if (db.equals("Objednavky")) {
             objednavky.odstranVsetko();
             zozObj.aktualizovatZoznamObjednavok();
+            zozObj.aktualizovatDenneMenu();
             zozObj.nastavText("Vymazana databaza objednavok!");
         }
         if (db.equals("Ceny")) {
@@ -34,11 +35,13 @@ public class siSiTymIstyDialog extends javax.swing.JDialog {
         }
         if (db.equals("Denne menu")) {
             dMenu.vymazVsetko();
+            zozObj.aktualizovatDenneMenu();
             zozObj.aktualizovatZoznamObjednavok();
             zozObj.nastavText("Vymazana databaza denneho menu!");
         }
         if (db.equals("Zoznam jedal")) {
             zoznamJedal.vymazVsetko();
+            zozObj.aktualizovatDenneMenu();
             zozObj.aktualizovatZoznamObjednavok();
             zozObj.nastavText("Vymazana databaza zoznamu jedal!");
         }
@@ -46,7 +49,12 @@ public class siSiTymIstyDialog extends javax.swing.JDialog {
             vypis.vymazVsetkyJedla();
             zozObj.aktualizovatZoznamObjednavok();
             zozObj.nastavText("Vymazana databaza vypisov");
-
+        }
+         if (db.equals("Napoje")) {
+            napoje.vymazVsetkyNapoje();
+            zozObj.aktualizovatZoznamObjednavok();
+            zozObj.aktualizujNapoje();
+            zozObj.nastavText("Vymazana databaza napojov");
         }
 
     }
@@ -132,7 +140,7 @@ public class siSiTymIstyDialog extends javax.swing.JDialog {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(12, 13, 224, 91);
+        jPanel1.setBounds(12, 13, 224, 85);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
         getContentPane().add(jLabel3);
@@ -170,14 +178,15 @@ public class siSiTymIstyDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(siSiTymIstyDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(overenieVymazaniaDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(siSiTymIstyDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(overenieVymazaniaDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(siSiTymIstyDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(overenieVymazaniaDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(siSiTymIstyDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(overenieVymazaniaDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
@@ -186,7 +195,7 @@ public class siSiTymIstyDialog extends javax.swing.JDialog {
             private zoznamObjednavokForm zozObj;
 
             public void run() {
-                siSiTymIstyDialog dialog = new siSiTymIstyDialog(new javax.swing.JFrame(), true, this.s, this.zozObj);
+                overenieVymazaniaDialog dialog = new overenieVymazaniaDialog(new javax.swing.JFrame(), true, this.s, this.zozObj);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
