@@ -7,6 +7,10 @@ public enum ObjectFactory {
     INSTANCE;
 
     private JdbcTemplate jdbcTemplate;
+    
+    public NapojeDao getCenyNapojovDao(){
+        return new MysqlCenyNapojovDao(getJdbcTemplate());
+    }
 
     public ObjednavkyDao getObjednavkaDao() {
         return new MysqlObjednavkaDao(getJdbcTemplate());

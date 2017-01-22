@@ -7,10 +7,10 @@ import javax.swing.JOptionPane;
 
 public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
 
-    private jedloSCenouDao cena = ObjectFactory.INSTANCE.getCenyDao();
-    private VsetkyJedlaDao menu = ObjectFactory.INSTANCE.getMenu();
-    private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
-    private DenneMenuDao denneMenu = ObjectFactory.INSTANCE.getDenneMenu();
+    private jedloSCenouDao cena_jedla = ObjectFactory.INSTANCE.getCenyDao();
+    private VsetkyJedlaDao zoznam_jedal = ObjectFactory.INSTANCE.getMenu();
+    private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
+    private DenneMenuDao jedla_v_dennom_menu = ObjectFactory.INSTANCE.getDenneMenu();
 
     private MenuForm m;
 
@@ -94,13 +94,14 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
         }
 
         if (zadaneUdaje) {
-            menu.pridaj(nazov);
+            zoznam_jedal.pridaj(nazov);
             jedloSCenou j = new jedloSCenou();
             j.setCena(cena);
             j.setJedlo(nazov);
-            this.cena.pridajJedlo(j);
+            this.cena_jedla.pridajJedlo(j);
 
             m.AktualizujMenu();
+            m.AktualizujComboBox();
             dispose();
 
         } else {

@@ -12,11 +12,20 @@ import javax.swing.JOptionPane;
 
 public class jedloSCenou  {
 
+    private Long id;
     private String jedlo;
     private double cena;
 
     public double getCena() {
         return cena;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getJedlo() {

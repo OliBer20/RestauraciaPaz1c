@@ -16,10 +16,10 @@ import javax.swing.JOptionPane;
 
 public class MenuForm extends javax.swing.JFrame {
 
-    private VsetkyJedlaDao menu = ObjectFactory.INSTANCE.getMenu();
-    private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
-    private DenneMenuDao denneMenu = ObjectFactory.INSTANCE.getDenneMenu();
-     private jedloSCenouDao cena = ObjectFactory.INSTANCE.getCenyDao();
+    private VsetkyJedlaDao zoznam_jedal = ObjectFactory.INSTANCE.getMenu();
+    private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
+    private DenneMenuDao jedla_v_dennom_menu = ObjectFactory.INSTANCE.getDenneMenu();
+     private jedloSCenouDao ceny_jedal = ObjectFactory.INSTANCE.getCenyDao();
 
     zoznamObjednavokForm zoznamObjednavok;
 
@@ -84,13 +84,13 @@ public class MenuForm extends javax.swing.JFrame {
     }
 
     private void odstranZDennehoMenu(String jedlo) {
-        denneMenu.odober(jedlo);
+        jedla_v_dennom_menu.odober(jedlo);
         AktualizujDenneMenu();
 
     }
 
     public void presunJedloDoDennehoMEnu(String jedlo) {
-        denneMenu.pridaj(jedlo);
+        jedla_v_dennom_menu.pridaj(jedlo);
         AktualizujDenneMenu();
 
     }
@@ -247,7 +247,7 @@ public class MenuForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void vymazDenneMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazDenneMenuButtonActionPerformed
-        denneMenu.vymazVsetko();
+        jedla_v_dennom_menu.vymazVsetko();
         AktualizujDenneMenu();
 
     }//GEN-LAST:event_vymazDenneMenuButtonActionPerformed
@@ -267,13 +267,13 @@ public class MenuForm extends javax.swing.JFrame {
     private void vymazOznActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazOznActionPerformed
 
        String jedlo = vyberJedlo.getSelectedItem().toString();
-       menu.odober(jedlo);
+       zoznam_jedal.odober(jedlo);
        
        jedloSCenou j = new jedloSCenou();
        j.setJedlo(jedlo);
-       cena.vymazJedlo(j);
+       ceny_jedal.vymazJedlo(j);
        
-       denneMenu.odober(jedlo);
+       jedla_v_dennom_menu.odober(jedlo);
        AktualizujComboBox();
        AktualizujDenneMenu();
        AktualizujMenu();
@@ -291,7 +291,7 @@ public class MenuForm extends javax.swing.JFrame {
     public void AktualizujComboBox() {
         vyberJedlo.removeAllItems();
         vyberJedlo.addItem("Vyber jedlo:");
-        List<String> menu = this.menu.ziskajVsetkyJedla();
+        List<String> menu = this.zoznam_jedal.ziskajVsetkyJedla();
         for (String jedlo : menu) {
             vyberJedlo.addItem(jedlo);
         }
@@ -300,7 +300,7 @@ public class MenuForm extends javax.swing.JFrame {
     }
 
     public void AktualizujDenneMenu() {
-        List<String> DenneMenu = denneMenu.ziskajDenneMenu();
+        List<String> DenneMenu = jedla_v_dennom_menu.ziskajDenneMenu();
         String[] celeMenuPole = new String[DenneMenu.size()];
         for (int i = 0; i < DenneMenu.size(); i++) {
             celeMenuPole[i] = DenneMenu.get(i);
@@ -311,7 +311,7 @@ public class MenuForm extends javax.swing.JFrame {
     }
 
     public void AktualizujMenu() {
-        List<String> menu = this.menu.ziskajVsetkyJedla();
+        List<String> menu = this.zoznam_jedal.ziskajVsetkyJedla();
         String[] celeMenuPole = new String[menu.size()];
         for (int i = 0; i < menu.size(); i++) {
             celeMenuPole[i] = menu.get(i);

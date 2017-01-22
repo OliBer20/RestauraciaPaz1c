@@ -23,12 +23,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class zoznamObjednavokForm extends javax.swing.JFrame {
 
-    private DenneMenuDao dMenu = ObjectFactory.INSTANCE.getDenneMenu();
+    private DenneMenuDao jedla_v_dennom_menu = ObjectFactory.INSTANCE.getDenneMenu();
     private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
-    private jedloSCenouDao ceny = ObjectFactory.INSTANCE.getCenyDao();
-    private vypisDao vypis = ObjectFactory.INSTANCE.getVypis();
-    private VsetkyJedlaDao zoznamJedal = ObjectFactory.INSTANCE.getMenu();
-    private NapojeDao napoje = ObjectFactory.INSTANCE.getNapoje();
+    private jedloSCenouDao ceny_jedal = ObjectFactory.INSTANCE.getCenyDao();
+    private NapojeDao ceny_napojov = ObjectFactory.INSTANCE.getCenyNapojovDao();
+    private vypisDao vypisy = ObjectFactory.INSTANCE.getVypis();
+    private VsetkyJedlaDao zoznam_jedal = ObjectFactory.INSTANCE.getMenu();
+    private NapojeDao zoznam_napojov = ObjectFactory.INSTANCE.getNapoje();
 
     private boolean vymazanePredosle = false;
 
@@ -80,7 +81,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     public void aktualizovatDenneMenu() {
         ComboJedla.removeAllItems();
         ComboJedla.addItem("Vyber polozku:");
-        for (String j : dMenu.ziskajDenneMenu()) {
+        for (String j : jedla_v_dennom_menu.ziskajDenneMenu()) {
             ComboJedla.addItem(j);
         }
 
@@ -177,24 +178,24 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
         });
         getContentPane().add(pridajObjednavkuButton);
-        pridajObjednavkuButton.setBounds(397, 80, 70, 23);
+        pridajObjednavkuButton.setBounds(397, 80, 70, 25);
 
         ComboJedla.setForeground(new java.awt.Color(102, 102, 102));
         ComboJedla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vyber Jedlo:" }));
         getContentPane().add(ComboJedla);
-        ComboJedla.setBounds(94, 81, 271, 20);
+        ComboJedla.setBounds(94, 81, 271, 22);
 
         ComboNapoje.setForeground(new java.awt.Color(102, 102, 102));
         ComboNapoje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vyber Nápoj:" }));
         getContentPane().add(ComboNapoje);
-        ComboNapoje.setBounds(91, 132, 166, 20);
+        ComboNapoje.setBounds(91, 132, 166, 22);
         getContentPane().add(IneZapisCenu);
-        IneZapisCenu.setBounds(251, 205, 73, 20);
+        IneZapisCenu.setBounds(251, 205, 73, 22);
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Cena:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(268, 177, 50, 14);
+        jLabel5.setBounds(268, 177, 50, 16);
 
         IneZapisNazov.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,12 +203,12 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
         });
         getContentPane().add(IneZapisNazov);
-        IneZapisNazov.setBounds(92, 205, 125, 20);
+        IneZapisNazov.setBounds(92, 205, 125, 22);
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Názov:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(129, 177, 50, 14);
+        jLabel6.setBounds(129, 177, 50, 16);
 
         informaciaText.setEditable(false);
         informaciaText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -263,7 +264,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 13, 625, 62);
+        jPanel1.setBounds(0, 13, 625, 56);
 
         jPanel2.setBackground(new java.awt.Color(255, 0, 0));
 
@@ -331,7 +332,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
         });
         getContentPane().add(pridajNapojButton);
-        pridajNapojButton.setBounds(397, 131, 70, 23);
+        pridajNapojButton.setBounds(397, 131, 70, 25);
 
         pridajIneButton.setText("Pridaj");
         pridajIneButton.addActionListener(new java.awt.event.ActionListener() {
@@ -340,23 +341,23 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
         });
         getContentPane().add(pridajIneButton);
-        pridajIneButton.setBounds(396, 204, 70, 23);
+        pridajIneButton.setBounds(396, 204, 70, 25);
 
         vymazatCombo.setForeground(new java.awt.Color(102, 102, 102));
-        vymazatCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Objednávky", "Ceny jedál", "Denné Menu", "Zoznam jedál", "Výpisy", "Napoje" }));
+        vymazatCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Objednávky", "Ceny jedál", "Ceny nápojov", "Denné Menu", "Zoznam jedál", "Výpisy", "Napoje" }));
         vymazatCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vymazatComboActionPerformed(evt);
             }
         });
         getContentPane().add(vymazatCombo);
-        vymazatCombo.setBounds(130, 260, 180, 20);
+        vymazatCombo.setBounds(130, 260, 180, 22);
 
         jLabel7.setFont(new java.awt.Font("Source Sans Pro Semibold", 0, 15)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Vymazať všetky:");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(12, 258, 108, 20);
+        jLabel7.setBounds(12, 258, 103, 16);
 
         okButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         okButton.setForeground(new java.awt.Color(255, 0, 0));
@@ -405,10 +406,10 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_IneZapisNazovActionPerformed
 
-    private void vymazatComboActionPerformed(java.awt.event.ActionEvent evt){
-        
+    private void vymazatComboActionPerformed(java.awt.event.ActionEvent evt) {
+
     }
-    
+
     private void pridajObjednavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajObjednavkuButtonActionPerformed
 
         if (!ComboJedla.getSelectedItem().equals(ComboJedla.getItemAt(0))) {
@@ -419,7 +420,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             j.setJedlo(jedlo);
             o.setNazov(jedlo);
             o.setId(0);
-            double cena = (ceny.ziskajCenu(j));
+            double cena = (ceny_jedal.ziskajCenu(j));
             o.setCena(cena);
             o.setCasObjednavky(null);
 
@@ -504,7 +505,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     public void aktualizujNapoje() {
         ComboNapoje.removeAllItems();
         ComboNapoje.addItem("Vyber Nápoj:");
-        List<Napoj> nap = napoje.dajNapoje();
+        List<Napoj> nap = zoznam_napojov.dajNapoje();
         for (Napoj s : nap) {
             ComboNapoje.addItem(s.getNapoj());
         }
@@ -515,11 +516,11 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         if (!ComboNapoje.getSelectedItem().toString().equals(ComboNapoje.getItemAt(0))) {
             String napoj = ComboNapoje.getSelectedItem().toString();
             Objednavka o = new Objednavka();
-            jedloSCenou j = new jedloSCenou();
-            j.setJedlo(napoj);
+            Napoj n = new Napoj();
+            n.setNapoj(napoj);
             o.setNazov(napoj);
             o.setId(0);
-            double cena = (ceny.ziskajCenu(j));
+            double cena = (ceny_napojov.ziskajCenu(n));
             o.setCena(cena);
             o.setCasObjednavky(null);
 
@@ -553,21 +554,30 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             s.setVisible(true);
         }
         if (index == 1) {
-            overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Ceny", this);
+            overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Ceny jedal", this);
             s.setVisible(true);
         }
         if (index == 2) {
-            overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Denne menu", this);
+            overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Ceny napojov", this);
             s.setVisible(true);
         }
         if (index == 3) {
-            overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Zoznam jedal", this);
+            overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Denne menu", this);
             s.setVisible(true);
         }
         if (index == 4) {
+            overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Zoznam jedal", this);
+            s.setVisible(true);
+        }
+        if (index == 5) {
             overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Vypisy", this);
             s.setVisible(true);
         }
+        if (index == 6) {
+            overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Napoje", this);
+            s.setVisible(true);
+        }
+
 
     }//GEN-LAST:event_okButtonActionPerformed
 

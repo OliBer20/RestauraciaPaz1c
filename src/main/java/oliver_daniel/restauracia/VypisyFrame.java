@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 public class VypisyFrame extends javax.swing.JFrame {
 
-    private vypisDao vypis = ObjectFactory.INSTANCE.getVypis();
+    private vypisDao vypisy = ObjectFactory.INSTANCE.getVypis();
     private String zobrazeneObjednavky = "Zobrazene objednavky na: ";
     private zoznamObjednavokForm zozObj;
     
@@ -298,10 +298,10 @@ public class VypisyFrame extends javax.swing.JFrame {
         int rok = Integer.parseInt(rokCombo.getSelectedItem().toString());
         int mesiac = Integer.parseInt(mesiacCombo.getSelectedItem().toString());
         int den = Integer.parseInt(denCombo.getSelectedItem().toString());
-        vypis.vymazVsetkyJedla();
-        List<Objednavka> objednavky = vypis.dajPodlaDatumu(rok, mesiac, den);
+        vypisy.vymazVsetkyJedla();
+        List<Objednavka> objednavky = vypisy.dajPodlaDatumu(rok, mesiac, den);
         for (Objednavka objednavka : objednavky) {
-            vypis.pridajObjednavku(objednavka);
+            vypisy.pridajObjednavku(objednavka);
         }
         aktualizovatTabulku();
         zobrazeneObjednavky = "Zobrazene objednavky na: " + Integer.toString(den) + "." + Integer.toString(mesiac) + "." + Integer.toString(rok);
@@ -318,10 +318,10 @@ public class VypisyFrame extends javax.swing.JFrame {
         int den = cal.get(Calendar.DAY_OF_MONTH);
         zobrazeneObjednavky = "Zobrazene objednavky na den: " + Integer.toString(den) + "." + Integer.toString(mesiac) + "." + Integer.toString(year);
         vypisZarobku.setText(zobrazeneObjednavky);
-        vypis.vymazVsetkyJedla();
-        List<Objednavka> objednavky = vypis.dajDnesneObjednavky();
+        vypisy.vymazVsetkyJedla();
+        List<Objednavka> objednavky = vypisy.dajDnesneObjednavky();
         for (Objednavka objednavka : objednavky) {
-            vypis.pridajObjednavku(objednavka);
+            vypisy.pridajObjednavku(objednavka);
         }
         aktualizovatTabulku();
 
@@ -368,10 +368,10 @@ public class VypisyFrame extends javax.swing.JFrame {
             mesiac = 12;
         }
 
-        vypis.vymazVsetkyJedla();
-        List<Objednavka> objednavky = vypis.dajPodlaMesiaca(year, mesiac);
+        vypisy.vymazVsetkyJedla();
+        List<Objednavka> objednavky = vypisy.dajPodlaMesiaca(year, mesiac);
         for (Objednavka objednavka : objednavky) {
-            vypis.pridajObjednavku(objednavka);
+            vypisy.pridajObjednavku(objednavka);
         }
         aktualizovatTabulku();
         zobrazeneObjednavky = "Zobrazene objednavky na: " + mesiacZobraz.getSelectedItem().toString();
@@ -381,7 +381,7 @@ public class VypisyFrame extends javax.swing.JFrame {
     private void zarobkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zarobkyButtonActionPerformed
         double zarobok = 0.0;
         int pocet = 0;
-        List<Objednavka> objednavky = vypis.dajVsetkyObjednavky();
+        List<Objednavka> objednavky = vypisy.dajVsetkyObjednavky();
         for (Objednavka objednavka : objednavky) {
             zarobok += objednavka.getCena();
             pocet++;
@@ -393,10 +393,10 @@ public class VypisyFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int rok = Integer.parseInt(rokZobraz.getSelectedItem().toString());
-        vypis.vymazVsetkyJedla();
-        List<Objednavka> objednavky = vypis.dajPodlaRoka(rok);
+        vypisy.vymazVsetkyJedla();
+        List<Objednavka> objednavky = vypisy.dajPodlaRoka(rok);
         for (Objednavka objednavka : objednavky) {
-            vypis.pridajObjednavku(objednavka);
+            vypisy.pridajObjednavku(objednavka);
         }
         aktualizovatTabulku();
         zobrazeneObjednavky = "Zobrazene objednavky na: " + rokZobraz.getSelectedItem().toString();
@@ -415,7 +415,7 @@ public class VypisyFrame extends javax.swing.JFrame {
             if (objednavka.getId() == (valueAt)) {
                 zobrazeneObjednavky = "Vymazana objednavka: " + objednavka.getNazov() + " " + objednavka.getCena();
                 objednavky.remove(objednavka);
-                vypis.Odstran(objednavka);
+                vypisy.Odstran(objednavka);
                 obj.Odstran(objednavka);
                 aktualizovatTabulku();
                 vypisZarobku.setText(zobrazeneObjednavky);

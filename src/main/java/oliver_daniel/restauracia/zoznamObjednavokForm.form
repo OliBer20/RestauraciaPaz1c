@@ -441,13 +441,14 @@
           <Color blue="66" green="66" red="66" type="rgb"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
+          <StringArray count="7">
             <StringItem index="0" value="Objedn&#xe1;vky"/>
             <StringItem index="1" value="Ceny jed&#xe1;l"/>
-            <StringItem index="2" value="Denn&#xe9; Menu"/>
-            <StringItem index="3" value="Zoznam jed&#xe1;l"/>
-            <StringItem index="4" value="V&#xfd;pisy"/>
-            <StringItem index="5" value="Napoje"/>
+            <StringItem index="2" value="Ceny n&#xe1;pojov"/>
+            <StringItem index="3" value="Denn&#xe9; Menu"/>
+            <StringItem index="4" value="Zoznam jed&#xe1;l"/>
+            <StringItem index="5" value="V&#xfd;pisy"/>
+            <StringItem index="6" value="Napoje"/>
           </StringArray>
         </Property>
       </Properties>

@@ -1,11 +1,12 @@
 package oliver_daniel.restauracia;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class PridajNapojDialog extends javax.swing.JDialog {
     
-    private NapojeDao napoje = ObjectFactory.INSTANCE.getNapoje();
-    private jedloSCenouDao ceny = ObjectFactory.INSTANCE.getCenyDao();
+    private NapojeDao zoznam_napojov = ObjectFactory.INSTANCE.getNapoje();
+    private NapojeDao ceny_napojov = ObjectFactory.INSTANCE.getCenyNapojovDao();
     private zoznamObjednavokForm zozObj;
     
     public PridajNapojDialog(java.awt.Frame parent, boolean modal, zoznamObjednavokForm z) {
@@ -95,23 +96,29 @@ public class PridajNapojDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pridajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajButtonActionPerformed
-        Napoj n = new Napoj();
+
+        try {
+             Napoj n = new Napoj();
         n.setNapoj(nazov.getText());
         Double cena = Double.parseDouble(this.cena.getText());
         n.setCena(cena);
-        napoje.pridajNapoj(n);
+        zoznam_napojov.pridajNapoj(n);
+        ceny_napojov.pridajNapoj(n);
         
-        ceny.pridajNapoj(n);
         aktualizujNapojCombo();
         zozObj.aktualizujNapoje();
         nazov.setText(null);
         this.cena.setText(null);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Desatinne cislo zadavaj cez bodku!");
+        }
+       
 
     }//GEN-LAST:event_pridajButtonActionPerformed
     
     public void aktualizujNapojCombo() {
         napojCombo.removeAllItems();
-        List<Napoj> nap = napoje.dajNapoje();
+        List<Napoj> nap = zoznam_napojov.dajNapoje();
         for (Napoj n : nap) {
             napojCombo.addItem(n.getNapoj());
         }
@@ -125,7 +132,8 @@ public class PridajNapojDialog extends javax.swing.JDialog {
         Napoj n = new Napoj();
         String napoj = napojCombo.getSelectedItem().toString();
         n.setNapoj(napoj);
-        napoje.vymazNapoj(n);
+        zoznam_napojov.vymazNapoj(n);
+        ceny_napojov.vymazNapoj(n);
         aktualizujNapojCombo();
          zozObj.aktualizujNapoje();
 

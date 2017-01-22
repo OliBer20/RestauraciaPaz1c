@@ -11,7 +11,5 @@ public interface jedloSCenouDao {
     void vymazVsetkyJedla();
 
     double ziskajCenu(jedloSCenou j);
-    
-    void pridajNapoj(Napoj n);
 
 }

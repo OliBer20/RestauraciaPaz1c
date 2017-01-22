@@ -48,6 +48,11 @@ public class MysqlPridajNapojDao implements NapojeDao {
 
     }
 
+    @Override
+    public double ziskajCenu(Napoj n) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private class NapojeRowMapper implements RowMapper<Napoj> {
 
         @Override
