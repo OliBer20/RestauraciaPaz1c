@@ -24,9 +24,9 @@ public class MysqlCenyNapojovDao implements NapojeDao {
     public void pridajNapoj(Napoj n) {
         try {
             jdbcTemplate.update("INSERT INTO ceny_napojov (id, nazov, cena) VALUES(?,?,?)", null,
-                    n.getNapoj(), n.getCena());
+                    n.getNazov(), n.getCena());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Napoj:" + n.getNapoj() + " sa uz nachadza v Databaze cien!!");
+            JOptionPane.showMessageDialog(null,"Napoj:" + n.getNazov() + " sa uz nachadza v Databaze cien!!");
         }
 
     }
@@ -41,7 +41,7 @@ public class MysqlCenyNapojovDao implements NapojeDao {
         double d = 0;
         List<Napoj> napoje = dajCenyNapojov();
         for (Napoj napoj : napoje) {
-            if (napoj.getNapoj().equals(n.getNapoj())) {
+            if (napoj.getNazov().equals(n.getNazov())) {
                 return napoj.getCena();
             }
         }
@@ -51,7 +51,7 @@ public class MysqlCenyNapojovDao implements NapojeDao {
     @Override
     public void vymazNapoj(Napoj n) {
          jdbcTemplate.update("delete from ceny_napojov where nazov = ?",
-               n.getNapoj());
+               n.getNazov());
     }
 
     @Override
@@ -70,7 +70,7 @@ public class MysqlCenyNapojovDao implements NapojeDao {
         public Napoj mapRow(ResultSet rs, int i) throws SQLException {
             Napoj n = new Napoj();
             n.setId(rs.getLong("id"));
-            n.setNapoj(rs.getString("nazov"));
+            n.setNazov(rs.getString("nazov"));
             n.setCena(rs.getDouble("cena"));
             return n;
         }

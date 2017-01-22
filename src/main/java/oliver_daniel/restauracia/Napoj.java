@@ -3,7 +3,7 @@ package oliver_daniel.restauracia;
 public class Napoj {
 
     private Long id;
-    private String napoj;
+    private String nazov;
     private double cena;
 
     public double getCena() {
@@ -22,12 +22,12 @@ public class Napoj {
         this.cena = cena;
     }
 
-    public String getNapoj() {
-        return napoj;
+    public String getNazov() {
+        return nazov;
     }
 
-    public void setNapoj(String napoj) {
-        this.napoj = napoj;
+    public void setNazov(String nazov) {
+        this.nazov = nazov;
     }
 
 }

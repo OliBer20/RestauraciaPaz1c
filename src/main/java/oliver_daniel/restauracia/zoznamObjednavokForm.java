@@ -507,7 +507,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         ComboNapoje.addItem("Vyber Nápoj:");
         List<Napoj> nap = zoznam_napojov.dajNapoje();
         for (Napoj s : nap) {
-            ComboNapoje.addItem(s.getNapoj());
+            ComboNapoje.addItem(s.getNazov());
         }
     }
 
@@ -517,7 +517,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             String napoj = ComboNapoje.getSelectedItem().toString();
             Objednavka o = new Objednavka();
             Napoj n = new Napoj();
-            n.setNapoj(napoj);
+            n.setNazov(napoj);
             o.setNazov(napoj);
             o.setId(0);
             double cena = (ceny_napojov.ziskajCenu(n));

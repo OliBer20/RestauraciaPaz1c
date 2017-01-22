@@ -30,7 +30,7 @@ public class MysqlPridajNapojDao implements NapojeDao {
     public void pridajNapoj(Napoj napoj) {
         try {
             jdbcTemplate.update("INSERT INTO napoje (id, napoj, cena) VALUES(?,?,?)", null,
-                    napoj.getNapoj(), napoj.getCena());
+                    napoj.getNazov(), napoj.getCena());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Uz je pridany napoj s rovnakym menom!!");
         }
@@ -44,7 +44,7 @@ public class MysqlPridajNapojDao implements NapojeDao {
 
     @Override
     public void vymazNapoj(Napoj napoj) {
-        jdbcTemplate.update("delete from napoje where napoj = ?", napoj.getNapoj());
+        jdbcTemplate.update("delete from napoje where napoj = ?", napoj.getNazov());
 
     }
 
@@ -62,7 +62,7 @@ public class MysqlPridajNapojDao implements NapojeDao {
             String s = (rs.getString("napoj"));
             double cena = (rs.getDouble("cena"));
             n.setCena(cena);
-            n.setNapoj(s);
+            n.setNazov(s);
             return n;
         }
 

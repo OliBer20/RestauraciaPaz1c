@@ -17,7 +17,7 @@ public class MysqlPridajNapojDaoTest {
     private Napoj n = new Napoj();
 
     public MysqlPridajNapojDaoTest() {
-        n.setNapoj("VodaPerliva");
+        n.setNazov("VodaPerliva");
         n.setCena(1);
     }
 
