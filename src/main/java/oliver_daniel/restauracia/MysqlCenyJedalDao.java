@@ -35,9 +35,9 @@ public class MysqlCenyJedalDao implements jedloSCenouDao {
     public void pridajNapoj(Napoj n) {
         try {
             jdbcTemplate.update("INSERT INTO ceny (id, nazov, cena) VALUES(?,?,?)", null,
-                    n.getNazov(), n.getCena());
+                    n.getNapoj(), n.getCena());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, n.getNazov() + " sa uz nachadza v Databaze cien!!");
+            JOptionPane.showMessageDialog(null, n.getNapoj() + " sa uz nachadza v Databaze cien!!");
         }
 
     }

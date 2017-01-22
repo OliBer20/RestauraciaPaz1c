@@ -19,7 +19,7 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
 
     @Override
     public List<Objednavka> dajObjednavky() {
-        String sql = "SELECT id,jedlo,cena,datum "
+        String sql = "SELECT id,nazov,cena,datum "
                 + "FROM objednavky_table order by id desc";
         return jdbcTemplate.query(sql, new ObjednavkaRowMapper());
     }
@@ -37,8 +37,8 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH) + 1;
         Date datum = new Date(year, month, day);
-        jdbcTemplate.update("INSERT INTO objednavky_table (id, jedlo, cena, datum) VALUES(?,?,?,?)", null,
-                objednavka.getNazovJedla(), objednavka.getCenaJedla(), datum);
+        jdbcTemplate.update("INSERT INTO objednavky_table (id, nazov, cena, datum) VALUES(?,?,?,?)", null,
+                objednavka.getNazov(), objednavka.getCena(), datum);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
 
     @Override
     public void vymazPredosluObjednavku() {
-        jdbcTemplate.update("delete from objednavky_table where jedlo is not null order by id desc limit 1");
+        jdbcTemplate.update("delete from objednavky_table where nazov is not null order by id desc limit 1");
     }
 
     private class ObjednavkaRowMapper implements RowMapper<Objednavka> {
@@ -58,8 +58,8 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
         public Objednavka mapRow(ResultSet rs, int i) throws SQLException {
             Objednavka objednavka = new Objednavka();
             objednavka.setId(rs.getLong("id"));
-            objednavka.setNazovJedla(rs.getString("jedlo"));
-            objednavka.setCenaJedla(rs.getDouble("cena"));
+            objednavka.setNazov(rs.getString("nazov"));
+            objednavka.setCena(rs.getDouble("cena"));
             objednavka.setCasObjednavky(rs.getDate("datum"));
             return objednavka;
         }

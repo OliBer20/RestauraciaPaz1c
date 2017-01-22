@@ -29,8 +29,8 @@ public class MysqlVypisDao implements vypisDao {
     @Override
     public void pridajObjednavku(Objednavka o) {
 
-        jdbcTemplate.update("INSERT INTO vypis (id, jedlo, cena, datum) VALUES(?,?,?,?)", o.getId(),
-                o.getNazovJedla(), o.getCenaJedla(), o.getCasObjednavky());
+        jdbcTemplate.update("INSERT INTO vypis (id, nazov, cena, datum) VALUES(?,?,?,?)", o.getId(),
+                o.getNazov(), o.getCena(), o.getCasObjednavky());
 
     }
 
@@ -96,8 +96,8 @@ public class MysqlVypisDao implements vypisDao {
         public Objednavka mapRow(ResultSet rs, int i) throws SQLException {
             Objednavka o = new Objednavka();
             o.setId(rs.getLong("id"));
-            o.setNazovJedla(rs.getString("jedlo"));
-            o.setCenaJedla(rs.getDouble("cena"));
+            o.setNazov(rs.getString("nazov"));
+            o.setCena(rs.getDouble("cena"));
             o.setCasObjednavky(rs.getDate("datum"));
             return o;
         }

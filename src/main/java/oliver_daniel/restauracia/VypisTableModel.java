@@ -29,9 +29,9 @@ public class VypisTableModel extends AbstractTableModel {
             case 0:
                 return o.getId();
             case 1:
-                return o.getNazovJedla();
+                return o.getNazov();
             case 2:
-                return o.getCenaJedla();
+                return o.getCena();
             case 3:
                 Date datum = o.getCasObjednavky();
                 if (datum == null) {

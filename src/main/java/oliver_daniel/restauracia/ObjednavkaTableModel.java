@@ -25,9 +25,9 @@ public class ObjednavkaTableModel extends AbstractTableModel {
         Objednavka o = dnesneObjednavky.dajDnesneObjednavky().get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return o.getNazovJedla();
+                return o.getNazov();
             case 1:
-                return o.getCenaJedla();
+                return o.getCena();
             case 2:
                 Date datum = o.getCasObjednavky();
                 if (datum == null) {

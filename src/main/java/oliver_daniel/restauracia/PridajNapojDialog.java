@@ -96,7 +96,7 @@ public class PridajNapojDialog extends javax.swing.JDialog {
 
     private void pridajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajButtonActionPerformed
         Napoj n = new Napoj();
-        n.setNazov(nazov.getText());
+        n.setNapoj(nazov.getText());
         Double cena = Double.parseDouble(this.cena.getText());
         n.setCena(cena);
         napoje.pridajNapoj(n);
@@ -113,7 +113,7 @@ public class PridajNapojDialog extends javax.swing.JDialog {
         napojCombo.removeAllItems();
         List<Napoj> nap = napoje.dajNapoje();
         for (Napoj n : nap) {
-            napojCombo.addItem(n.getNazov());
+            napojCombo.addItem(n.getNapoj());
         }
         
     }
@@ -124,7 +124,7 @@ public class PridajNapojDialog extends javax.swing.JDialog {
     private void vymazButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazButtonActionPerformed
         Napoj n = new Napoj();
         String napoj = napojCombo.getSelectedItem().toString();
-        n.setNazov(napoj);
+        n.setNapoj(napoj);
         napoje.vymazNapoj(n);
         aktualizujNapojCombo();
          zozObj.aktualizujNapoje();

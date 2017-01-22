@@ -166,7 +166,7 @@ public class VypisyFrame extends javax.swing.JFrame {
         getContentPane().add(jLabel8);
         jLabel8.setBounds(12, 188, 126, 16);
 
-        rokZobraz.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2016" }));
+        rokZobraz.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2016", "2017" }));
         getContentPane().add(rokZobraz);
         rokZobraz.setBounds(46, 211, 119, 22);
 
@@ -226,7 +226,7 @@ public class VypisyFrame extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 0, 0));
 
-        rokCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2016" }));
+        rokCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2016", "2017" }));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Rok:");
@@ -383,7 +383,7 @@ public class VypisyFrame extends javax.swing.JFrame {
         int pocet = 0;
         List<Objednavka> objednavky = vypis.dajVsetkyObjednavky();
         for (Objednavka objednavka : objednavky) {
-            zarobok += objednavka.getCenaJedla();
+            zarobok += objednavka.getCena();
             pocet++;
         }
         zarobok = Math.round(zarobok * 10000.0) / 10000.0;
@@ -413,7 +413,7 @@ public class VypisyFrame extends javax.swing.JFrame {
 
         for (Objednavka objednavka : objednavky) {
             if (objednavka.getId() == (valueAt)) {
-                zobrazeneObjednavky = "Vymazana objednavka: " + objednavka.getNazovJedla() + " " + objednavka.getCenaJedla();
+                zobrazeneObjednavky = "Vymazana objednavka: " + objednavka.getNazov() + " " + objednavka.getCena();
                 objednavky.remove(objednavka);
                 vypis.Odstran(objednavka);
                 obj.Odstran(objednavka);

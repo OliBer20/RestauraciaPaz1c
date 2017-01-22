@@ -43,7 +43,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImages(null);
-        setMinimumSize(new java.awt.Dimension(570, 490));
+        setMinimumSize(new java.awt.Dimension(570, 500));
         getContentPane().setLayout(null);
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -94,7 +94,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
         hesloText.setForeground(new java.awt.Color(255, 51, 51));
         hesloText.setText("password:");
         getContentPane().add(hesloText);
-        hesloText.setBounds(230, 260, 130, 32);
+        hesloText.setBounds(230, 260, 130, 24);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -156,8 +156,10 @@ public class prihlasenieForm extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(330, 90, 160, 140);
 
+        jButton1.setBackground(new java.awt.Color(153, 153, 153));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jButton1.setText("Heslo");
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Hesla");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -168,7 +170,7 @@ public class prihlasenieForm extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/restaur.jpg"))); // NOI18N
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, -10, 590, 480);
+        jLabel3.setBounds(0, -10, 600, 490);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

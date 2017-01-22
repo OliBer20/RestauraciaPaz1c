@@ -40,7 +40,7 @@ public class ZmenaHeslaForm extends javax.swing.JDialog {
             }
         });
         getContentPane().add(bossRadio);
-        bossRadio.setBounds(54, 18, 59, 25);
+        bossRadio.setBounds(54, 18, 61, 25);
 
         othersRadio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         othersRadio.setText("Others");
@@ -50,16 +50,16 @@ public class ZmenaHeslaForm extends javax.swing.JDialog {
             }
         });
         getContentPane().add(othersRadio);
-        othersRadio.setBounds(236, 18, 73, 25);
+        othersRadio.setBounds(236, 18, 75, 25);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Zmena hesla:");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(133, 61, 91, 17);
         getContentPane().add(stareHeslo);
-        stareHeslo.setBounds(112, 140, 126, 20);
+        stareHeslo.setBounds(112, 140, 126, 22);
         getContentPane().add(noveHeslo);
-        noveHeslo.setBounds(112, 224, 126, 20);
+        noveHeslo.setBounds(112, 224, 126, 22);
 
         ulozitButton.setBackground(new java.awt.Color(153, 153, 153));
         ulozitButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -75,11 +75,11 @@ public class ZmenaHeslaForm extends javax.swing.JDialog {
 
         jLabel2.setText("Staré heslo:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(142, 117, 58, 14);
+        jLabel2.setBounds(142, 117, 100, 16);
 
         jLabel3.setText("Nové heslo:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(143, 201, 57, 14);
+        jLabel3.setBounds(143, 201, 100, 16);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
         getContentPane().add(jLabel4);

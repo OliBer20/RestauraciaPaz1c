@@ -24,8 +24,8 @@ public class MysqlVypisDaoTest {
     
     public MysqlVypisDaoTest() {
        
-        objednavka.setNazovJedla("Kurča");
-        objednavka.setCenaJedla(5);
+        objednavka.setNazov("Kurča");
+        objednavka.setCena(5);
     }
 
     @Test

@@ -36,7 +36,7 @@ public class MysqlDenneMenuDao implements DenneMenuDao {
 
     @Override
     public List<String> ziskajDenneMenu() {
-        String sql = "select jedlo from denne_menu";
+        String sql = "select nazov from denne_menu";
         return jdbcTemplate.query(sql, new MysqlDenneMenuDao.DMenuRowMapper());
 
     }
@@ -44,7 +44,7 @@ public class MysqlDenneMenuDao implements DenneMenuDao {
     @Override
     public void pridaj(String s) {
         try {
-            jdbcTemplate.update("insert into denne_menu (id,jedlo) values (?,?)", null,
+            jdbcTemplate.update("insert into denne_menu (id,nazov) values (?,?)", null,
                     s);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Uz sa nachadza v dennom menu!");
@@ -53,7 +53,7 @@ public class MysqlDenneMenuDao implements DenneMenuDao {
 
     @Override
     public void odober(String s) {
-        jdbcTemplate.update("delete from denne_menu where jedlo = ? limit 1", s);
+        jdbcTemplate.update("delete from denne_menu where nazov = ? limit 1", s);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class MysqlDenneMenuDao implements DenneMenuDao {
 
         @Override
         public String mapRow(ResultSet rs, int i) throws SQLException {
-            return rs.getString("jedlo");
+            return rs.getString("nazov");
         }
 
     }

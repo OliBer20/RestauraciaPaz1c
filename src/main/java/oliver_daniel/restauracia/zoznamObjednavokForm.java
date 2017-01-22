@@ -417,10 +417,10 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             Objednavka o = new Objednavka();
             jedloSCenou j = new jedloSCenou();
             j.setJedlo(jedlo);
-            o.setNazovJedla(jedlo);
+            o.setNazov(jedlo);
             o.setId(0);
             double cena = (ceny.ziskajCenu(j));
-            o.setCenaJedla(cena);
+            o.setCena(cena);
             o.setCasObjednavky(null);
 
             objednavky.pridaj(o);
@@ -477,11 +477,11 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         if (ok) {
             String ine = IneZapisNazov.getText();
             Objednavka o = new Objednavka();
-            o.setNazovJedla(ine);
+            o.setNazov(ine);
             o.setId(0);
             double cena = 0;
             cena = Double.parseDouble(IneZapisCenu.getText());
-            o.setCenaJedla(cena);
+            o.setCena(cena);
             o.setCasObjednavky(null);
             objednavky.pridaj(o);
             vymazanePredosle = false;
@@ -506,7 +506,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         ComboNapoje.addItem("Vyber Nápoj:");
         List<Napoj> nap = napoje.dajNapoje();
         for (Napoj s : nap) {
-            ComboNapoje.addItem(s.getNazov());
+            ComboNapoje.addItem(s.getNapoj());
         }
     }
 
@@ -517,10 +517,10 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             Objednavka o = new Objednavka();
             jedloSCenou j = new jedloSCenou();
             j.setJedlo(napoj);
-            o.setNazovJedla(napoj);
+            o.setNazov(napoj);
             o.setId(0);
             double cena = (ceny.ziskajCenu(j));
-            o.setCenaJedla(cena);
+            o.setCena(cena);
             o.setCasObjednavky(null);
 
             objednavky.pridaj(o);

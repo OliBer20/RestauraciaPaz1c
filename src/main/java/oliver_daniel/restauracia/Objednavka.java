@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Objednavka {
 
-    private String nazovJedla;
+    private String nazov;
     private long id;
-    private double cenaJedla;
+    private double cena;
     private Date casObjednavky;
 
     public Date getCasObjednavky() {
@@ -21,24 +21,24 @@ public class Objednavka {
         this.id = id;
     }
     
-    public double getCenaJedla() {
-        return cenaJedla;
+    public double getCena() {
+        return cena;
     }
 
-    public String getNazovJedla() {
-        return nazovJedla;
+    public String getNazov() {
+        return nazov;
     }
 
     public void setCasObjednavky(Date casObjednavky) {
         this.casObjednavky = casObjednavky;
     }
 
-    public void setCenaJedla(double cenaJedla) {
-        this.cenaJedla = cenaJedla;
+    public void setCena(double cena) {
+        this.cena = cena;
     }
 
-    public void setNazovJedla(String nazovJedla) {
-        this.nazovJedla = nazovJedla;
+    public void setNazov(String nazov) {
+        this.nazov = nazov;
     }
 
 

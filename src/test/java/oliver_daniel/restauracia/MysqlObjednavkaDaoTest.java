@@ -19,8 +19,8 @@ public class MysqlObjednavkaDaoTest {
 
     public MysqlObjednavkaDaoTest() {
         testobjednavka.setId(0);
-        testobjednavka.setNazovJedla("testjedlo");
-        testobjednavka.setCenaJedla(3);
+        testobjednavka.setNazov("testjedlo");
+        testobjednavka.setCena(3);
         testobjednavka.setCasObjednavky(new Date(2016 - 1900, Calendar.JANUARY, 1));
     }
 

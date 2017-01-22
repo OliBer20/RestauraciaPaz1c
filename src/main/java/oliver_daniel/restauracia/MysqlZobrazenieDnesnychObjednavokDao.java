@@ -37,8 +37,8 @@ public class MysqlZobrazenieDnesnychObjednavokDao implements zobrazenieDnesnychO
         @Override
         public Objednavka mapRow(ResultSet rs, int i) throws SQLException {
             Objednavka o = new Objednavka();
-            o.setNazovJedla(rs.getString("jedlo"));
-            o.setCenaJedla(rs.getDouble("cena"));
+            o.setNazov(rs.getString("nazov"));
+            o.setCena(rs.getDouble("cena"));
             o.setCasObjednavky(rs.getDate("datum"));
             return o;
         }

@@ -38,7 +38,7 @@ public class MysqlVsetkyJedlaDao implements VsetkyJedlaDao {
             jdbcTemplate.update("insert into vsetky_jedla (id,jedlo) values (?,?)", null,
                     s);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Uz sa nachadza v dennom menu!");
+            JOptionPane.showMessageDialog(null, "Uz sa nachadza medzi jedlami!");
         }
     }
 
