@@ -5,18 +5,17 @@
  */
 package oliver_daniel.restauracia;
 
-import oliver_daniel.restauracia.ObjectFactoryTest;
 import java.util.List;
 import junit.framework.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class MysqlPridajNapojDaoTest {
+public class MysqlNapoejeDaoTest {
 
-    private MysqlPridajNapojDao test = new MysqlPridajNapojDao(ObjectFactoryTest.INSTANCE.getJdbcTemplate());
+    private MysqlNapoejeDao test = new MysqlNapoejeDao(ObjectFactoryTest.INSTANCE.getJdbcTemplate());
     private Napoj n = new Napoj();
 
-    public MysqlPridajNapojDaoTest() {
+    public MysqlNapoejeDaoTest() {
         n.setNazov("VodaPerliva");
         n.setCena(1);
     }

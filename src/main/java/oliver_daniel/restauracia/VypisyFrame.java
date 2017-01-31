@@ -1,5 +1,7 @@
 package oliver_daniel.restauracia;
 
+import oliver_daniel.restauracia.Objednavka;
+import oliver_daniel.restauracia.zoznamObjednavokForm;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -9,9 +11,10 @@ import javax.swing.JOptionPane;
 public class VypisyFrame extends javax.swing.JFrame {
 
     private vypisDao vypisy = ObjectFactory.INSTANCE.getVypis();
+
     private String zobrazeneObjednavky = "Zobrazene objednavky na: ";
     private zoznamObjednavokForm zozObj;
-    
+
     public VypisyFrame(zoznamObjednavokForm z) {
         initComponents();
         zozObj = z;
@@ -266,7 +269,7 @@ public class VypisyFrame extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -381,9 +384,9 @@ public class VypisyFrame extends javax.swing.JFrame {
     private void zarobkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zarobkyButtonActionPerformed
         double zarobok = 0.0;
         int pocet = 0;
-        List<Objednavka> objednavky = vypisy.dajVsetkyObjednavky();
-        for (Objednavka objednavka : objednavky) {
-            zarobok += objednavka.getCena();
+        List<Long> IDobjednavky = vypisy.dajVsetkyVypisy();
+        for (Long id : IDobjednavky) {
+            zarobok += vypisy.vratPodlaId(id).getCena();
             pocet++;
         }
         zarobok = Math.round(zarobok * 10000.0) / 10000.0;
@@ -405,6 +408,7 @@ public class VypisyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void vymazObjednavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazObjednavkuActionPerformed
+
         int selectedRow = jTable1.getSelectedRow();
         ObjednavkyDao obj = ObjectFactory.INSTANCE.getObjednavkaDao();
         List<Objednavka> objednavky = obj.dajObjednavky();
@@ -412,17 +416,24 @@ public class VypisyFrame extends javax.swing.JFrame {
         Long valueAt = (Long) model.getValueAt(selectedRow, 0);
 
         for (Objednavka objednavka : objednavky) {
-            if (objednavka.getId() == (valueAt)) {
-                zobrazeneObjednavky = "Vymazana objednavka: " + objednavka.getNazov() + " " + objednavka.getCena();
-                objednavky.remove(objednavka);
-                vypisy.Odstran(objednavka);
-                obj.Odstran(objednavka);
-                aktualizovatTabulku();
-                vypisZarobku.setText(zobrazeneObjednavky);
-                break;
+
+            try {
+                if (objednavka.getId() == (valueAt)) {
+                    objednavky.remove(objednavka);
+                    vypisy.Odstran(objednavka);
+                    obj.Odstran(objednavka);
+                    aktualizovatTabulku();
+
+                    zobrazeneObjednavky = "Vymazana objednavka: " + objednavka.getNazov() + " " + objednavka.getCena();
+                    vypisZarobku.setText(zobrazeneObjednavky);
+                    break;
+                }
+            } catch (Exception e) {
+               
             }
 
         }
+
         zozObj.aktualizovatZoznamObjednavok();
 
     }//GEN-LAST:event_vymazObjednavkuActionPerformed
@@ -462,6 +473,7 @@ public class VypisyFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             private zoznamObjednavokForm z;
+
             public void run() {
                 new VypisyFrame().setVisible(true);
             }

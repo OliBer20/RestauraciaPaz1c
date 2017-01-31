@@ -1,5 +1,7 @@
 package oliver_daniel.restauracia;
 
+import oliver_daniel.restauracia.Objednavka;
+import oliver_daniel.restauracia.ObjednavkyDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -28,6 +30,17 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
     public void Odstran(Objednavka objednavka) {
         jdbcTemplate.update("delete from objednavky_table where id = ?",
                 objednavka.getId());
+    }
+    
+     @Override
+    public List<Objednavka> dajDnesneObjednavky() {
+        Calendar cal = new GregorianCalendar();
+        int den = cal.get(Calendar.DAY_OF_MONTH);
+        int mesiac = cal.get(Calendar.MONTH) + 1;
+        int rok = cal.get(Calendar.YEAR);
+        String sql = "select * from objednavky_table where dayofmonth(datum) = " + den + " and month(datum) = " + mesiac + " and year(datum) = " + rok + " order by id desc";
+        return jdbcTemplate.query(sql, new MysqlObjednavkaDao.DnesneObjednavkyRowMapper());
+
     }
 
     @Override
@@ -62,6 +75,19 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
             objednavka.setCena(rs.getDouble("cena"));
             objednavka.setCasObjednavky(rs.getDate("datum"));
             return objednavka;
+        }
+
+    }
+    
+    private class DnesneObjednavkyRowMapper implements RowMapper<Objednavka> {
+
+        @Override
+        public Objednavka mapRow(ResultSet rs, int i) throws SQLException {
+            Objednavka o = new Objednavka();
+            o.setNazov(rs.getString("nazov"));
+            o.setCena(rs.getDouble("cena"));
+            o.setCasObjednavky(rs.getDate("datum"));
+            return o;
         }
 
     }

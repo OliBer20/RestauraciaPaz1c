@@ -31,7 +31,7 @@ public class MysqlVypisDaoTest {
     @Test
     public void testVymazVsetkyJedla() {
         test.vymazVsetkyJedla();
-        List<Objednavka> objednavka = test.dajVsetkyObjednavky();
+        List<Objednavka> objednavka = test.dajVsetkyVypisy();
         Assert.assertEquals(0,objednavka.size());
         
     }
@@ -40,9 +40,9 @@ public class MysqlVypisDaoTest {
     public void testPridajObjednavku() {
         objednavka.setCasObjednavky(new Date(2016 - 1900, Calendar.JANUARY, 1));
         test.vymazVsetkyJedla();
-        List<Objednavka> objednavkapred = test.dajVsetkyObjednavky();
+        List<Objednavka> objednavkapred = test.dajVsetkyVypisy();
         test.pridajObjednavku(objednavka);
-        List<Objednavka> objednavkapo = test.dajVsetkyObjednavky();
+        List<Objednavka> objednavkapo = test.dajVsetkyVypisy();
         Assert.assertEquals(objednavkapred.size()+1, objednavkapo.size());
         
     }
@@ -54,21 +54,21 @@ public class MysqlVypisDaoTest {
         
          test.pridajObjednavku(objednavka);
         
-         List<Objednavka> objednavkapop = test.dajVsetkyObjednavky();
+         List<Objednavka> objednavkapop = test.dajVsetkyVypisy();
          Objednavka objednavka2=new Objednavka();
          for (Objednavka objednavka1 : objednavkapop) {
             objednavka2 = objednavka1;
             break;
         }
         test.Odstran(objednavka2);
-        List<Objednavka> objednavkapoods = test.dajVsetkyObjednavky();
+        List<Objednavka> objednavkapoods = test.dajVsetkyVypisy();
         Assert.assertEquals(objednavkapop.size(), objednavkapoods.size()+1);
     }
 
     @Test
     public void testDajVsetkyObjednavky() {
         test.vymazVsetkyJedla();
-        List<Objednavka> objednavka = test.dajVsetkyObjednavky();
+        List<Objednavka> objednavka = test.dajVsetkyVypisy();
         Assert.assertEquals(0, objednavka.size());
     }
 

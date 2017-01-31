@@ -8,14 +8,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import oliver_daniel.restauracia.DenneMenu;
 import oliver_daniel.restauracia.DenneMenuDao;
-import oliver_daniel.restauracia.MysqlCenyJedalDao;
-import oliver_daniel.restauracia.jedloSCenou;
-import oliver_daniel.restauracia.jedloSCenouDao;
+import oliver_daniel.restauracia.MysqlJedlaDao;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import oliver_daniel.restauracia.JedloDao;
 
 public class MysqlDenneMenuDao implements DenneMenuDao {
 
@@ -26,34 +24,24 @@ public class MysqlDenneMenuDao implements DenneMenuDao {
     }
 
     @Override
-    public String getNazov() {
-        return null;
-    }
-
-    @Override
-    public void setNazov(String nazov) {
-    }
-
-    @Override
-    public List<String> ziskajDenneMenu() {
-        String sql = "select nazov from denne_menu";
+    public List<Long> ziskajDenneMenu() {
+        String sql = "select * from denne_menu";
         return jdbcTemplate.query(sql, new MysqlDenneMenuDao.DMenuRowMapper());
 
     }
 
     @Override
-    public void pridaj(String s) {
+    public void pridaj(Long id) {
         try {
-            jdbcTemplate.update("insert into denne_menu (id,nazov) values (?,?)", null,
-                    s);
+            jdbcTemplate.update("insert into denne_menu (id) values (?)", id);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Uz sa nachadza v dennom menu!");
+            JOptionPane.showMessageDialog(null, "Nedá sa pridat 2x to isté jedlo!");
         }
     }
 
     @Override
-    public void odober(String s) {
-        jdbcTemplate.update("delete from denne_menu where nazov = ? limit 1", s);
+    public void odober(Long id) {
+        jdbcTemplate.update("delete from denne_menu where id = ?", id);
     }
 
     @Override
@@ -61,11 +49,11 @@ public class MysqlDenneMenuDao implements DenneMenuDao {
         jdbcTemplate.update("truncate denne_menu");
     }
 
-    private class DMenuRowMapper implements RowMapper<String> {
+    private class DMenuRowMapper implements RowMapper<Long> {
 
         @Override
-        public String mapRow(ResultSet rs, int i) throws SQLException {
-            return rs.getString("nazov");
+        public Long mapRow(ResultSet rs, int i) throws SQLException {
+            return rs.getLong("id");
         }
 
     }

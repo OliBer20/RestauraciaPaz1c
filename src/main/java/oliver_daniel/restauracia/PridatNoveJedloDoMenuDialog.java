@@ -1,14 +1,15 @@
 package oliver_daniel.restauracia;
 
+import oliver_daniel.restauracia.MenuForm;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 import javax.swing.JOptionPane;
+import oliver_daniel.restauracia.Jedlo;
 
 public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
 
-    private jedloSCenouDao cena_jedla = ObjectFactory.INSTANCE.getCenyDao();
-    private VsetkyJedlaDao zoznam_jedal = ObjectFactory.INSTANCE.getMenu();
+    private JedloDao jedla = ObjectFactory.INSTANCE.getJedla();
     private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
     private DenneMenuDao jedla_v_dennom_menu = ObjectFactory.INSTANCE.getDenneMenu();
 
@@ -34,8 +35,7 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(435, 120));
-        setPreferredSize(new java.awt.Dimension(370, 255));
+        setMinimumSize(new java.awt.Dimension(435, 260));
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -71,8 +71,9 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
         jSeparator1.setBounds(0, 33, 411, 13);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
+        jLabel4.setPreferredSize(new java.awt.Dimension(430, 210));
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(1, 0, 430, 210);
+        jLabel4.setBounds(1, 0, 430, 250);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -94,18 +95,16 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
         }
 
         if (zadaneUdaje) {
-            zoznam_jedal.pridaj(nazov);
-            jedloSCenou j = new jedloSCenou();
-            j.setCena(cena);
-            j.setJedlo(nazov);
-            this.cena_jedla.pridajJedlo(j);
-
+            Jedlo jedlo = new Jedlo();
+            jedlo.setNazov(nazov);
+            jedlo.setCena(cena);
+            jedla.pridajJedlo(jedlo);
             m.AktualizujMenu();
             m.AktualizujComboBox();
             dispose();
 
         } else {
-            JOptionPane.showMessageDialog(null, "Zadaj vsetky udaje!");
+            JOptionPane.showMessageDialog(null, "Nieco nieje v poriadku!");
         }
 
     }//GEN-LAST:event_pridajButtonActionPerformed

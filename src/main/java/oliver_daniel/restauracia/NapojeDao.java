@@ -1,18 +1,20 @@
 package oliver_daniel.restauracia;
 
 import java.util.List;
+import oliver_daniel.restauracia.Napoj;
 
-interface NapojeDao {
-    
-    
-    public void pridajNapoj(Napoj n);
-    
-    public List<Napoj> dajNapoje();
-    
-    public void vymazNapoj(Napoj n);
-    
-    public void vymazVsetkyNapoje();
-    
-    public double ziskajCenu(Napoj n);
-    
+public interface NapojeDao {
+
+    void pridajNapoj(Napoj n);
+
+    List<Napoj> dajNapoje();
+
+    void vymazNapoj(Napoj n);
+
+    Long dajIDPodlaNazvu(String nazov);
+
+    void vymazVsetkyNapoje();
+
+    double ziskajCenu(Napoj n);
+
 }

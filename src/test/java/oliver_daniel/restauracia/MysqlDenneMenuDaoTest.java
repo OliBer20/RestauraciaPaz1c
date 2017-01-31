@@ -5,7 +5,6 @@
  */
 package  oliver_daniel.restauracia;
 
-import oliver_daniel.restauracia.ObjectFactoryTest;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;

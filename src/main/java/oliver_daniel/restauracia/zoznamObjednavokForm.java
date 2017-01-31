@@ -1,5 +1,8 @@
 package oliver_daniel.restauracia;
 
+import oliver_daniel.restauracia.prihlasenieForm;
+import oliver_daniel.restauracia.PridajNapojDialog;
+import oliver_daniel.restauracia.MenuForm;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -20,15 +23,16 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import oliver_daniel.restauracia.Jedlo;
+import oliver_daniel.restauracia.Napoj;
+import oliver_daniel.restauracia.Objednavka;
 
 public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     private DenneMenuDao jedla_v_dennom_menu = ObjectFactory.INSTANCE.getDenneMenu();
     private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
-    private jedloSCenouDao ceny_jedal = ObjectFactory.INSTANCE.getCenyDao();
-    private NapojeDao ceny_napojov = ObjectFactory.INSTANCE.getCenyNapojovDao();
+    private JedloDao Jedla = ObjectFactory.INSTANCE.getJedla();
     private vypisDao vypisy = ObjectFactory.INSTANCE.getVypis();
-    private VsetkyJedlaDao zoznam_jedal = ObjectFactory.INSTANCE.getMenu();
     private NapojeDao zoznam_napojov = ObjectFactory.INSTANCE.getNapoje();
 
     private boolean vymazanePredosle = false;
@@ -81,8 +85,8 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     public void aktualizovatDenneMenu() {
         ComboJedla.removeAllItems();
         ComboJedla.addItem("Vyber polozku:");
-        for (String j : jedla_v_dennom_menu.ziskajDenneMenu()) {
-            ComboJedla.addItem(j);
+        for (Long j : jedla_v_dennom_menu.ziskajDenneMenu()) {
+            ComboJedla.addItem(Jedla.vratPodlaId(j).getNazov());
         }
 
     }
@@ -150,7 +154,6 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(653, 635));
-        setPreferredSize(new java.awt.Dimension(637, 582));
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 21)); // NOI18N
@@ -249,7 +252,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
+                .addGap(355, 355, 355)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -416,11 +419,11 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             String jedlo = ComboJedla.getSelectedItem().toString();
 
             Objednavka o = new Objednavka();
-            jedloSCenou j = new jedloSCenou();
-            j.setJedlo(jedlo);
+            Jedlo j = new Jedlo();
+            j.setNazov(jedlo);
             o.setNazov(jedlo);
             o.setId(0);
-            double cena = (ceny_jedal.ziskajCenu(j));
+            double cena = (Jedla.ziskajCenu(j));
             o.setCena(cena);
             o.setCasObjednavky(null);
 
@@ -520,7 +523,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             n.setNazov(napoj);
             o.setNazov(napoj);
             o.setId(0);
-            double cena = (ceny_napojov.ziskajCenu(n));
+            double cena = (zoznam_napojov.ziskajCenu(n));
             o.setCena(cena);
             o.setCasObjednavky(null);
 
@@ -566,14 +569,10 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             s.setVisible(true);
         }
         if (index == 4) {
-            overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Zoznam jedal", this);
-            s.setVisible(true);
-        }
-        if (index == 5) {
             overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Vypisy", this);
             s.setVisible(true);
         }
-        if (index == 6) {
+        if (index == 5) {
             overenieVymazaniaDialog s = new overenieVymazaniaDialog(this, true, "Napoje", this);
             s.setVisible(true);
         }

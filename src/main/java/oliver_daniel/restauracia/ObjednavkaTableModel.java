@@ -1,12 +1,13 @@
 package oliver_daniel.restauracia;
 
+import oliver_daniel.restauracia.Objednavka;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class ObjednavkaTableModel extends AbstractTableModel {
 
-    private zobrazenieDnesnychObjednavokDao dnesneObjednavky = ObjectFactory.INSTANCE.getDnesneObjednavky();
+    private ObjednavkyDao dnesneObjednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
     private static final String[] NAZVY_STLPCOV = {"Popis", "Cena", "Datum"};
     private static final int POCET_STLPCOV = NAZVY_STLPCOV.length;
 
@@ -57,7 +58,7 @@ public class ObjednavkaTableModel extends AbstractTableModel {
         return NAZVY_STLPCOV[columnIndex];
     }
 
-    void aktualizovat() {
+  public  void aktualizovat() {
         fireTableDataChanged();
     }
 

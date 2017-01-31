@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import oliver_daniel.restauracia.zoznamObjednavokForm;
 
 public class prihlasenieForm extends javax.swing.JFrame {
 

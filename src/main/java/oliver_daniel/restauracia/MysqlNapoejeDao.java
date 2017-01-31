@@ -1,5 +1,7 @@
 package oliver_daniel.restauracia;
 
+import oliver_daniel.restauracia.Napoj;
+import oliver_daniel.restauracia.NapojeDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -10,11 +12,11 @@ import javax.swing.JOptionPane;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-public class MysqlPridajNapojDao implements NapojeDao {
+public class MysqlNapoejeDao implements NapojeDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public MysqlPridajNapojDao(JdbcTemplate jdbcTemplate) {
+    public MysqlNapoejeDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -27,12 +29,23 @@ public class MysqlPridajNapojDao implements NapojeDao {
     }
 
     @Override
+    public double ziskajCenu(Napoj n) {
+        List<Napoj> napoje = dajNapoje();
+        for (Napoj napoj : napoje) {
+            if (napoj.getNazov().equals(n.getNazov())) {
+                return napoj.getCena();
+            }
+        }
+        return -1;
+    }
+
+    @Override
     public void pridajNapoj(Napoj napoj) {
         try {
-            jdbcTemplate.update("INSERT INTO napoje (id, napoj, cena) VALUES(?,?,?)", null,
+            jdbcTemplate.update("INSERT INTO napoje (id, nazov, cena) VALUES(?,?,?)", null,
                     napoj.getNazov(), napoj.getCena());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Uz je pridany napoj s rovnakym menom!!");
+            JOptionPane.showMessageDialog(null, "Napoj:" + napoj.getNazov() + " sa uz nachadza v Databaze cien!!");
         }
 
     }
@@ -43,14 +56,21 @@ public class MysqlPridajNapojDao implements NapojeDao {
     }
 
     @Override
-    public void vymazNapoj(Napoj napoj) {
-        jdbcTemplate.update("delete from napoje where napoj = ?", napoj.getNazov());
+    public Long dajIDPodlaNazvu(String nazov) {
+        List<Napoj> napoje = dajNapoje();
+        for (Napoj napoj : napoje) {
+            if (napoj.getNazov().equals(nazov)) {
+                return napoj.getId();
+            }
+        }
+        return null;
 
     }
 
     @Override
-    public double ziskajCenu(Napoj n) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void vymazNapoj(Napoj napoj) {
+        jdbcTemplate.update("delete from napoje where nazov = ?", napoj.getNazov());
+
     }
 
     private class NapojeRowMapper implements RowMapper<Napoj> {
@@ -59,7 +79,7 @@ public class MysqlPridajNapojDao implements NapojeDao {
         public Napoj mapRow(ResultSet rs, int i) throws SQLException {
             Napoj n = new Napoj();
             Long id = (rs.getLong("id"));
-            String s = (rs.getString("napoj"));
+            String s = (rs.getString("nazov"));
             double cena = (rs.getDouble("cena"));
             n.setCena(cena);
             n.setNazov(s);

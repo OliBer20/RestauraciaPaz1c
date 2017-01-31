@@ -13,13 +13,13 @@ import java.util.Scanner;
 import java.util.Set;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import oliver_daniel.restauracia.Jedlo;
 
 public class MenuForm extends javax.swing.JFrame {
 
-    private VsetkyJedlaDao zoznam_jedal = ObjectFactory.INSTANCE.getMenu();
     private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
     private DenneMenuDao jedla_v_dennom_menu = ObjectFactory.INSTANCE.getDenneMenu();
-     private jedloSCenouDao ceny_jedal = ObjectFactory.INSTANCE.getCenyDao();
+    private JedloDao jedla = ObjectFactory.INSTANCE.getJedla();
 
     zoznamObjednavokForm zoznamObjednavok;
 
@@ -83,14 +83,35 @@ public class MenuForm extends javax.swing.JFrame {
 
     }
 
+    public Long vratIDJedla(String jedlo) {
+        Long id = null;
+        List<Jedlo> j = jedla.dajJedla();
+        for (Jedlo jedlo1 : j) {
+            if (jedlo1.getNazov().equals(jedlo)) {
+                id = jedlo1.getId();
+                return id;
+            }
+
+        }
+        return null;
+
+    }
+
     private void odstranZDennehoMenu(String jedlo) {
-        jedla_v_dennom_menu.odober(jedlo);
+        jedla_v_dennom_menu.odober(vratIDJedla(jedlo));
         AktualizujDenneMenu();
 
     }
 
     public void presunJedloDoDennehoMEnu(String jedlo) {
-        jedla_v_dennom_menu.pridaj(jedlo);
+        List<Jedlo> jedla = this.jedla.dajJedla();
+        Long id = null;
+        for (Jedlo jedlo1 : jedla) {
+            if (jedlo1.getNazov().equals(jedlo)) {
+                id = jedlo1.getId();
+            }
+        }
+        jedla_v_dennom_menu.pridaj(id);
         AktualizujDenneMenu();
 
     }
@@ -221,7 +242,7 @@ public class MenuForm extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addComponent(pridatJedloButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(vymazDenneMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,20 +286,15 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_aktualizujButtonActionPerformed
 
     private void vymazOznActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazOznActionPerformed
+        Jedlo j = new Jedlo();
+        String jedlo = vyberJedlo.getSelectedItem().toString();
+        j.setNazov(jedlo);
+        jedla.vymazJedlo(j);
 
-       String jedlo = vyberJedlo.getSelectedItem().toString();
-       zoznam_jedal.odober(jedlo);
-       
-       jedloSCenou j = new jedloSCenou();
-       j.setJedlo(jedlo);
-       ceny_jedal.vymazJedlo(j);
-       
-       jedla_v_dennom_menu.odober(jedlo);
-       AktualizujComboBox();
-       AktualizujDenneMenu();
-       AktualizujMenu();
-       
-       
+        jedla_v_dennom_menu.odober(vratIDJedla(jedlo));
+        AktualizujComboBox();
+        AktualizujDenneMenu();
+        AktualizujMenu();
 
 
     }//GEN-LAST:event_vymazOznActionPerformed
@@ -291,19 +307,18 @@ public class MenuForm extends javax.swing.JFrame {
     public void AktualizujComboBox() {
         vyberJedlo.removeAllItems();
         vyberJedlo.addItem("Vyber jedlo:");
-        List<String> menu = this.zoznam_jedal.ziskajVsetkyJedla();
-        for (String jedlo : menu) {
-            vyberJedlo.addItem(jedlo);
+        List<Jedlo> menu = this.jedla.dajJedla();
+        for (Jedlo jedlo : menu) {
+            vyberJedlo.addItem(jedlo.getNazov());
         }
-        
 
     }
 
     public void AktualizujDenneMenu() {
-        List<String> DenneMenu = jedla_v_dennom_menu.ziskajDenneMenu();
+        List<Long> DenneMenu = jedla_v_dennom_menu.ziskajDenneMenu();
         String[] celeMenuPole = new String[DenneMenu.size()];
         for (int i = 0; i < DenneMenu.size(); i++) {
-            celeMenuPole[i] = DenneMenu.get(i);
+            celeMenuPole[i] = jedla.vratPodlaId(DenneMenu.get(i)).getNazov();
         }
 
         DenneMenuList.setListData(celeMenuPole);
@@ -311,10 +326,10 @@ public class MenuForm extends javax.swing.JFrame {
     }
 
     public void AktualizujMenu() {
-        List<String> menu = this.zoznam_jedal.ziskajVsetkyJedla();
+        List<Jedlo> menu = this.jedla.dajJedla();
         String[] celeMenuPole = new String[menu.size()];
         for (int i = 0; i < menu.size(); i++) {
-            celeMenuPole[i] = menu.get(i);
+            celeMenuPole[i] = menu.get(i).getNazov();
         }
 
         ZoznamJedalList.setListData(celeMenuPole);

@@ -1,14 +1,14 @@
 package oliver_daniel.restauracia;
 
+import oliver_daniel.restauracia.zoznamObjednavokForm;
+
 public class overenieVymazaniaDialog extends javax.swing.JDialog {
 
     private DenneMenuDao jedla_v_dennom_menu = ObjectFactory.INSTANCE.getDenneMenu();
     private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
-    private jedloSCenouDao ceny_jedal = ObjectFactory.INSTANCE.getCenyDao();
+    private JedloDao jedla = ObjectFactory.INSTANCE.getJedla();
     private vypisDao vypisy = ObjectFactory.INSTANCE.getVypis();
-    private VsetkyJedlaDao zoznam_jedal = ObjectFactory.INSTANCE.getMenu();
-    private NapojeDao zoznam_napojov = ObjectFactory.INSTANCE.getNapoje();
-    private NapojeDao ceny_napojov = ObjectFactory.INSTANCE.getCenyNapojovDao();
+    private NapojeDao napoje = ObjectFactory.INSTANCE.getNapoje();
 
     private String db;
     private zoznamObjednavokForm zozObj;
@@ -30,14 +30,15 @@ public class overenieVymazaniaDialog extends javax.swing.JDialog {
             zozObj.nastavText("Vymazana databaza objednavok!");
         }
         if (db.equals("Ceny jedal")) {
-            ceny_jedal.vymazVsetkyJedla();
+            jedla.vymazVsetkyJedla();
             zozObj.aktualizovatZoznamObjednavok();
             zozObj.nastavText("Vymazana databaza cien jedal!");
         }
-        if (db.equals("Ceny napojov")) {
-            ceny_napojov.vymazVsetkyNapoje();
+         if (db.equals("Napoje")) {
+            napoje.vymazVsetkyNapoje();
             zozObj.aktualizovatZoznamObjednavok();
-            zozObj.nastavText("Vymazana databaza cien napojov!");
+            zozObj.aktualizujNapoje();
+            zozObj.nastavText("Vymazana databaza napojov");
         }
         if (db.equals("Denne menu")) {
             jedla_v_dennom_menu.vymazVsetko();
@@ -45,23 +46,12 @@ public class overenieVymazaniaDialog extends javax.swing.JDialog {
             zozObj.aktualizovatZoznamObjednavok();
             zozObj.nastavText("Vymazana databaza denneho menu!");
         }
-        if (db.equals("Zoznam jedal")) {
-            zoznam_jedal.vymazVsetko();
-            zozObj.aktualizovatDenneMenu();
-            zozObj.aktualizovatZoznamObjednavok();
-            zozObj.nastavText("Vymazana databaza zoznamu jedal!");
-        }
         if (db.equals("Vypisy")) {
             vypisy.vymazVsetkyJedla();
             zozObj.aktualizovatZoznamObjednavok();
             zozObj.nastavText("Vymazana databaza vypisov");
         }
-         if (db.equals("Napoje")) {
-            zoznam_napojov.vymazVsetkyNapoje();
-            zozObj.aktualizovatZoznamObjednavok();
-            zozObj.aktualizujNapoje();
-            zozObj.nastavText("Vymazana databaza napojov");
-        }
+       
 
     }
 
@@ -79,7 +69,6 @@ public class overenieVymazaniaDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(270, 160));
-        setPreferredSize(new java.awt.Dimension(272, 218));
         getContentPane().setLayout(null);
 
         anoButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -146,7 +135,7 @@ public class overenieVymazaniaDialog extends javax.swing.JDialog {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(12, 13, 224, 91);
+        jPanel1.setBounds(12, 13, 0, 0);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
         getContentPane().add(jLabel3);

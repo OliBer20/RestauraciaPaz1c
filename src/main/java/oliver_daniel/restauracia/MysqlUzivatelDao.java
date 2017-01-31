@@ -1,5 +1,7 @@
 package oliver_daniel.restauracia;
 
+import oliver_daniel.restauracia.uzivatel;
+import oliver_daniel.restauracia.UzivatelDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;

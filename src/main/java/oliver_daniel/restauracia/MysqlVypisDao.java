@@ -1,5 +1,7 @@
 package oliver_daniel.restauracia;
 
+import oliver_daniel.restauracia.Objednavka;
+import oliver_daniel.restauracia.vypisDao;
 import com.mysql.cj.mysqlx.protobuf.MysqlxDatatypes;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,10 +29,21 @@ public class MysqlVypisDao implements vypisDao {
     }
 
     @Override
+    public Objednavka vratPodlaId(Long id) {
+        List<Objednavka> objednavky = dajVsetkyObjednavky();
+        for (Objednavka objednavka : objednavky) {
+            if (objednavka.getId() == id) {
+                return objednavka;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public void pridajObjednavku(Objednavka o) {
 
-        jdbcTemplate.update("INSERT INTO vypis (id, nazov, cena, datum) VALUES(?,?,?,?)", o.getId(),
-                o.getNazov(), o.getCena(), o.getCasObjednavky());
+        jdbcTemplate.update("INSERT INTO vypis (id) VALUES(?)", o.getId()
+        );
 
     }
 
@@ -42,7 +55,21 @@ public class MysqlVypisDao implements vypisDao {
 
     @Override
     public List<Objednavka> dajVsetkyObjednavky() {
+        String sql = "select * from objednavky_table order by id desc";
+        return jdbcTemplate.query(sql, new MysqlVypisDao.VypisRowMapper());
+    }
+
+    @Override
+    public List<Long> dajVsetkyVypisy() {
         String sql = "select * from vypis order by id desc";
+        return jdbcTemplate.query(sql, new MysqlVypisDao.VypisRowMapper2());
+    }
+
+    @Override
+    public List<Objednavka> dajVsetkyObjednavkyVoVypisoch() {
+
+        String sql = "select * from objednavky_table O join vypis V on V.id = O.id";
+
         return jdbcTemplate.query(sql, new MysqlVypisDao.VypisRowMapper());
     }
 
@@ -100,6 +127,15 @@ public class MysqlVypisDao implements vypisDao {
             o.setCena(rs.getDouble("cena"));
             o.setCasObjednavky(rs.getDate("datum"));
             return o;
+        }
+
+    }
+
+    private class VypisRowMapper2 implements RowMapper<Long> {
+
+        @Override
+        public Long mapRow(ResultSet rs, int i) throws SQLException {
+            return rs.getLong("id");
         }
 
     }

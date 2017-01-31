@@ -1,6 +1,7 @@
 package oliver_daniel.restauracia;
 
 import java.util.List;
+import oliver_daniel.restauracia.Objednavka;
 
 public interface ObjednavkyDao {
 
@@ -9,6 +10,8 @@ public interface ObjednavkyDao {
     void pridaj(Objednavka objednavka);
     
     void Odstran(Objednavka objednavka);
+    
+    public List<Objednavka> dajDnesneObjednavky();
     
     void odstranVsetko();
     

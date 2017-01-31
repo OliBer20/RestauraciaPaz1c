@@ -1,5 +1,6 @@
 package oliver_daniel.restauracia;
 
+import oliver_daniel.restauracia.prihlasenieForm;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -83,7 +84,7 @@ public class ZmenaHeslaForm extends javax.swing.JDialog {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(1, -24, 420, 420);
+        jLabel4.setBounds(1, -24, 440, 410);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
