@@ -5,16 +5,19 @@ import oliver_daniel.restauracia.Objednavka;
 
 public interface ObjednavkyDao {
 
-    List<Objednavka> dajObjednavky();
+    public List<Objednavka> dajVsetkyObjednavky();
 
-    void pridaj(Objednavka objednavka);
+     public Objednavka dajObjednavku(Long id);
     
-    void Odstran(Objednavka objednavka);
+     public void odstranObjednavku(Objednavka objednavka);
+     
+      public void pridajObjednavku(Objednavka objednavka);
     
     public List<Objednavka> dajDnesneObjednavky();
     
-    void odstranVsetko();
+    void naplnObsahObjednavky(Objednavka objednavka);
+
     
-    void vymazPredosluObjednavku();
+ //   void vymazPredosluObjednavku();
 
 }

@@ -1,14 +1,10 @@
 package oliver_daniel.restauracia;
 
-import oliver_daniel.restauracia.MysqlJedlaDao;
-import oliver_daniel.restauracia.MysqlNapoejeDao;
 import oliver_daniel.restauracia.MysqlDenneMenuDao;
 import oliver_daniel.restauracia.MysqlVypisDao;
 import oliver_daniel.restauracia.MysqlObjednavkaDao;
 import oliver_daniel.restauracia.vypisDao;
 import oliver_daniel.restauracia.ObjednavkyDao;
-import oliver_daniel.restauracia.NapojeDao;
-import oliver_daniel.restauracia.JedloDao;
 import oliver_daniel.restauracia.DenneMenuDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,16 +22,10 @@ public enum ObjectFactoryTest {
         return new MysqlVypisDao(getJdbcTemplate());
     }
 
-    public JedloDao getCenyDao() {
-        return new MysqlJedlaDao(getJdbcTemplate());
-    }
+
 
     public DenneMenuDao getDenneMenu() {
         return new MysqlDenneMenuDao(getJdbcTemplate());
-    }
-
-    public NapojeDao getNapoje() {
-        return new MysqlNapoejeDao(getJdbcTemplate());
     }
 
     public JdbcTemplate getJdbcTemplate() {

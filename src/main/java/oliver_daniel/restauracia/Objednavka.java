@@ -1,45 +1,60 @@
 package oliver_daniel.restauracia;
 
 import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
 public class Objednavka {
 
-    private String nazov;
+    private String popis;
     private long id;
-    private double cena;
+    private double suma;
     private Date casObjednavky;
+    private Map<Polozka ,Integer> polozky;
 
-    public Date getCasObjednavky() {
-        return casObjednavky;
-    }
-
-    public long getId() {
-        return id;
+    public void setPopis(String popis) {
+        this.popis = popis;
     }
 
     public void setId(long id) {
         this.id = id;
     }
-    
-    public double getCena() {
-        return cena;
-    }
 
-    public String getNazov() {
-        return nazov;
+    public void setSuma(double suma) {
+        this.suma = suma;
     }
 
     public void setCasObjednavky(Date casObjednavky) {
         this.casObjednavky = casObjednavky;
     }
 
-    public void setCena(double cena) {
-        this.cena = cena;
+    public String getPopis() {
+        return popis;
     }
 
-    public void setNazov(String nazov) {
-        this.nazov = nazov;
+    public long getId() {
+        return id;
     }
 
+    public double getSuma() {
+        return suma;
+    }
 
+    public Date getCasObjednavky() {
+        return casObjednavky;
+    }
+
+    public Map<Polozka, Integer> getPolozky() {
+        return polozky;
+    }
+
+    public void setPolozky(Map<Polozka, Integer> polozky) {
+        this.polozky = polozky;
+    }
+    
+    
+
+    
+    
+    
 }

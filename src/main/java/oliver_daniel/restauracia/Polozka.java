@@ -1,25 +1,34 @@
 package oliver_daniel.restauracia;
 
-public class Jedlo {
+public class Polozka {
 
     private Long id;
     private String nazov;
-    private double cena;
+    private Kategoria kategoria;
+    private Double cena;
 
-    public double getCena() {
+    public Double getCena() {
         return cena;
-    }
-
-    public void setCena(double cena) {
-        this.cena = cena;
     }
 
     public Long getId() {
         return id;
     }
 
+    public Kategoria getKategoria() {
+        return kategoria;
+    }
+
+    public void setKategoria(Kategoria kategoria) {
+        this.kategoria = kategoria;
+    }
+
     public String getNazov() {
         return nazov;
+    }
+
+    public void setCena(Double cena) {
+        this.cena = cena;
     }
 
     public void setId(Long id) {

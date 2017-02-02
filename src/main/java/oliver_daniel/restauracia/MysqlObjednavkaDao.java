@@ -1,68 +1,83 @@
 package oliver_daniel.restauracia;
 
-import oliver_daniel.restauracia.Objednavka;
-import oliver_daniel.restauracia.ObjednavkyDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 public class MysqlObjednavkaDao implements ObjednavkyDao {
 
     private JdbcTemplate jdbcTemplate;
-
+    private MysqlPolozkaDao polozkaDao;
+    
     public MysqlObjednavkaDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        polozkaDao = new MysqlPolozkaDao(jdbcTemplate);
     }
 
     @Override
-    public List<Objednavka> dajObjednavky() {
-        String sql = "SELECT id,nazov,cena,datum "
-                + "FROM objednavky_table order by id desc";
-        return jdbcTemplate.query(sql, new ObjednavkaRowMapper());
+    public void naplnObsahObjednavky(Objednavka objednavka) {
+        String sql = "SELECT id_objednavky,id_polozky,pocet "
+                + "FROM ObsahObjednavky "
+                + "WHERE id_objednavky=?";
+
+        List<ObsahObjednavky> a = jdbcTemplate.query(sql, new PolozkaRowMapper(), objednavka.getId());
+        Map<Polozka, Integer> polozka = new HashMap<>();
+        for (ObsahObjednavky pol : a) {
+            polozka.put(polozkaDao.dajPodlaId(pol.getId_polozky()),pol.getPocet());
+        }
+        objednavka.setPolozky(polozka);
     }
 
     @Override
-    public void Odstran(Objednavka objednavka) {
-        jdbcTemplate.update("delete from objednavky_table where id = ?",
+    public List<Objednavka> dajVsetkyObjednavky() {
+        String sql = "SELECT id_objednavky,popis,suma,datum "
+                + "FROM Objednavka ORDER BY id_objednavky DESC";
+        List<Objednavka> objednavky = jdbcTemplate.query(sql, new ObjednavkaRowMapper());
+        for (Objednavka obj : objednavky) {
+            naplnObsahObjednavky(obj);
+        }
+        return objednavky;
+    }
+
+    @Override
+    public Objednavka dajObjednavku(Long id) {
+        String sql = "SELECT id_objednavky,popis,suma,datum "
+                + "FROM Objednavka WHERE id_objednavky=?";
+        Objednavka objednavka = jdbcTemplate.queryForObject(sql, new ObjednavkaRowMapper(), id);
+        naplnObsahObjednavky(objednavka);
+        return objednavka;
+    }
+
+    @Override
+    public void odstranObjednavku(Objednavka objednavka) {
+        jdbcTemplate.update("DELETE FROM Objednavka WHERE id_objednavky = ?",
                 objednavka.getId());
     }
-    
-     @Override
+
+    @Override
     public List<Objednavka> dajDnesneObjednavky() {
-        Calendar cal = new GregorianCalendar();
-        int den = cal.get(Calendar.DAY_OF_MONTH);
-        int mesiac = cal.get(Calendar.MONTH) + 1;
-        int rok = cal.get(Calendar.YEAR);
-        String sql = "select * from objednavky_table where dayofmonth(datum) = " + den + " and month(datum) = " + mesiac + " and year(datum) = " + rok + " order by id desc";
-        return jdbcTemplate.query(sql, new MysqlObjednavkaDao.DnesneObjednavkyRowMapper());
-
+        String sql = "SELECT id_objednavky,popis,suma,datum FROM Objednavka WHERE DATE(datum) = DATE(NOW()) ORDER BY id_objednavky DESC";
+        List<Objednavka> objednavky = jdbcTemplate.query(sql, new ObjednavkaRowMapper());
+        for (Objednavka obj : objednavky) {
+            naplnObsahObjednavky(obj);
+        }
+        return objednavky;
     }
 
     @Override
-    public void pridaj(Objednavka objednavka) {
-        Calendar cal = new GregorianCalendar();
-        int year = cal.get(Calendar.YEAR) - 1900;
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH) + 1;
-        Date datum = new Date(year, month, day);
-        jdbcTemplate.update("INSERT INTO objednavky_table (id, nazov, cena, datum) VALUES(?,?,?,?)", null,
-                objednavka.getNazov(), objednavka.getCena(), datum);
-    }
-
-    @Override
-    public void odstranVsetko() {
-        jdbcTemplate.update("truncate objednavky_table");
-
-    }
-
-    @Override
-    public void vymazPredosluObjednavku() {
-        jdbcTemplate.update("delete from objednavky_table where nazov is not null order by id desc limit 1");
+    public void pridajObjednavku(Objednavka objednavka) {
+        jdbcTemplate.update("INSERT INTO Objadnavka (popis, suma, datum) VALUES(?,?,?)",
+                objednavka.getPopis(), objednavka.getSuma(), objednavka.getCasObjednavky());
+        Map<Polozka, Integer> polozky = objednavka.getPolozky();
+        for (Polozka polozka : polozky.keySet()) {
+            jdbcTemplate.update("INSERT INTO ObsahObjednavky (id_objednavky,id_polozky,pocet) VALUES (?,?,?)",
+                    objednavka.getId(), polozka.getId(), polozky.get(polozka));
+        }
     }
 
     private class ObjednavkaRowMapper implements RowMapper<Objednavka> {
@@ -71,23 +86,44 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
         public Objednavka mapRow(ResultSet rs, int i) throws SQLException {
             Objednavka objednavka = new Objednavka();
             objednavka.setId(rs.getLong("id"));
-            objednavka.setNazov(rs.getString("nazov"));
-            objednavka.setCena(rs.getDouble("cena"));
+            objednavka.setPopis(rs.getString("nazov"));
+            objednavka.setSuma(rs.getDouble("cena"));
             objednavka.setCasObjednavky(rs.getDate("datum"));
             return objednavka;
         }
 
     }
     
-    private class DnesneObjednavkyRowMapper implements RowMapper<Objednavka> {
+    private class ObsahObjednavky{
+        Long id_polozky;
+        Integer pocet;
+
+        public Long getId_polozky() {
+            return id_polozky;
+        }
+
+        public Integer getPocet() {
+            return pocet;
+        }
+
+        public void setId_polozky(Long id_polozky) {
+            this.id_polozky = id_polozky;
+        }
+
+        public void setPocet(Integer pocet) {
+            this.pocet = pocet;
+        }
+        
+    }
+
+    private class PolozkaRowMapper implements RowMapper<ObsahObjednavky> {
 
         @Override
-        public Objednavka mapRow(ResultSet rs, int i) throws SQLException {
-            Objednavka o = new Objednavka();
-            o.setNazov(rs.getString("nazov"));
-            o.setCena(rs.getDouble("cena"));
-            o.setCasObjednavky(rs.getDate("datum"));
-            return o;
+        public ObsahObjednavky mapRow(ResultSet rs, int i) throws SQLException {
+            ObsahObjednavky n = new ObsahObjednavky();
+            n.setId_polozky(rs.getLong("id_polozky"));
+            n.setPocet(rs.getInt("pocet"));
+            return n;
         }
 
     }
