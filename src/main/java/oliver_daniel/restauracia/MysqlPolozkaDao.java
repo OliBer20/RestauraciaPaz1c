@@ -23,6 +23,13 @@ public class MysqlPolozkaDao implements PolozkaDao {
         return jdbcTemplate.query(sql, new PolozkaRowMapper());
 
     }
+    @Override
+    public double dajCenuPolozky(String nazov){
+        Polozka p = jdbcTemplate.queryForObject("SELECT P.id_polozky id_polozky,P.nazov nazov,"
+                    + "P.cena cena,K.id_kat id_kat,K.nazov nazov_kat "
+                    + "FROM Polozka P JOIN Kategoria K ON P.id_kat=K.id_kat WHERE P.nazov=?", new PolozkaRowMapper(), nazov);
+        return p.getCena();        
+    }
 
     @Override
     public void pridajPolozku(Polozka polozka) {
@@ -67,6 +74,25 @@ public class MysqlPolozkaDao implements PolozkaDao {
     }
 
     private class PolozkaRowMapper implements RowMapper<Polozka> {
+
+        @Override
+        public Polozka mapRow(ResultSet rs, int i) throws SQLException {
+            Polozka n = new Polozka();
+            Kategoria kat = new Kategoria();
+            kat.setId(rs.getLong("id_kat"));
+            kat.setNazov(rs.getString("nazov_kat"));
+            n.setId(rs.getLong("id_polozky"));
+            n.setCena(rs.getDouble("cena"));
+            n.setNazov(rs.getString("nazov"));
+            n.setKategoria(kat);
+            return n;
+        }
+
+    }
+    
+    
+            
+            private class CenaPolozkyMapper implements RowMapper<Polozka> {
 
         @Override
         public Polozka mapRow(ResultSet rs, int i) throws SQLException {

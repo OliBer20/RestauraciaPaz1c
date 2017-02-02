@@ -9,11 +9,9 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import oliver_daniel.restauracia.DenneMenuDao;
-import oliver_daniel.restauracia.MysqlJedlaDao;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import oliver_daniel.restauracia.JedloDao;
 
 public class MysqlDenneMenuDao implements DenneMenuDao {
 

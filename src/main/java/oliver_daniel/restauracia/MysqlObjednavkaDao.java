@@ -13,7 +13,7 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
 
     private JdbcTemplate jdbcTemplate;
     private MysqlPolozkaDao polozkaDao;
-    
+
     public MysqlObjednavkaDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         polozkaDao = new MysqlPolozkaDao(jdbcTemplate);
@@ -28,7 +28,7 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
         List<ObsahObjednavky> a = jdbcTemplate.query(sql, new PolozkaRowMapper(), objednavka.getId());
         Map<Polozka, Integer> polozka = new HashMap<>();
         for (ObsahObjednavky pol : a) {
-            polozka.put(polozkaDao.dajPodlaId(pol.getId_polozky()),pol.getPocet());
+            polozka.put(polozkaDao.dajPodlaId(pol.getId_polozky()), pol.getPocet());
         }
         objednavka.setPolozky(polozka);
     }
@@ -71,13 +71,19 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
 
     @Override
     public void pridajObjednavku(Objednavka objednavka) {
-        jdbcTemplate.update("INSERT INTO Objadnavka (popis, suma, datum) VALUES(?,?,?)",
+        jdbcTemplate.update("INSERT INTO Objednavka (popis, suma, datum) VALUES(?,?,?)",
                 objednavka.getPopis(), objednavka.getSuma(), objednavka.getCasObjednavky());
         Map<Polozka, Integer> polozky = objednavka.getPolozky();
         for (Polozka polozka : polozky.keySet()) {
             jdbcTemplate.update("INSERT INTO ObsahObjednavky (id_objednavky,id_polozky,pocet) VALUES (?,?,?)",
                     objednavka.getId(), polozka.getId(), polozky.get(polozka));
         }
+    }
+
+    @Override
+    public void vymazPredosluObjednavku() {
+        jdbcTemplate.update("DELETE FROM Objednavka WHERE id_objednavky = max(id_objednavky)");
+
     }
 
     private class ObjednavkaRowMapper implements RowMapper<Objednavka> {
@@ -93,8 +99,9 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
         }
 
     }
-    
-    private class ObsahObjednavky{
+
+    private class ObsahObjednavky {
+
         Long id_polozky;
         Integer pocet;
 
@@ -113,7 +120,7 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
         public void setPocet(Integer pocet) {
             this.pocet = pocet;
         }
-        
+
     }
 
     private class PolozkaRowMapper implements RowMapper<ObsahObjednavky> {

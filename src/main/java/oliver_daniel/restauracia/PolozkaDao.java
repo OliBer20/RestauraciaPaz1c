@@ -13,5 +13,7 @@ public interface PolozkaDao {
     Polozka dajPodlaId(Long id);
 
     Polozka dajIDPodlaNazvu(String nazov);
+    
+    public double dajCenuPolozky(String nazov);
 
 }

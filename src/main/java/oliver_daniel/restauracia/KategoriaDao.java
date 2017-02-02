@@ -8,6 +8,10 @@ public interface KategoriaDao {
     
     void vymazKategoriu(Kategoria kategoria);
     
+     public Kategoria dajKategoriuJedlo();
+     
+     public Kategoria dajKategoriuNapoj();
+    
     
     
 }

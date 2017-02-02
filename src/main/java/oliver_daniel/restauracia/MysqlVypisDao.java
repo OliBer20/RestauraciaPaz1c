@@ -123,7 +123,7 @@ public class MysqlVypisDao implements vypisDao {
         public Objednavka mapRow(ResultSet rs, int i) throws SQLException {
             Objednavka o = new Objednavka();
             o.setId(rs.getLong("id"));
-            o.setNazov(rs.getString("nazov"));
+            o.setPopis(rs.getString("popis"));
             o.setCena(rs.getDouble("cena"));
             o.setCasObjednavky(rs.getDate("datum"));
             return o;
