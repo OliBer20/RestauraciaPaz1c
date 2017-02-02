@@ -1,5 +1,7 @@
-package oliver_daniel.restauracia;
+package dao;
 
+import entity.Kategoria;
+import dao.KategoriaDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,20 +18,22 @@ public class MysqlKategoriaDao implements KategoriaDao {
 
     @Override
     public void pridajKategoriu(Kategoria kategoria) {
-        jdbcTemplate.update("INSERT INTO Kategoria (nazov) VALUES(?)",
-                kategoria.getNazov());
+        jdbcTemplate.update("INSERT INTO Kategoria (nazov) VALUES(?)",kategoria.getNazov());
     }
 
-    public Kategoria dajKategoriuJedlo() {
-        String sql = "SELECT id_kat, nazov from Kategoria where nazov = Jedlo";
-        return jdbcTemplate.queryForObject(sql, new MysqlKategoriaDao.KategoriaRowMapper());
-
+    public Kategoria dajKategoriu(Long id) {
+        String sql = "SELECT id_kat, nazov FROM Kategoria WHERE id_kat = ?";
+        return jdbcTemplate.queryForObject(sql, new MysqlKategoriaDao.KategoriaRowMapper(),id);
     }
     
-      public Kategoria dajKategoriuNapoj() {
-        String sql = "SELECT id_kat, nazov from Kategoria where nazov = Napoj";
-        return jdbcTemplate.queryForObject(sql, new MysqlKategoriaDao.KategoriaRowMapper());
-
+    public Kategoria dajKategoriu(String nazov) {
+        String sql = "SELECT id_kat, nazov FROM Kategoria WHERE nazov = ?";
+        return jdbcTemplate.queryForObject(sql, new MysqlKategoriaDao.KategoriaRowMapper(),nazov);
+    }
+    
+    public List<Kategoria> dajVsetkyKategorie() {
+        String sql = "SELECT id_kat,nazov FROM Kategoria";
+        return jdbcTemplate.query(sql, new MysqlKategoriaDao.KategoriaRowMapper());
     }
 
     @Override
@@ -42,7 +46,7 @@ public class MysqlKategoriaDao implements KategoriaDao {
         @Override
         public Kategoria mapRow(ResultSet rs, int i) throws SQLException {
             Kategoria k = new Kategoria();
-            k.setId(rs.getLong("id"));
+            k.setId(rs.getLong("id_kat"));
             k.setNazov(rs.getString("nazov"));
             return k;
         }

@@ -1,8 +1,7 @@
-package oliver_daniel.restauracia;
+package entity;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 
 public class Objednavka {
 

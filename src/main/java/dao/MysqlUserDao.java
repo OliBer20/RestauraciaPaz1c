@@ -1,4 +1,4 @@
-package oliver_daniel.restauracia;
+package dao;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 

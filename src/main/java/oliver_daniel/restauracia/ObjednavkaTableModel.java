@@ -1,19 +1,23 @@
 package oliver_daniel.restauracia;
 
-import oliver_daniel.restauracia.Objednavka;
-import java.util.Date;
-import javax.swing.JOptionPane;
+import entity.Polozka;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 
 public class ObjednavkaTableModel extends AbstractTableModel {
 
-    private ObjednavkyDao dnesneObjednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
-    private static final String[] NAZVY_STLPCOV = {"Popis", "Cena", "Datum"};
+    private Map<Polozka,Integer> polozkyVObjednavke = new HashMap<>();
+    private static final String[] NAZVY_STLPCOV = {"Názov", "Cena", "Počet"};
     private static final int POCET_STLPCOV = NAZVY_STLPCOV.length;
 
+    public void setMap(Map<Polozka,Integer> pvo){
+        polozkyVObjednavke = pvo;
+    }
+    
     @Override
     public int getRowCount() {
-        return dnesneObjednavky.dajDnesneObjednavky().size();
+        return polozkyVObjednavke.size();
     }
 
     @Override
@@ -23,34 +27,26 @@ public class ObjednavkaTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Objednavka o = dnesneObjednavky.dajDnesneObjednavky().get(rowIndex);
+        Polozka[] polozky = new Polozka[polozkyVObjednavke.size()];
+        polozkyVObjednavke.keySet().toArray(polozky);
+        Polozka polozka = polozky[rowIndex];
+        
         switch (columnIndex) {
             case 0:
-                return o.getPopis();
+                return polozka.getNazov();
             case 1:
-                return o.getSuma();
+                return polozka.getCena();
             case 2:
-                Date datum = o.getCasObjednavky();
-                if (datum == null) {
-                    return "Neplatny Cas";
-                } else {
-                    return datum;
-                }
+                return polozkyVObjednavke.get(polozka);
             default:
                 return "???";
         }
     }
 
-    public Objednavka dajKliknutuObjednavku(int rowIndex) {
-        Objednavka o = dnesneObjednavky.dajDnesneObjednavky().get(rowIndex);
+    public Polozka dajKliknutuPolozku(int rowIndex) {
+        Polozka o = ((Polozka[])polozkyVObjednavke.keySet().toArray())[rowIndex];
         aktualizovat();
         return o;
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-
-        return super.getColumnClass(columnIndex);
     }
 
     @Override
@@ -58,7 +54,7 @@ public class ObjednavkaTableModel extends AbstractTableModel {
         return NAZVY_STLPCOV[columnIndex];
     }
 
-  public  void aktualizovat() {
+    public  void aktualizovat() {
         fireTableDataChanged();
     }
 

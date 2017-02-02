@@ -1,7 +1,7 @@
-package oliver_daniel.restauracia;
+package dao;
 
 import java.util.List;
-import oliver_daniel.restauracia.Objednavka;
+import entity.Objednavka;
 
 public interface ObjednavkyDao {
 

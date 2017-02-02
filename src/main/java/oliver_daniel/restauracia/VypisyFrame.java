@@ -1,6 +1,8 @@
 package oliver_daniel.restauracia;
 
-import oliver_daniel.restauracia.Objednavka;
+import factory.ObjectFactory;
+import dao.ObjednavkyDao;
+import entity.Objednavka;
 import oliver_daniel.restauracia.zoznamObjednavokForm;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,8 +11,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class VypisyFrame extends javax.swing.JFrame {
-
-    private vypisDao vypisy = ObjectFactory.INSTANCE.getVypis();
 
     private String zobrazeneObjednavky = "Zobrazene objednavky na: ";
     private zoznamObjednavokForm zozObj;
@@ -301,11 +301,6 @@ public class VypisyFrame extends javax.swing.JFrame {
         int rok = Integer.parseInt(rokCombo.getSelectedItem().toString());
         int mesiac = Integer.parseInt(mesiacCombo.getSelectedItem().toString());
         int den = Integer.parseInt(denCombo.getSelectedItem().toString());
-        vypisy.vymazVsetkyJedla();
-        List<Objednavka> objednavky = vypisy.dajPodlaDatumu(rok, mesiac, den);
-        for (Objednavka objednavka : objednavky) {
-            vypisy.pridajObjednavku(objednavka);
-        }
         aktualizovatTabulku();
         zobrazeneObjednavky = "Zobrazene objednavky na: " + Integer.toString(den) + "." + Integer.toString(mesiac) + "." + Integer.toString(rok);
         vypisZarobku.setText(zobrazeneObjednavky);
@@ -321,11 +316,6 @@ public class VypisyFrame extends javax.swing.JFrame {
         int den = cal.get(Calendar.DAY_OF_MONTH);
         zobrazeneObjednavky = "Zobrazene objednavky na den: " + Integer.toString(den) + "." + Integer.toString(mesiac) + "." + Integer.toString(year);
         vypisZarobku.setText(zobrazeneObjednavky);
-        vypisy.vymazVsetkyJedla();
-        List<Objednavka> objednavky = vypisy.dajDnesneObjednavky();
-        for (Objednavka objednavka : objednavky) {
-            vypisy.pridajObjednavku(objednavka);
-        }
         aktualizovatTabulku();
 
     }//GEN-LAST:event_objednavkyDnesButtonActionPerformed
@@ -371,11 +361,6 @@ public class VypisyFrame extends javax.swing.JFrame {
             mesiac = 12;
         }
 
-        vypisy.vymazVsetkyJedla();
-        List<Objednavka> objednavky = vypisy.dajPodlaMesiaca(year, mesiac);
-        for (Objednavka objednavka : objednavky) {
-            vypisy.pridajObjednavku(objednavka);
-        }
         aktualizovatTabulku();
         zobrazeneObjednavky = "Zobrazene objednavky na: " + mesiacZobraz.getSelectedItem().toString();
         vypisZarobku.setText(zobrazeneObjednavky);
@@ -384,24 +369,14 @@ public class VypisyFrame extends javax.swing.JFrame {
     private void zarobkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zarobkyButtonActionPerformed
         double zarobok = 0.0;
         int pocet = 0;
-        List<Long> IDobjednavky = vypisy.dajVsetkyVypisy();
-        for (Long id : IDobjednavky) {
-            zarobok += vypisy.vratPodlaId(id).getCena();
-            pocet++;
-        }
-        zarobok = Math.round(zarobok * 10000.0) / 10000.0;
+       zarobok = Math.round(zarobok * 10000.0) / 10000.0;
         vypisZarobku.setText(zobrazeneObjednavky + "\n" + "\n" + "Spolu za zobrazene objednavky: " + Double.toString(zarobok) + " €" + "\n" + "\n" + "Pocet objednavok: " + pocet);
 
     }//GEN-LAST:event_zarobkyButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int rok = Integer.parseInt(rokZobraz.getSelectedItem().toString());
-        vypisy.vymazVsetkyJedla();
-        List<Objednavka> objednavky = vypisy.dajPodlaRoka(rok);
-        for (Objednavka objednavka : objednavky) {
-            vypisy.pridajObjednavku(objednavka);
-        }
-        aktualizovatTabulku();
+         aktualizovatTabulku();
         zobrazeneObjednavky = "Zobrazene objednavky na: " + rokZobraz.getSelectedItem().toString();
         vypisZarobku.setText(zobrazeneObjednavky);
 
@@ -411,30 +386,10 @@ public class VypisyFrame extends javax.swing.JFrame {
 
         int selectedRow = jTable1.getSelectedRow();
         ObjednavkyDao obj = ObjectFactory.INSTANCE.getObjednavkaDao();
-        List<Objednavka> objednavky = obj.dajObjednavky();
-        VypisTableModel model = (VypisTableModel) jTable1.getModel();
+         VypisTableModel model = (VypisTableModel) jTable1.getModel();
         Long valueAt = (Long) model.getValueAt(selectedRow, 0);
 
-        for (Objednavka objednavka : objednavky) {
-
-            try {
-                if (objednavka.getId() == (valueAt)) {
-                    objednavky.remove(objednavka);
-                    vypisy.Odstran(objednavka);
-                    obj.Odstran(objednavka);
-                    aktualizovatTabulku();
-
-                    zobrazeneObjednavky = "Vymazana objednavka: " + objednavka.getNazov() + " " + objednavka.getCena();
-                    vypisZarobku.setText(zobrazeneObjednavky);
-                    break;
-                }
-            } catch (Exception e) {
-               
-            }
-
-        }
-
-        zozObj.aktualizovatZoznamObjednavok();
+      
 
     }//GEN-LAST:event_vymazObjednavkuActionPerformed
 

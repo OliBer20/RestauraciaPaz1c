@@ -1,7 +1,8 @@
 
-package oliver_daniel.restauracia;
+package dao;
 
-import oliver_daniel.restauracia.uzivatel;
+import entity.uzivatel;
+import entity.uzivatel;
 
 public interface UzivatelDao {
    

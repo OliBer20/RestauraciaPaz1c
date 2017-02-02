@@ -1,5 +1,7 @@
 package oliver_daniel.restauracia;
 
+import factory.ObjectFactory;
+import dao.UzivatelDao;
 import oliver_daniel.restauracia.prihlasenieForm;
 import java.awt.Color;
 import javax.swing.JOptionPane;

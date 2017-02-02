@@ -1,5 +1,7 @@
 package oliver_daniel.restauracia;
 
+import factory.ObjectFactory;
+import dao.UzivatelDao;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Image;

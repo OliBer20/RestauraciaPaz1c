@@ -1,5 +1,9 @@
-package oliver_daniel.restauracia;
+package dao;
 
+import dao.MysqlPolozkaDao;
+import dao.ObjednavkyDao;
+import entity.Polozka;
+import entity.Objednavka;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -73,6 +77,9 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
     public void pridajObjednavku(Objednavka objednavka) {
         jdbcTemplate.update("INSERT INTO Objednavka (popis, suma, datum) VALUES(?,?,?)",
                 objednavka.getPopis(), objednavka.getSuma(), objednavka.getCasObjednavky());
+        Objednavka novaObjednavka = jdbcTemplate.queryForObject("SELECT id_objednavky,popis,suma,datum "
+                + "FROM Objednavka ORDER BY id_objednavky DESC LIMIT 1", new ObjednavkaRowMapper());
+        objednavka.setId(novaObjednavka.getId());
         Map<Polozka, Integer> polozky = objednavka.getPolozky();
         for (Polozka polozka : polozky.keySet()) {
             jdbcTemplate.update("INSERT INTO ObsahObjednavky (id_objednavky,id_polozky,pocet) VALUES (?,?,?)",
@@ -91,9 +98,9 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
         @Override
         public Objednavka mapRow(ResultSet rs, int i) throws SQLException {
             Objednavka objednavka = new Objednavka();
-            objednavka.setId(rs.getLong("id"));
-            objednavka.setPopis(rs.getString("nazov"));
-            objednavka.setSuma(rs.getDouble("cena"));
+            objednavka.setId(rs.getLong("id_objednavky"));
+            objednavka.setPopis(rs.getString("popis"));
+            objednavka.setSuma(rs.getDouble("suma"));
             objednavka.setCasObjednavky(rs.getDate("datum"));
             return objednavka;
         }

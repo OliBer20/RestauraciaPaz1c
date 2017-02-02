@@ -1,5 +1,6 @@
-package oliver_daniel.restauracia;
+package dao;
 
+import entity.Polozka;
 import java.util.List;
 
 public interface PolozkaDao {
@@ -12,8 +13,6 @@ public interface PolozkaDao {
 
     Polozka dajPodlaId(Long id);
 
-    Polozka dajIDPodlaNazvu(String nazov);
-    
-    public double dajCenuPolozky(String nazov);
+    Polozka dajPodlaNazvu(String nazov);
 
 }

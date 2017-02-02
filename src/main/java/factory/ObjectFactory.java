@@ -1,15 +1,14 @@
-package oliver_daniel.restauracia;
+package factory;
 
 
-import oliver_daniel.restauracia.MysqlDenneMenuDao;
-import oliver_daniel.restauracia.MysqlVypisDao;
-import oliver_daniel.restauracia.MysqlUzivatelDao;
-import oliver_daniel.restauracia.MysqlObjednavkaDao;
-import oliver_daniel.restauracia.MysqlPolozkaDao;
-import oliver_daniel.restauracia.vypisDao;
-import oliver_daniel.restauracia.UzivatelDao;
-import oliver_daniel.restauracia.ObjednavkyDao;
-import oliver_daniel.restauracia.DenneMenuDao;
+import dao.MysqlKategoriaDao;
+import dao.PolozkaDao;
+import dao.KategoriaDao;
+import dao.MysqlUzivatelDao;
+import dao.MysqlObjednavkaDao;
+import dao.MysqlPolozkaDao;
+import dao.UzivatelDao;
+import dao.ObjednavkyDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -22,23 +21,15 @@ public enum ObjectFactory {
         return new MysqlObjednavkaDao(getJdbcTemplate());
     }
 
-    public vypisDao getVypis() {
-        return new MysqlVypisDao(getJdbcTemplate());
-    }
-
-    public DenneMenuDao getDenneMenu() {
-        return new MysqlDenneMenuDao(getJdbcTemplate());
-    }
-
     public UzivatelDao getHesla(){
         return new MysqlUzivatelDao(getJdbcTemplate());
     }
     
-    public PolozkaDao getPolozky(){
+    public PolozkaDao getPolozkaDao(){
         return new MysqlPolozkaDao(getJdbcTemplate());
     }
 
-    public KategoriaDao getKategorie(){
+    public KategoriaDao getKategoriaDao(){
         return new MysqlKategoriaDao(getJdbcTemplate());
     }
     
@@ -47,7 +38,7 @@ public enum ObjectFactory {
             MysqlDataSource dataSource = new MysqlDataSource();
             dataSource.setUrl("jdbc:mysql://localhost/objednavky?serverTimezone=UTC");
             dataSource.setUser("restauraciaUser");
-            dataSource.setPassword("restauracia");
+            dataSource.setPassword("restauraciauser");
             jdbcTemplate = new JdbcTemplate(dataSource);
         }
         return jdbcTemplate;

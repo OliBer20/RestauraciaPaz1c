@@ -1,5 +1,8 @@
-package oliver_daniel.restauracia;
+package dao;
 
+import dao.PolozkaDao;
+import entity.Polozka;
+import entity.Kategoria;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,27 +26,19 @@ public class MysqlPolozkaDao implements PolozkaDao {
         return jdbcTemplate.query(sql, new PolozkaRowMapper());
 
     }
-    @Override
-    public double dajCenuPolozky(String nazov){
-        Polozka p = jdbcTemplate.queryForObject("SELECT P.id_polozky id_polozky,P.nazov nazov,"
-                    + "P.cena cena,K.id_kat id_kat,K.nazov nazov_kat "
-                    + "FROM Polozka P JOIN Kategoria K ON P.id_kat=K.id_kat WHERE P.nazov=?", new PolozkaRowMapper(), nazov);
-        return p.getCena();        
-    }
-
+   
     @Override
     public void pridajPolozku(Polozka polozka) {
         try {
-            jdbcTemplate.update("INSERT INTO Polozka (nazov, cena,id_kat) VALUES(?,?,?)",
+            jdbcTemplate.update("INSERT INTO Polozka (nazov,cena,id_kat) VALUES (?,?,?)",
                     polozka.getNazov(), polozka.getCena(),polozka.getKategoria().getId());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Polozku:" + polozka.getNazov() + " sa nepodarilo vlozit");
         }
-
     }
 
     @Override
-    public Polozka dajIDPodlaNazvu(String nazov) {
+    public Polozka dajPodlaNazvu(String nazov) {
         try {
             return jdbcTemplate.queryForObject("SELECT P.id_polozky id_polozky,P.nazov nazov,"
                     + "P.cena cena,K.id_kat id_kat,K.nazov nazov_kat "
@@ -92,7 +87,7 @@ public class MysqlPolozkaDao implements PolozkaDao {
     
     
             
-            private class CenaPolozkyMapper implements RowMapper<Polozka> {
+        private class CenaPolozkyMapper implements RowMapper<Polozka> {
 
         @Override
         public Polozka mapRow(ResultSet rs, int i) throws SQLException {

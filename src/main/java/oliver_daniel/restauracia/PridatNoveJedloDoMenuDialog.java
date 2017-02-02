@@ -1,18 +1,17 @@
 package oliver_daniel.restauracia;
 
+import factory.ObjectFactory;
+import dao.ObjednavkyDao;
+import entity.Polozka;
 import oliver_daniel.restauracia.MenuForm;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 import javax.swing.JOptionPane;
-import oliver_daniel.restauracia.Jedlo;
 
 public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
 
-    private JedloDao jedla = ObjectFactory.INSTANCE.getJedla();
     private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
-    private DenneMenuDao jedla_v_dennom_menu = ObjectFactory.INSTANCE.getDenneMenu();
-
     private MenuForm m;
 
     public PridatNoveJedloDoMenuDialog(java.awt.Frame parent, boolean modal, MenuForm menu) {
@@ -95,12 +94,9 @@ public class PridatNoveJedloDoMenuDialog extends javax.swing.JDialog {
         }
 
         if (zadaneUdaje) {
-            Jedlo jedlo = new Jedlo();
+            Polozka jedlo = new Polozka();
             jedlo.setNazov(nazov);
             jedlo.setCena(cena);
-            jedla.pridajJedlo(jedlo);
-            m.AktualizujMenu();
-            m.AktualizujComboBox();
             dispose();
 
         } else {

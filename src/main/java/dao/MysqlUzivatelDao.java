@@ -1,13 +1,14 @@
-package oliver_daniel.restauracia;
+package dao;
 
-import oliver_daniel.restauracia.uzivatel;
-import oliver_daniel.restauracia.UzivatelDao;
+import entity.uzivatel;
+import dao.UzivatelDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import entity.uzivatel;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

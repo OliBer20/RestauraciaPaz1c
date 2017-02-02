@@ -1,22 +1,17 @@
 package oliver_daniel.restauracia;
 
-import oliver_daniel.restauracia.Objednavka;
-import oliver_daniel.restauracia.vypisDao;
-import java.util.Date;
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class VypisTableModel extends AbstractTableModel {
 
-    private vypisDao vypis = ObjectFactory.INSTANCE.getVypis();
-
+    
     private static final String[] NAZVY_STLPCOV = {"ID", "Popis", "Cena", "Datum"};
 
     private static final int POCET_STLPCOV = NAZVY_STLPCOV.length;
 
     @Override
     public int getRowCount() {
-        return vypis.dajVsetkyVypisy().size();
+        return 0;
     }
 
     @Override
@@ -26,35 +21,15 @@ public class VypisTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        try {
-            Objednavka o = vypis.dajVsetkyObjednavkyVoVypisoch().get(rowIndex);
-            switch (columnIndex) {
-                case 0:
-                    return o.getId();
-                case 1:
-                    return o.getNazov();
-                case 2:
-                    return o.getCena();
-                case 3:
-                    Date datum = o.getCasObjednavky();
-                    if (datum == null) {
-                        return "Neplatny Cas";
-                    } else {
-                        return datum;
-                    }
-                default:
-                    return "???";
-            }
-        } catch (Exception e) {
-        }
+        
         return null;
     }
 
-    public Objednavka dajKliknutuObjednavku(int rowIndex) {
+    /*public Objednavka dajKliknutuObjednavku(int rowIndex) {
         Objednavka o = vypis.dajVsetkyObjednavkyVoVypisoch().get(rowIndex);
         aktualizovat();
         return o;
-    }
+    /*/
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {

@@ -1,4 +1,4 @@
-package oliver_daniel.restauracia;
+package entity;
 
 public class Kategoria {
 

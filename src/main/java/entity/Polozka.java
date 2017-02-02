@@ -1,4 +1,6 @@
-package oliver_daniel.restauracia;
+package entity;
+
+import entity.Kategoria;
 
 public class Polozka {
 

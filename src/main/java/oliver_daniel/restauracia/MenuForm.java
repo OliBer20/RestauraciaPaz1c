@@ -1,120 +1,32 @@
 package oliver_daniel.restauracia;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import dao.PolozkaDao;
+import entity.Polozka;
+import factory.ObjectFactory;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
-import java.util.Set;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import oliver_daniel.restauracia.Jedlo;
+
 
 public class MenuForm extends javax.swing.JFrame {
 
-    private ObjednavkyDao objednavky = ObjectFactory.INSTANCE.getObjednavkaDao();
-    private DenneMenuDao jedla_v_dennom_menu = ObjectFactory.INSTANCE.getDenneMenu();
-    private JedloDao jedla = ObjectFactory.INSTANCE.getJedla();
-
-    zoznamObjednavokForm zoznamObjednavok;
-
-    private int pocetKliknutiNaPolozkuVMenu = 0;
-    private int pocetKliknutiNaPolozkuVDennomMenu = 0;
-
-    public MenuForm(zoznamObjednavokForm z) {
+    private PolozkaDao polozkaDao;
+    
+    public MenuForm() {
         initComponents();
-        PridajKliknutyObjektDoDennehoMenu();
-        VymazKliknutyObjektZDennehoMenu();
-        AktualizujComboBox();
-        AktualizujDenneMenu();
-        AktualizujMenu();
-        zoznamObjednavok = z;
-
+        polozkaDao = ObjectFactory.INSTANCE.getPolozkaDao();
+        aktualizujZoznamJedal();
     }
-
-    private MenuForm() {
-    }
-
-    //Zdroj inspiracie:
-    //http://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element 
-    public void VymazKliknutyObjektZDennehoMenu() {
-        DenneMenuList.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-                pocetKliknutiNaPolozkuVDennomMenu++;
-
-                if (pocetKliknutiNaPolozkuVDennomMenu == 1) {
-                    int index = DenneMenuList.locationToIndex(mouseEvent.getPoint());
-                    if (index >= 0) {
-                        Object jedlo = DenneMenuList.getModel().getElementAt(index);
-                        odstranZDennehoMenu(jedlo.toString());
-                    }
-                    pocetKliknutiNaPolozkuVDennomMenu = 0;
-                }
-            }
-
-        });
-
-    }
-
-    public void PridajKliknutyObjektDoDennehoMenu() {
-//Zdroj inspiracie:
-        //http://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element 
-        ZoznamJedalList.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-                pocetKliknutiNaPolozkuVMenu++;
-
-                if (pocetKliknutiNaPolozkuVMenu == 1) {
-                    int index = ZoznamJedalList.locationToIndex(mouseEvent.getPoint());
-                    if (index >= 0) {
-                        Object jedlo = ZoznamJedalList.getModel().getElementAt(index);
-                        presunJedloDoDennehoMEnu(jedlo.toString());
-                    }
-                    pocetKliknutiNaPolozkuVMenu = 0;
-                }
-            }
-        });
-
-    }
-
-    public Long vratIDJedla(String jedlo) {
-        Long id = null;
-        List<Jedlo> j = jedla.dajJedla();
-        for (Jedlo jedlo1 : j) {
-            if (jedlo1.getNazov().equals(jedlo)) {
-                id = jedlo1.getId();
-                return id;
-            }
-
+    
+    void aktualizujZoznamJedal(){
+        List<Polozka> vsetkyPolozky = polozkaDao.dajPolozky();
+        List<String> nazvy = new ArrayList<>();
+        for (Polozka polozka : vsetkyPolozky) {
+            if(polozka.getKategoria().getNazov().equals("Jedlo"))
+                nazvy.add(polozka.getNazov());
         }
-        return null;
-
+        ZoznamJedalList.setListData((String[])nazvy.toArray());
     }
 
-    private void odstranZDennehoMenu(String jedlo) {
-        jedla_v_dennom_menu.odober(vratIDJedla(jedlo));
-        AktualizujDenneMenu();
-
-    }
-
-    public void presunJedloDoDennehoMEnu(String jedlo) {
-        List<Jedlo> jedla = this.jedla.dajJedla();
-        Long id = null;
-        for (Jedlo jedlo1 : jedla) {
-            if (jedlo1.getNazov().equals(jedlo)) {
-                id = jedlo1.getId();
-            }
-        }
-        jedla_v_dennom_menu.pridaj(id);
-        AktualizujDenneMenu();
-
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -268,35 +180,19 @@ public class MenuForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void vymazDenneMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazDenneMenuButtonActionPerformed
-        jedla_v_dennom_menu.vymazVsetko();
-        AktualizujDenneMenu();
-
+       
     }//GEN-LAST:event_vymazDenneMenuButtonActionPerformed
 
     private void pridatJedloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatJedloButtonActionPerformed
-        PridatNoveJedloDoMenuDialog p = new PridatNoveJedloDoMenuDialog(this, true, this);
-        p.setVisible(true);
-
+        
     }//GEN-LAST:event_pridatJedloButtonActionPerformed
 
-
     private void aktualizujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktualizujButtonActionPerformed
-        zoznamObjednavok.aktualizovatDenneMenu();
-        this.dispose();
+     
     }//GEN-LAST:event_aktualizujButtonActionPerformed
 
     private void vymazOznActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazOznActionPerformed
-        Jedlo j = new Jedlo();
-        String jedlo = vyberJedlo.getSelectedItem().toString();
-        j.setNazov(jedlo);
-        jedla.vymazJedlo(j);
-
-        jedla_v_dennom_menu.odober(vratIDJedla(jedlo));
-        AktualizujComboBox();
-        AktualizujDenneMenu();
-        AktualizujMenu();
-
-
+      
     }//GEN-LAST:event_vymazOznActionPerformed
 
     private void vyberJedloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyberJedloActionPerformed
@@ -304,37 +200,6 @@ public class MenuForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_vyberJedloActionPerformed
 
-    public void AktualizujComboBox() {
-        vyberJedlo.removeAllItems();
-        vyberJedlo.addItem("Vyber jedlo:");
-        List<Jedlo> menu = this.jedla.dajJedla();
-        for (Jedlo jedlo : menu) {
-            vyberJedlo.addItem(jedlo.getNazov());
-        }
-
-    }
-
-    public void AktualizujDenneMenu() {
-        List<Long> DenneMenu = jedla_v_dennom_menu.ziskajDenneMenu();
-        String[] celeMenuPole = new String[DenneMenu.size()];
-        for (int i = 0; i < DenneMenu.size(); i++) {
-            celeMenuPole[i] = jedla.vratPodlaId(DenneMenu.get(i)).getNazov();
-        }
-
-        DenneMenuList.setListData(celeMenuPole);
-
-    }
-
-    public void AktualizujMenu() {
-        List<Jedlo> menu = this.jedla.dajJedla();
-        String[] celeMenuPole = new String[menu.size()];
-        for (int i = 0; i < menu.size(); i++) {
-            celeMenuPole[i] = menu.get(i).getNazov();
-        }
-
-        ZoznamJedalList.setListData(celeMenuPole);
-
-    }
 
     public static void main(String args[]) {
 
@@ -346,9 +211,6 @@ public class MenuForm extends javax.swing.JFrame {
         });
     }
 
-    public JList<String> getZoznamJedalList() {
-        return ZoznamJedalList;
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
