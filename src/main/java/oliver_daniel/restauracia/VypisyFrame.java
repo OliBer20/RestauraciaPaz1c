@@ -2,22 +2,32 @@ package oliver_daniel.restauracia;
 
 import factory.ObjectFactory;
 import dao.ObjednavkyDao;
+import dao.vypisDao;
 import entity.Objednavka;
+import entity.Polozka;
+import java.util.ArrayList;
 import oliver_daniel.restauracia.zoznamObjednavokForm;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class VypisyFrame extends javax.swing.JFrame {
 
+    private vypisDao vypis = ObjectFactory.INSTANCE.getVypis();
     private String zobrazeneObjednavky = "Zobrazene objednavky na: ";
     private zoznamObjednavokForm zozObj;
+
+    private List<Objednavka> objednavky = new ArrayList<>();
 
     public VypisyFrame(zoznamObjednavokForm z) {
         initComponents();
         zozObj = z;
+        VypisTableModel model = (VypisTableModel) jTable1.getModel();
+        model.setMap(objednavky);
     }
 
     private VypisyFrame() {
@@ -28,6 +38,7 @@ public class VypisyFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         objednavkyDnesButton = new javax.swing.JButton();
@@ -60,7 +71,9 @@ public class VypisyFrame extends javax.swing.JFrame {
         denCombo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alu2.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(820, 715));
@@ -105,7 +118,6 @@ public class VypisyFrame extends javax.swing.JFrame {
         VypisButton.setBounds(466, 143, 147, 54);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Objednavky na deň:");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(537, 21, 182, 22);
@@ -148,13 +160,11 @@ public class VypisyFrame extends javax.swing.JFrame {
         jSeparator3.setBounds(0, 251, 403, 2);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("INFO:");
         getContentPane().add(jLabel6);
         jLabel6.setBounds(466, 211, 54, 22);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Objednavky na mesiac:");
         getContentPane().add(jLabel7);
         jLabel7.setBounds(12, 103, 149, 16);
@@ -164,7 +174,6 @@ public class VypisyFrame extends javax.swing.JFrame {
         mesiacZobraz.setBounds(44, 126, 116, 22);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Objednavky na rok:");
         getContentPane().add(jLabel8);
         jLabel8.setBounds(12, 188, 126, 16);
@@ -174,7 +183,6 @@ public class VypisyFrame extends javax.swing.JFrame {
         rokZobraz.setBounds(46, 211, 119, 22);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Dnešné objednávky:");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(12, 35, 141, 17);
@@ -289,9 +297,14 @@ public class VypisyFrame extends javax.swing.JFrame {
         getContentPane().add(jLabel10);
         jLabel10.setBounds(670, 400, 48, 16);
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alu2.jpg"))); // NOI18N
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(-2, 0, 810, 670);
+        jButton2.setText("Zobraz oznac. obj.");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(10, 260, 150, 60);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -301,6 +314,7 @@ public class VypisyFrame extends javax.swing.JFrame {
         int rok = Integer.parseInt(rokCombo.getSelectedItem().toString());
         int mesiac = Integer.parseInt(mesiacCombo.getSelectedItem().toString());
         int den = Integer.parseInt(denCombo.getSelectedItem().toString());
+        objednavky = vypis.dajPodlaDatumu(rok, mesiac, den);
         aktualizovatTabulku();
         zobrazeneObjednavky = "Zobrazene objednavky na: " + Integer.toString(den) + "." + Integer.toString(mesiac) + "." + Integer.toString(rok);
         vypisZarobku.setText(zobrazeneObjednavky);
@@ -314,6 +328,7 @@ public class VypisyFrame extends javax.swing.JFrame {
         int year = cal.get(Calendar.YEAR);
         int mesiac = cal.get(Calendar.MONTH) + 1;
         int den = cal.get(Calendar.DAY_OF_MONTH);
+        objednavky = vypis.dajDnesneObjednavky();
         zobrazeneObjednavky = "Zobrazene objednavky na den: " + Integer.toString(den) + "." + Integer.toString(mesiac) + "." + Integer.toString(year);
         vypisZarobku.setText(zobrazeneObjednavky);
         aktualizovatTabulku();
@@ -360,7 +375,7 @@ public class VypisyFrame extends javax.swing.JFrame {
         if (mesiacZobraz.getSelectedItem().toString().equals("December")) {
             mesiac = 12;
         }
-
+        objednavky = vypis.dajPodlaMesiaca(year, mesiac);
         aktualizovatTabulku();
         zobrazeneObjednavky = "Zobrazene objednavky na: " + mesiacZobraz.getSelectedItem().toString();
         vypisZarobku.setText(zobrazeneObjednavky);
@@ -369,14 +384,15 @@ public class VypisyFrame extends javax.swing.JFrame {
     private void zarobkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zarobkyButtonActionPerformed
         double zarobok = 0.0;
         int pocet = 0;
-       zarobok = Math.round(zarobok * 10000.0) / 10000.0;
+        zarobok = Math.round(zarobok * 10000.0) / 10000.0;
         vypisZarobku.setText(zobrazeneObjednavky + "\n" + "\n" + "Spolu za zobrazene objednavky: " + Double.toString(zarobok) + " €" + "\n" + "\n" + "Pocet objednavok: " + pocet);
 
     }//GEN-LAST:event_zarobkyButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int rok = Integer.parseInt(rokZobraz.getSelectedItem().toString());
-         aktualizovatTabulku();
+        objednavky = vypis.dajPodlaRoka(rok);
+        aktualizovatTabulku();
         zobrazeneObjednavky = "Zobrazene objednavky na: " + rokZobraz.getSelectedItem().toString();
         vypisZarobku.setText(zobrazeneObjednavky);
 
@@ -386,15 +402,23 @@ public class VypisyFrame extends javax.swing.JFrame {
 
         int selectedRow = jTable1.getSelectedRow();
         ObjednavkyDao obj = ObjectFactory.INSTANCE.getObjednavkaDao();
-         VypisTableModel model = (VypisTableModel) jTable1.getModel();
+        VypisTableModel model = (VypisTableModel) jTable1.getModel();
         Long valueAt = (Long) model.getValueAt(selectedRow, 0);
 
-      
 
     }//GEN-LAST:event_vymazObjednavkuActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        VypisTableModel model = (VypisTableModel) jTable1.getModel();
+        Objednavka o = model.dajKliknutuObjednavku(jTable1.getSelectedRow());
+        ZobrazenaObjednavka z = new ZobrazenaObjednavka(this, rootPaneCheckingEnabled, o);
+        z.setVisible(true);
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void aktualizovatTabulku() {
         VypisTableModel model = (VypisTableModel) jTable1.getModel();
+        model.setMap(objednavky);
         model.aktualizovat();
     }
 
@@ -439,6 +463,7 @@ public class VypisyFrame extends javax.swing.JFrame {
     private javax.swing.JButton VypisButton;
     private javax.swing.JComboBox<String> denCombo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

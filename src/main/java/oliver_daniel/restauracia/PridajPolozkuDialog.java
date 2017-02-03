@@ -40,7 +40,7 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(440, 168));
+        setMinimumSize(new java.awt.Dimension(520, 168));
         getContentPane().setLayout(null);
         getContentPane().add(nazov);
         nazov.setBounds(20, 30, 120, 22);
@@ -100,14 +100,13 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
         getContentPane().add(jLabel5);
         jLabel5.setBounds(300, 10, 80, 16);
 
-        kategoriaCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(kategoriaCombo);
         kategoriaCombo.setBounds(280, 30, 120, 22);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
         jLabel4.setText("Kategória");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(-9, -10, 510, 140);
+        jLabel4.setBounds(-9, -10, 530, 140);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -1,17 +1,30 @@
 package oliver_daniel.restauracia;
 
+import dao.vypisDao;
+import entity.Objednavka;
+import entity.Polozka;
+import factory.ObjectFactory;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 
 public class VypisTableModel extends AbstractTableModel {
 
-    
-    private static final String[] NAZVY_STLPCOV = {"ID", "Popis", "Cena", "Datum"};
-
+    private List<Objednavka> Objednavky = new ArrayList<>();
+    private vypisDao vypis = ObjectFactory.INSTANCE.getVypis();
+    private static final String[] NAZVY_STLPCOV = {"ID", "Popis", "Suma", "Datum"};
     private static final int POCET_STLPCOV = NAZVY_STLPCOV.length;
+
+    public void setMap(List<Objednavka> obj) {
+        Objednavky = obj;
+    }
 
     @Override
     public int getRowCount() {
-        return 0;
+        return Objednavky.size();
     }
 
     @Override
@@ -21,21 +34,38 @@ public class VypisTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        
-        return null;
+        Objednavka[] obj = new Objednavka[Objednavky.size()];
+        Objednavky.toArray(obj);
+        Objednavka objednavka = obj[rowIndex];
+
+        Objednavka o = vypis.dajVsetkyObjednavky().get(rowIndex);
+        switch (columnIndex) {
+            case 0:
+                return objednavka.getId();
+            case 1:
+                return objednavka.getPopis();
+            case 2:
+                return objednavka.getSuma();
+            case 3:
+                Date datum = objednavka.getCasObjednavky();
+                if (datum == null) {
+                    return "Neplatny Cas";
+                } else {
+                    return datum;
+                }
+            default:
+                return "???";
+        }
+
     }
 
-    /*public Objednavka dajKliknutuObjednavku(int rowIndex) {
-        Objednavka o = vypis.dajVsetkyObjednavkyVoVypisoch().get(rowIndex);
+    public Objednavka dajKliknutuObjednavku(int rowIndex) {
+        Objednavka o =  Objednavky.get(rowIndex);
         aktualizovat();
         return o;
-    /*/
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-
-        return super.getColumnClass(columnIndex);
     }
+
+
 
     @Override
     public String getColumnName(int columnIndex) {
