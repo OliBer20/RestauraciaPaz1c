@@ -6,27 +6,31 @@ import factory.ObjectFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MenuForm extends javax.swing.JFrame {
 
     private PolozkaDao polozkaDao;
-    
+
     public MenuForm() {
         initComponents();
         polozkaDao = ObjectFactory.INSTANCE.getPolozkaDao();
         aktualizujZoznamJedal();
     }
-    
-    void aktualizujZoznamJedal(){
+
+    void aktualizujZoznamJedal() {
         List<Polozka> vsetkyPolozky = polozkaDao.dajPolozky();
         List<String> nazvy = new ArrayList<>();
         for (Polozka polozka : vsetkyPolozky) {
-            if(polozka.getKategoria().getNazov().equals("Jedlo"))
+            if (polozka.getKategoria().getNazov().equals("Jedlo")) {
                 nazvy.add(polozka.getNazov());
+            }
         }
-        ZoznamJedalList.setListData((String[])nazvy.toArray());
+        String nazvyPole[] = new String[nazvy.size()];
+        for (int i = 0; i < nazvy.size(); i++) {
+            nazvyPole[i] = nazvy.get(i);
+        }
+        
+        ZoznamJedalList.setListData(nazvyPole);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -180,26 +184,25 @@ public class MenuForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void vymazDenneMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazDenneMenuButtonActionPerformed
-       
+
     }//GEN-LAST:event_vymazDenneMenuButtonActionPerformed
 
     private void pridatJedloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatJedloButtonActionPerformed
-        
+
     }//GEN-LAST:event_pridatJedloButtonActionPerformed
 
     private void aktualizujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktualizujButtonActionPerformed
-     
+
     }//GEN-LAST:event_aktualizujButtonActionPerformed
 
     private void vymazOznActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazOznActionPerformed
-      
+
     }//GEN-LAST:event_vymazOznActionPerformed
 
     private void vyberJedloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyberJedloActionPerformed
 
 
     }//GEN-LAST:event_vyberJedloActionPerformed
-
 
     public static void main(String args[]) {
 
@@ -210,7 +213,6 @@ public class MenuForm extends javax.swing.JFrame {
             }
         });
     }
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

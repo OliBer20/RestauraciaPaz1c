@@ -66,6 +66,36 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
     @Override
     public List<Objednavka> dajDnesneObjednavky() {
         String sql = "SELECT id_objednavky,popis,suma,datum FROM Objednavka WHERE DATE(datum) = DATE(NOW()) ORDER BY id_objednavky DESC";
+        /*List<Objednavka> objednavky = jdbcTemplate.query(sql, new ObjednavkaRowMapper());
+        for (Objednavka obj : objednavky) {
+            naplnObsahObjednavky(obj);
+        }*/
+        return (jdbcTemplate.query(sql, new ObjednavkaRowMapper()));
+    }
+
+    @Override
+    public List<Objednavka> dajObjednavkyNaMesiac(int rok, int mesiac) {
+        String sql = "SELECT id_objednavky,popis,suma,datum FROM Objednavka where month(datum) = " + mesiac + " and year(datum) = " + rok + " order by id_objednavky desc";
+        List<Objednavka> objednavky = jdbcTemplate.query(sql, new ObjednavkaRowMapper());
+        for (Objednavka obj : objednavky) {
+            naplnObsahObjednavky(obj);
+        }
+        return objednavky;
+    }
+
+    @Override
+    public List<Objednavka> dajObjednavkyNaRok(int rok) {
+        String sql = "SELECT id_objednavky,popis,suma,datum FROM Objednavka where year(datum) = " + rok + " order by id_objednavky desc";
+        List<Objednavka> objednavky = jdbcTemplate.query(sql, new ObjednavkaRowMapper());
+        for (Objednavka obj : objednavky) {
+            naplnObsahObjednavky(obj);
+        }
+        return objednavky;
+    }
+
+    @Override
+    public List<Objednavka> dajObjednavkyNaDatum(int rok, int mesiac, int den) {
+        String sql = "SELECT id_objednavky,popis,suma,datum FROM Objednavka where dayofmonth(datum) = " + den + " and month(datum) = " + mesiac + " and year(datum) = " + rok + " order by id_objednavky desc";
         List<Objednavka> objednavky = jdbcTemplate.query(sql, new ObjednavkaRowMapper());
         for (Objednavka obj : objednavky) {
             naplnObsahObjednavky(obj);

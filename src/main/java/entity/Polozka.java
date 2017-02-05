@@ -12,6 +12,18 @@ public class Polozka {
     public Double getCena() {
         return cena;
     }
+    
+    @Override
+    public int hashCode() {
+        return  nazov.hashCode();   
+    }
+    
+    @Override
+    public boolean equals(Object polozka) {
+        if(polozka.getClass() == Polozka.class)
+            return nazov.equals(((Polozka)polozka).getNazov());
+        return false;
+    }
 
     public Long getId() {
         return id;

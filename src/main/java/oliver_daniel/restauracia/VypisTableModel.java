@@ -1,6 +1,6 @@
 package oliver_daniel.restauracia;
 
-import dao.vypisDao;
+import dao.ObjednavkyDao;
 import entity.Objednavka;
 import entity.Polozka;
 import factory.ObjectFactory;
@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 public class VypisTableModel extends AbstractTableModel {
 
     private List<Objednavka> Objednavky = new ArrayList<>();
-    private vypisDao vypis = ObjectFactory.INSTANCE.getVypis();
+    private ObjednavkyDao vypis = ObjectFactory.INSTANCE.getObjednavkaDao();
     private static final String[] NAZVY_STLPCOV = {"ID", "Popis", "Suma", "Datum"};
     private static final int POCET_STLPCOV = NAZVY_STLPCOV.length;
 

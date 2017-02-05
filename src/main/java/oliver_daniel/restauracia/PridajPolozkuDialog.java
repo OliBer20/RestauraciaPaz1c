@@ -26,6 +26,7 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel4 = new javax.swing.JLabel();
         nazov = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         cena = new javax.swing.JTextField();
@@ -37,20 +38,28 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
         vymazButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         kategoriaCombo = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
+        jLabel4.setText("Kategória");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(520, 168));
+        setMinimumSize(new java.awt.Dimension(520, 250));
         getContentPane().setLayout(null);
         getContentPane().add(nazov);
-        nazov.setBounds(20, 30, 120, 22);
+        nazov.setBounds(20, 40, 120, 30);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Názov:");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(58, 8, 39, 16);
+
+        cena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cenaActionPerformed(evt);
+            }
+        });
         getContentPane().add(cena);
-        cena.setBounds(160, 30, 91, 22);
+        cena.setBounds(160, 40, 91, 30);
 
         jLabel2.setText("Cena:");
         getContentPane().add(jLabel2);
@@ -65,11 +74,11 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
             }
         });
         getContentPane().add(pridajButton);
-        pridajButton.setBounds(420, 30, 65, 25);
+        pridajButton.setBounds(420, 40, 65, 30);
 
         jSeparator1.setForeground(new java.awt.Color(204, 0, 0));
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(0, 63, 490, 2);
+        jSeparator1.setBounds(0, 110, 490, 2);
 
         polozkaCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,13 +86,13 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
             }
         });
         getContentPane().add(polozkaCombo);
-        polozkaCombo.setBounds(139, 80, 160, 22);
+        polozkaCombo.setBounds(130, 140, 270, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 51, 0));
         jLabel3.setText("Vymaž položku:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(12, 80, 120, 16);
+        jLabel3.setBounds(10, 150, 120, 16);
 
         vymazButton.setBackground(new java.awt.Color(255, 51, 0));
         vymazButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,19 +103,14 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
             }
         });
         getContentPane().add(vymazButton);
-        vymazButton.setBounds(420, 80, 69, 25);
+        vymazButton.setBounds(420, 140, 69, 30);
 
         jLabel5.setText("Kategória:");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(300, 10, 80, 16);
 
         getContentPane().add(kategoriaCombo);
-        kategoriaCombo.setBounds(280, 30, 120, 22);
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
-        jLabel4.setText("Kategória");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(-9, -10, 530, 140);
+        kategoriaCombo.setBounds(280, 40, 120, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -166,6 +170,10 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
         zozObj.aktualizujPolozky();
 
     }//GEN-LAST:event_vymazButtonActionPerformed
+
+    private void cenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cenaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cenaActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

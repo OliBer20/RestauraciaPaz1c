@@ -17,6 +17,12 @@ public interface ObjednavkyDao {
 
     void naplnObsahObjednavky(Objednavka objednavka);
 
+    public List<Objednavka> dajObjednavkyNaMesiac(int rok, int mesiac);
+
+    public List<Objednavka> dajObjednavkyNaRok(int rok);
+
+    public List<Objednavka> dajObjednavkyNaDatum(int rok, int mesiac, int den);
+
     void vymazPredosluObjednavku();
 
 }

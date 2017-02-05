@@ -79,6 +79,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     void aktualizujPocetSumu(int novyPocet, double novaSuma) {
         pocet = novyPocet;
         suma = novaSuma;
+        suma = Math.round(suma * 100.0) / 100.0;
         pocetPoloziekVObjednavke.setText(pocet + "");
         sumaObjednavky.setText(suma + "");
     }
@@ -415,8 +416,11 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
             jedloPocet.setText(null);
 
+            int hodnota = 0;
             if (polozkyVObjednavke.containsKey(p)) {
-                polozkyVObjednavke.put(p, polozkyVObjednavke.get(p) + pocet);
+                hodnota = polozkyVObjednavke.get(p);
+                polozkyVObjednavke.remove(p);
+                polozkyVObjednavke.put(p, hodnota + pocet);
             } else {
                 polozkyVObjednavke.put(p, pocet);
             }
@@ -484,8 +488,11 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
             napojPocet.setText(null);
 
+           int hodnota = 0;
             if (polozkyVObjednavke.containsKey(p)) {
-                polozkyVObjednavke.put(p, polozkyVObjednavke.get(p) + pocet);
+                hodnota = polozkyVObjednavke.get(p);
+                polozkyVObjednavke.remove(p);
+                polozkyVObjednavke.put(p, hodnota + pocet);
             } else {
                 polozkyVObjednavke.put(p, pocet);
             }
