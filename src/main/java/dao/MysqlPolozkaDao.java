@@ -26,12 +26,12 @@ public class MysqlPolozkaDao implements PolozkaDao {
         return jdbcTemplate.query(sql, new PolozkaRowMapper());
 
     }
-   
+
     @Override
     public void pridajPolozku(Polozka polozka) {
         try {
             jdbcTemplate.update("INSERT INTO Polozka (nazov,cena,id_kat) VALUES (?,?,?)",
-                    polozka.getNazov(), polozka.getCena(),polozka.getKategoria().getId());
+                    polozka.getNazov(), polozka.getCena(), polozka.getKategoria().getId());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Polozku:" + polozka.getNazov() + " sa nepodarilo vlozit");
         }
@@ -49,7 +49,7 @@ public class MysqlPolozkaDao implements PolozkaDao {
         }
 
     }
-    
+
     @Override
     public Polozka dajPodlaId(Long id) {
         try {
@@ -84,10 +84,8 @@ public class MysqlPolozkaDao implements PolozkaDao {
         }
 
     }
-    
-    
-            
-        private class CenaPolozkyMapper implements RowMapper<Polozka> {
+
+    private class CenaPolozkyMapper implements RowMapper<Polozka> {
 
         @Override
         public Polozka mapRow(ResultSet rs, int i) throws SQLException {

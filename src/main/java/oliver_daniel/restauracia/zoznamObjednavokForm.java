@@ -1,5 +1,6 @@
 package oliver_daniel.restauracia;
 
+import dao.DenneMenuDao;
 import factory.ObjectFactory;
 import dao.ObjednavkyDao;
 import dao.PolozkaDao;
@@ -22,7 +23,7 @@ import java.util.Set;
 public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     private ObjednavkyDao objednavkaDao = ObjectFactory.INSTANCE.getObjednavkaDao();
-
+    private DenneMenuDao jedla_v_dennom_menu = ObjectFactory.INSTANCE.getDenneMenu();
     private KategoriaDao kategorie = ObjectFactory.INSTANCE.getKategoriaDao();
     private PolozkaDao polozkaDao = ObjectFactory.INSTANCE.getPolozkaDao();
 
@@ -37,6 +38,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         aktualizujInfo();
         aktualizujPolozky();
         nastavPodlaPrihlaseneho();
+        aktualizovatDenneMenu();
 
     }
 
@@ -440,10 +442,24 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     }//GEN-LAST:event_pridajObjednavkuButtonActionPerformed
 
     private void denneMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denneMenuButtonActionPerformed
-        MenuForm menuForm = new MenuForm();
+        MenuForm menuForm = new MenuForm(this);
         menuForm.setVisible(true);
 
     }//GEN-LAST:event_denneMenuButtonActionPerformed
+
+    public void aktualizovatDenneMenu() {
+        if (jedla_v_dennom_menu.ziskajDenneMenu().size() > 0) {
+            ComboJedla.removeAllItems();
+            ComboJedla.addItem("Vyber polozku:");
+            for (Polozka p : jedla_v_dennom_menu.ziskajDenneMenu()) {
+                ComboJedla.addItem(p.getNazov());
+            }
+        } else{
+            aktualizujPolozky();
+        }
+            
+
+    }
 
     private void vypisObjednavkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vypisObjednavkyButtonActionPerformed
         VypisyFrame v = new VypisyFrame(this);
@@ -488,7 +504,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
             napojPocet.setText(null);
 
-           int hodnota = 0;
+            int hodnota = 0;
             if (polozkyVObjednavke.containsKey(p)) {
                 hodnota = polozkyVObjednavke.get(p);
                 polozkyVObjednavke.remove(p);

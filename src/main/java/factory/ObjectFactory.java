@@ -9,6 +9,8 @@ import dao.MysqlPolozkaDao;
 import dao.UzivatelDao;
 import dao.ObjednavkyDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import dao.DenneMenuDao;
+import dao.MysqlDenneMenuDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public enum ObjectFactory {
@@ -26,6 +28,10 @@ public enum ObjectFactory {
 
     public PolozkaDao getPolozkaDao() {
         return new MysqlPolozkaDao(getJdbcTemplate());
+    }
+    
+    public DenneMenuDao getDenneMenu(){
+        return new MysqlDenneMenuDao(getJdbcTemplate());
     }
 
     public KategoriaDao getKategoriaDao() {

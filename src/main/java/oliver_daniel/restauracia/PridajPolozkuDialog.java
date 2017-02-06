@@ -17,7 +17,7 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
     public PridajPolozkuDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        zozObj = (zoznamObjednavokForm)parent;
+        zozObj = (zoznamObjednavokForm) parent;
         aktualizujKategorieCombo();
         aktualizujPolozkyCombo();
     }
@@ -33,17 +33,20 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         pridajButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        polozkaCombo = new javax.swing.JComboBox<>();
+        napojeCombo = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        vymazButton = new javax.swing.JButton();
+        vymazNapoj = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         kategoriaCombo = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jedlaCombo = new javax.swing.JComboBox<>();
+        vymazJedlo = new javax.swing.JButton();
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aluu.jpg"))); // NOI18N
         jLabel4.setText("Kategória");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(520, 250));
+        setMinimumSize(new java.awt.Dimension(520, 310));
         getContentPane().setLayout(null);
         getContentPane().add(nazov);
         nazov.setBounds(20, 40, 120, 30);
@@ -80,30 +83,29 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(0, 110, 490, 2);
 
-        polozkaCombo.addActionListener(new java.awt.event.ActionListener() {
+        napojeCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                polozkaComboActionPerformed(evt);
+                napojeComboActionPerformed(evt);
             }
         });
-        getContentPane().add(polozkaCombo);
-        polozkaCombo.setBounds(130, 140, 270, 30);
+        getContentPane().add(napojeCombo);
+        napojeCombo.setBounds(130, 140, 270, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel3.setText("Vymaž položku:");
+        jLabel3.setText("Vymaž nápoj:");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(10, 150, 120, 16);
 
-        vymazButton.setBackground(new java.awt.Color(255, 51, 0));
-        vymazButton.setForeground(new java.awt.Color(255, 255, 255));
-        vymazButton.setText("vymaž");
-        vymazButton.addActionListener(new java.awt.event.ActionListener() {
+        vymazNapoj.setBackground(new java.awt.Color(255, 51, 0));
+        vymazNapoj.setForeground(new java.awt.Color(255, 255, 255));
+        vymazNapoj.setText("vymaž");
+        vymazNapoj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vymazButtonActionPerformed(evt);
+                vymazNapojActionPerformed(evt);
             }
         });
-        getContentPane().add(vymazButton);
-        vymazButton.setBounds(420, 140, 69, 30);
+        getContentPane().add(vymazNapoj);
+        vymazNapoj.setBounds(420, 140, 69, 30);
 
         jLabel5.setText("Kategória:");
         getContentPane().add(jLabel5);
@@ -111,6 +113,25 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
 
         getContentPane().add(kategoriaCombo);
         kategoriaCombo.setBounds(280, 40, 120, 30);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel6.setText("Vymaž jedlo:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(10, 210, 90, 16);
+
+        getContentPane().add(jedlaCombo);
+        jedlaCombo.setBounds(130, 200, 270, 30);
+
+        vymazJedlo.setBackground(new java.awt.Color(255, 0, 51));
+        vymazJedlo.setForeground(new java.awt.Color(255, 255, 255));
+        vymazJedlo.setText("vymaž");
+        vymazJedlo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vymazJedloActionPerformed(evt);
+            }
+        });
+        getContentPane().add(vymazJedlo);
+        vymazJedlo.setBounds(420, 200, 70, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -121,15 +142,15 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
             Polozka n = new Polozka();
             n.setNazov(nazov.getText());
             n.setCena(Double.parseDouble(this.cena.getText()));
-            
+
             Kategoria kategoria = kategoriaDao.dajKategoriu(kategoriaCombo.getSelectedItem().toString());
             n.setKategoria(kategoria);
-            
+
             polozkaDao.pridajPolozku(n);
-            
+
             aktualizujPolozkyCombo();
             zozObj.aktualizujPolozky();
-            
+
             nazov.setText(null);
             this.cena.setText(null);
         } catch (Exception e) {
@@ -139,41 +160,54 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_pridajButtonActionPerformed
 
-    public void aktualizujKategorieCombo(){
+    public void aktualizujKategorieCombo() {
         kategoriaCombo.removeAllItems();
         List<Kategoria> nap = kategoriaDao.dajVsetkyKategorie();
         for (Kategoria n : nap) {
             kategoriaCombo.addItem(n.getNazov());
         }
     }
-    
+
     public void aktualizujPolozkyCombo() {
-        polozkaCombo.removeAllItems();
+        napojeCombo.removeAllItems();
+        jedlaCombo.removeAllItems();
         List<Polozka> nap = polozkaDao.dajPolozky();
         for (Polozka n : nap) {
-            polozkaCombo.addItem(n.getNazov());
+            if (n.getKategoria().getNazov().equals("Napoj")) {
+                napojeCombo.addItem(n.getNazov());
+            } else {
+                jedlaCombo.addItem(n.getNazov());
+            }
         }
 
     }
 
-    private void polozkaComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_polozkaComboActionPerformed
-    }//GEN-LAST:event_polozkaComboActionPerformed
+    private void napojeComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_napojeComboActionPerformed
+    }//GEN-LAST:event_napojeComboActionPerformed
 
-    private void vymazButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazButtonActionPerformed
+    private void vymazNapojActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazNapojActionPerformed
 
-        String nazov = polozkaCombo.getSelectedItem().toString();
-
+        String nazov = napojeCombo.getSelectedItem().toString();
         Polozka polozka = polozkaDao.dajPodlaNazvu(nazov);
         polozkaDao.vymazPolozku(polozka);
 
         aktualizujPolozkyCombo();
         zozObj.aktualizujPolozky();
 
-    }//GEN-LAST:event_vymazButtonActionPerformed
+    }//GEN-LAST:event_vymazNapojActionPerformed
 
     private void cenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cenaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cenaActionPerformed
+
+    private void vymazJedloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vymazJedloActionPerformed
+        String nazov = jedlaCombo.getSelectedItem().toString();
+        Polozka polozka = polozkaDao.dajPodlaNazvu(nazov);
+        polozkaDao.vymazPolozku(polozka);
+
+        aktualizujPolozkyCombo();
+        zozObj.aktualizujPolozky();
+    }//GEN-LAST:event_vymazJedloActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -224,11 +258,14 @@ public class PridajPolozkuDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JComboBox<String> jedlaCombo;
     private javax.swing.JComboBox<String> kategoriaCombo;
+    private javax.swing.JComboBox<String> napojeCombo;
     private javax.swing.JTextField nazov;
-    private javax.swing.JComboBox<String> polozkaCombo;
     private javax.swing.JButton pridajButton;
-    private javax.swing.JButton vymazButton;
+    private javax.swing.JButton vymazJedlo;
+    private javax.swing.JButton vymazNapoj;
     // End of variables declaration//GEN-END:variables
 }
