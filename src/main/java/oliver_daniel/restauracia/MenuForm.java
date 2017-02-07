@@ -194,7 +194,7 @@ public class MenuForm extends javax.swing.JFrame {
         String nazov = vyberJedlo.getSelectedItem().toString();
         Polozka polozka = jedla.dajPodlaNazvu(nazov);
         jedla.vymazPolozku(polozka);
-        jedla_v_dennom_menu.odober(jedla.dajPodlaNazvu(polozka.getNazov()));
+        jedla_v_dennom_menu.odober(polozka);
         AktualizujMenu();
         AktualizujDenneMenu();
         AktualizujComboBox();

@@ -44,6 +44,7 @@ public class MysqlPolozkaDao implements PolozkaDao {
                     + "P.cena cena,K.id_kat id_kat,K.nazov nazov_kat "
                     + "FROM Polozka P JOIN Kategoria K ON P.id_kat=K.id_kat WHERE P.nazov=?", new PolozkaRowMapper(), nazov);
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Polozku:" + nazov + " sa nepodarilo najst");
             return null;
         }

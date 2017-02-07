@@ -383,6 +383,10 @@ public class VypisyFrame extends javax.swing.JFrame {
     private void zarobkyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zarobkyButtonActionPerformed
         double zarobok = 0.0;
         int pocet = 0;
+        for (Objednavka o : objednavky) {
+            zarobok += o.getSuma();
+            pocet++;
+        }
         zarobok = Math.round(zarobok * 10000.0) / 10000.0;
         vypisZarobku.setText(zobrazeneObjednavky + "\n" + "\n" + "Spolu za zobrazene objednavky: " + Double.toString(zarobok) + " €" + "\n" + "\n" + "Pocet objednavok: " + pocet);
 
@@ -402,8 +406,9 @@ public class VypisyFrame extends javax.swing.JFrame {
         VypisTableModel model = (VypisTableModel) jTable1.getModel();
         Objednavka o = vypis.dajObjednavku(model.dajKliknutuObjednavku(jTable1.getSelectedRow()).getId());
         vypis.odstranObjednavku(o);
-       // objednavky.remove(o);
+        objednavky = vypis.dajDnesneObjednavky();
         aktualizovatTabulku();
+        
 
 
     }//GEN-LAST:event_vymazObjednavkuActionPerformed
