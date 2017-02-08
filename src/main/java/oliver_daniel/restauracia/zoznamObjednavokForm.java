@@ -46,9 +46,12 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
         if (zistiPrihlaseneho().equals("boss")) {
             vypisObjednavkyButton.setEnabled(true);
+            pridajPolozku.setEnabled(true);
 
         } else {
             vypisObjednavkyButton.setEnabled(false);
+            pridajPolozku.setEnabled(false);
+
         }
 
     }
@@ -112,7 +115,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         denneMenuButton = new javax.swing.JButton();
         vypisObjednavkyButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        pridajPolozku = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         ObjednavkyTable = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
@@ -296,12 +299,12 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 153, 0));
-        jButton3.setText("Pridaj polozku");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        pridajPolozku.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        pridajPolozku.setForeground(new java.awt.Color(0, 153, 0));
+        pridajPolozku.setText("Pridaj polozku");
+        pridajPolozku.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                pridajPolozkuActionPerformed(evt);
             }
         });
 
@@ -312,7 +315,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pridajPolozku, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(denneMenuButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(vypisObjednavkyButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -325,7 +328,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(vypisObjednavkyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pridajPolozku, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -454,10 +457,9 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             for (Polozka p : jedla_v_dennom_menu.ziskajDenneMenu()) {
                 ComboJedla.addItem(p.getNazov());
             }
-        } else{
+        } else {
             aktualizujPolozky();
         }
-            
 
     }
 
@@ -560,12 +562,12 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void pridajPolozkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridajPolozkuActionPerformed
         PridajPolozkuDialog p = new PridajPolozkuDialog(this, true);
         p.setVisible(true);
 
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_pridajPolozkuActionPerformed
 
     private void pridatObjednavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatObjednavkuActionPerformed
 
@@ -578,15 +580,17 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
             obje.setPopis("Nezadany popis");
         }
         obje.setCasObjednavky(new Date(System.currentTimeMillis()));
-        objednavkaDao.pridajObjednavku(obje);
+        if (polozkyVObjednavke.size() != 0) {
+            objednavkaDao.pridajObjednavku(obje);
 
-        informaciaText.setText("Uspesne pridana objednavka");
+            informaciaText.setText("Uspesne pridana objednavka");
 
-        aktualizujPocetSumu(0, 0);
-        popis.setText(null);
+            aktualizujPocetSumu(0, 0);
+            popis.setText(null);
 
-        polozkyVObjednavke.clear();
-        aktualizujObsahObjednavky();
+            polozkyVObjednavke.clear();
+            aktualizujObsahObjednavky();
+        }
 
     }//GEN-LAST:event_pridatObjednavkuActionPerformed
 
@@ -634,7 +638,6 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     private javax.swing.JLabel infoLabel;
     private javax.swing.JTextField informaciaText;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -658,6 +661,7 @@ public class zoznamObjednavokForm extends javax.swing.JFrame {
     private javax.swing.JTextField popis;
     private javax.swing.JButton pridajNapojButton;
     private javax.swing.JButton pridajObjednavkuButton;
+    private javax.swing.JButton pridajPolozku;
     private javax.swing.JButton pridatObjednavku;
     private javax.swing.JLabel sumaObjednavky;
     private javax.swing.JButton vymazPredosluButton;

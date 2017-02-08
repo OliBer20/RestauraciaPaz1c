@@ -123,6 +123,7 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
 
     }
 
+
     private class ObjednavkaRowMapper implements RowMapper<Objednavka> {
 
         @Override

@@ -343,7 +343,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jButton3" max="32767" attributes="0"/>
+                      <Component id="pridajPolozku" max="32767" attributes="0"/>
                       <Component id="denneMenuButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="vypisObjednavkyButton" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -359,7 +359,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="vypisObjednavkyButton" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="pridajPolozku" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -388,7 +388,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vypisObjednavkyButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="pridajPolozku">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="13" style="1"/>
@@ -399,7 +399,7 @@
             <Property name="text" type="java.lang.String" value="Pridaj polozku"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pridajPolozkuActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

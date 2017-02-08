@@ -83,7 +83,6 @@ public class MenuForm extends javax.swing.JFrame {
         jScrollPane1.setBounds(12, 52, 390, 315);
 
         jLabel1.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Denne menu:");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(150, 20, 113, 25);
@@ -95,7 +94,6 @@ public class MenuForm extends javax.swing.JFrame {
         jScrollPane2.setBounds(597, 52, 386, 315);
 
         jLabel2.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Zoznam jedal:");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(740, 20, 119, 25);

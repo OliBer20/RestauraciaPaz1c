@@ -437,13 +437,13 @@ public class VypisyFrame extends javax.swing.JFrame {
     private void hladajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hladajButtonActionPerformed
         List<Objednavka> objednavky = new ArrayList<>();
         for (Objednavka o : vypis.dajVsetkyObjednavky()) {
-            if(o.getPopis().toLowerCase().contains(popis.getText().toLowerCase())){
+            if (o.getPopis().toLowerCase().contains(popis.getText().toLowerCase())) {
                 objednavky.add(o);
             }
         }
         this.objednavky = objednavky;
         aktualizovatTabulku();
-        
+
     }//GEN-LAST:event_hladajButtonActionPerformed
 
     private void aktualizovatTabulku() {
