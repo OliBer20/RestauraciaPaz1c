@@ -319,17 +319,20 @@ public class MenuForm extends javax.swing.JFrame {
     }
 
     public void AktualizujMenu() {
-        List<Polozka> menu = this.jedla.dajPolozky();
-        String[] celeMenuPole = new String[menu.size()];
-        Kategoria k = new Kategoria();
-        k.setNazov("Jedlo");
-        for (int i = 0; i < menu.size(); i++) {
-            if(menu.get(i).getKategoria().getNazov().equals(k.getNazov())){
-             celeMenuPole[i] = menu.get(i).getNazov();
+        List<Polozka> jedla = new ArrayList<>();
+        for (Polozka polozka : this.jedla.dajPolozky()) {
+            if(polozka.getKategoria().getNazov().equals("Jedlo")){
+                jedla.add(polozka);
             }
         }
+         String [] poleJedal = new String[jedla.size()];
+        for (int i = 0; i < jedla.size(); i++) {
+            poleJedal[i] = jedla.get(i).getNazov();
+        }
+       //String [] poleJedal = jedla.toArray(new String[jedla.size()]);
+        ZoznamJedalList.setListData(poleJedal);
 
-        ZoznamJedalList.setListData(celeMenuPole);
+        System.out.println(Integer.toString(jedla.size()));
 
     }
 }
