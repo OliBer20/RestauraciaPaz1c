@@ -4,6 +4,7 @@ import dao.MysqlPolozkaDao;
 import dao.ObjednavkyDao;
 import entity.Polozka;
 import entity.Objednavka;
+import entity.ObsahObjednavky;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -107,9 +108,9 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
     public void pridajObjednavku(Objednavka objednavka) {
         jdbcTemplate.update("INSERT INTO Objednavka (popis, suma, datum) VALUES(?,?,?)",
                 objednavka.getPopis(), objednavka.getSuma(), objednavka.getCasObjednavky());
-        Objednavka novaObjednavka = jdbcTemplate.queryForObject("SELECT id_objednavky,popis,suma,datum "
-                + "FROM Objednavka ORDER BY id_objednavky DESC LIMIT 1", new ObjednavkaRowMapper());
-        objednavka.setId(novaObjednavka.getId());
+        objednavka.setId(jdbcTemplate.queryForObject("SELECT id_objednavky,popis,suma,datum "
+                + "FROM Objednavka ORDER BY id_objednavky DESC LIMIT 1", new ObjednavkaRowMapper()).getId());
+       
         Map<Polozka, Integer> polozky = objednavka.getPolozky();
         for (Polozka polozka : polozky.keySet()) {
             jdbcTemplate.update("INSERT INTO ObsahObjednavky (id_objednavky,id_polozky,pocet) VALUES (?,?,?)",
@@ -134,29 +135,6 @@ public class MysqlObjednavkaDao implements ObjednavkyDao {
             objednavka.setSuma(rs.getDouble("suma"));
             objednavka.setCasObjednavky(rs.getDate("datum"));
             return objednavka;
-        }
-
-    }
-
-    private class ObsahObjednavky {
-
-        Long id_polozky;
-        Integer pocet;
-
-        public Long getId_polozky() {
-            return id_polozky;
-        }
-
-        public Integer getPocet() {
-            return pocet;
-        }
-
-        public void setId_polozky(Long id_polozky) {
-            this.id_polozky = id_polozky;
-        }
-
-        public void setPocet(Integer pocet) {
-            this.pocet = pocet;
         }
 
     }
