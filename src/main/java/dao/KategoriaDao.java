@@ -9,7 +9,7 @@ public interface KategoriaDao {
     
     void pridajKategoriu(Kategoria kategoria);
     
-    void vymazKategoriu(Kategoria kategoria);
+    
     
     public Kategoria dajKategoriu(Long id);
      

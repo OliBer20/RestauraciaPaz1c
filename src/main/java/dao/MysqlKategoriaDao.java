@@ -36,10 +36,8 @@ public class MysqlKategoriaDao implements KategoriaDao {
         return jdbcTemplate.query(sql, new MysqlKategoriaDao.KategoriaRowMapper());
     }
 
-    @Override
-    public void vymazKategoriu(Kategoria kategoria) {
-
-    }
+  
+   
 
     private class KategoriaRowMapper implements RowMapper<Kategoria> {
 

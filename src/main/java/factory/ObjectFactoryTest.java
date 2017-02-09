@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public enum ObjectFactoryTest {
     INSTANCE;
 
-    private JdbcTemplate jdbcTemplate;
+    public JdbcTemplate jdbcTemplate;
 
     public ObjednavkyDao getObjednavkaDao() {
         return new MysqlObjednavkaDao(getJdbcTemplate());
@@ -20,7 +20,7 @@ public enum ObjectFactoryTest {
             MysqlDataSource dataSource = new MysqlDataSource();
             dataSource.setUrl("jdbc:mysql://localhost/objednavky_test?serverTimezone=UTC");
             dataSource.setUser("restauraciaUser");
-            dataSource.setPassword("restauracia");
+            dataSource.setPassword("restauraciauser");
             jdbcTemplate = new JdbcTemplate(dataSource);
         }
         return jdbcTemplate;

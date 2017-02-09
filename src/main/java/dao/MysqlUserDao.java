@@ -4,7 +4,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 
 public class MysqlUserDao {
 
-    private MysqlDataSource dataSource;
+    public MysqlDataSource dataSource;
 
     public MysqlUserDao() {
         dataSource = new MysqlDataSource();
